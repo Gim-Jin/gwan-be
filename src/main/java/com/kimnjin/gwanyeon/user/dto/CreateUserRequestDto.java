@@ -11,21 +11,21 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CreateUserRequestDto {
 
-  private String userLoginId;
-  private String userPassword;
-  private String userEmail;
-  private String userName;
-  private String userNickname;
-  private UserRole userRole;
+  private String loginId;
+  private String password;
+  private String email;
+  private String name;
+  private String nickname;
+  private UserRole role;
 
   public User toEntity() {
     return User.builder()
-        .userLoginId(this.userLoginId)
-        .userPassword(this.userPassword)
-        .userEmail(this.userEmail)
-        .userNickname(this.userNickname)
-        .userName(this.userName)
-        .userRole(this.userRole)
+        .loginId(this.loginId)
+        .password(this.password)
+        .email(this.email)
+        .nickname(this.nickname)
+        .name(this.name)
+        .role(this.role)
         .build();
   }
 }
