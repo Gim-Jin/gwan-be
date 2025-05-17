@@ -1,20 +1,22 @@
 package com.kimnjin.gwanyeon.user.repository;
 
-import com.kimnjin.gwanyeon.user.entity.User;
+import com.kimnjin.gwanyeon.user.dto.CreateUserRequestDto;
+import com.kimnjin.gwanyeon.user.dto.SummaryUserDto;
+import com.kimnjin.gwanyeon.user.dto.UpdateUserRequestDto;
+import com.kimnjin.gwanyeon.user.dto.UserResponseDto;
+import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface UserRepository {
 
-  void save(User user);
+  public int insert(CreateUserRequestDto createUserRequestDto);
 
-  void update(User user);
+  public int update(UpdateUserRequestDto updateUserRequestDto);
 
-  void delete(Long userId);
+  public int delete(Long userId);
 
-  User findById(Long userId);
+  UserResponseDto findById(Long userId);
 
-  /**
-   *  유저 전체조회 등은 이후 추가
-   */
+  List<SummaryUserDto> selectAll();
 }
