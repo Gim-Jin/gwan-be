@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kimnjin.gwanyeon.exercisevideo.repository.ExerciseVideoRepository">
+
+  <insert id="insert" parameterType="ExerciseVideo">
+    INSERT INTO exercise_videos (user_id, title, url, youtube_id, description)
+    VALUES (#{userId}, #{title}, #{url}, #{youtubeId}, #{description})
+  </insert>
+
+  <update id="update" parameterType="ExerciseVideo">
+    UPDATE exercise_videos
+    SET (title = #{title}, url = #{url}, youtube_id = #{youtubeId}, description = #{description}, update_at = NOW())
+    WHERE exercise_video_id = #{exerciseVideoId}
+  </update>
+
+  <delete id="deleteById" parameterType="Long">
+    DELETE FROM exercise_videos
+    WHERE exercise_video_id = #{id}
+  </delete>
+
+  <select id="findById" parameterType="Long" resultType="ExerciseVideo">
+    SELECT *
+    FROM exercise_videos
+    WHERE exercise_video_id = #{id}
+  </select>
+
+  <select id="selectAll" resultType="ExerciseVideo">
+    SELECT *
+    FROM exercise_videos
+  </select>
+</mapper>
