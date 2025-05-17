@@ -1,1 +1,31 @@
-<?xml ?>
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kimnjin.gwanyeon.user.repository.UserRepository">
+  <insert id="insert" parameterType="">
+    INSERT INTO user (login_id, password, name, nickname, email, role)
+    VALUES (#{userLoginId}, #{userPassword}, #{userName}, #{userEmail}, #{userRole})
+  </insert>
+
+  <select id="findById" parameterType="Long">
+    SELECT
+
+  </select>
+
+  <select id="selectAll" resultType="">
+
+  </select>
+
+  <update id="update" parameterType="">
+    UPDATE users
+    SET
+    WHERE user_id = #{userId}
+  </update>
+
+  <delete id="delete" parameterType="Long">
+    DELETE FROM users
+    WHERE user_id = #{userId}
+  </delete>
+
+</mapper>
