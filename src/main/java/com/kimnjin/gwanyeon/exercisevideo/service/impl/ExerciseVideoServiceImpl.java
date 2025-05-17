@@ -1,5 +1,7 @@
 package com.kimnjin.gwanyeon.exercisevideo.service.impl;
 
-public class ExerciseVideoServiceImpl {
+import com.kimnjin.gwanyeon.exercisevideo.service.ExerciseVideoService;
+
+public class ExerciseVideoServiceImpl implements ExerciseVideoService {
 
 }
