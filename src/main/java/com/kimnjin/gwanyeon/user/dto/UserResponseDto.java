@@ -11,19 +11,19 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UserResponseDto {
 
-  private String userLoginId;
-  private String userPassword;
-  private String userEmail;
-  private String userName;
-  private String userNickName;
-  private UserRole userRole;
+  private String loginId;
+  private String password;
+  private String email;
+  private String name;
+  private String nickName;
+  private UserRole role;
 
   public static UserResponseDto from(User user) {
     UserResponseDto responseDto = new UserResponseDto();
-    responseDto.userLoginId = user.getUserLoginId();
-    responseDto.userPassword = user.getUserPassword();
-    responseDto.userEmail = user.getUserEmail();
-    responseDto.userName = user.getUserName();
+    responseDto.loginId = user.getLoginId();
+    responseDto.password = user.getPassword();
+    responseDto.email = user.getEmail();
+    responseDto.name = user.getName();
     return responseDto;
   }
 }

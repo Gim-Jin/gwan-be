@@ -8,9 +8,11 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class UpdateUserRequestDto {
-  private String userNickname;
-  private String userEmail;
-  private String userPassword;
+
+  private String nickname;
+  private String loginId;
+  private String email;
+  private String password;
   // String으로 받기 때문에 service단에서 올바른지 검증하는 기능필요
-  private String userRole;
+  private String role;
 }
