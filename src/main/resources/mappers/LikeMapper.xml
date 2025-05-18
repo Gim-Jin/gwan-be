@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kimnjin.gwanyeon.likes.repository.LikeRepository">
+  
+  <insert id="insert" parameterType="Like">
+    INSERT INTO likes (exercise_video_id, user_id)
+    VALUES (#{exerciseVideoId}, #{targetId})
+  </insert>
+
+  <delete id="delete" parameterType="Like">
+    DELETE FROM video_targets
+    WHERE exercise_video_id = #{exerciseVideoId} AND #{userId};
+  </delete>
+
+</mapper>
