@@ -1,7 +1,6 @@
 package com.kimnjin.gwanyeon.user.entity;
 
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.kimnjin.gwanyeon.commons.entity.BaseEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -9,6 +8,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 
 @Getter
@@ -16,25 +16,32 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @Setter
+@ToString
 public class User extends BaseEntity {
 
   private Long userId;
-  private String userLoginId;
-  private String userPassword;
-  private String userEmail;
-  private String userNickname;
-  private UserRole userRole;
+  private String loginId;
+  private String password;
+  private String email;
+  private String name;
+  private String nickname;
+  private UserRole role;
 
 
   public void changePassword(String password) {
-    this.userPassword = password;
+    this.password = password;
   }
+
   public void changeUserEmail(String email) {
-    this.userEmail = email;
+    this.email = email;
   }
+
   public void changeUserNickname(String nickname) {
-    this.userNickname = nickname;
+    this.nickname = nickname;
   }
-  public void changeUserRole(UserRole role) { this.userRole = role; }
+
+  public void changeUserRole(UserRole role) {
+    this.role = role;
+  }
 
 }
