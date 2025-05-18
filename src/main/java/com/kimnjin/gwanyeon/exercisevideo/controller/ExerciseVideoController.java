@@ -24,49 +24,54 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class ExerciseVideoController {
 
+  private final String CREATED = "created";
+  private final String DELETED = "deleted";
+  private final String NO_CONTENT = "noContent";
+
   private final ExerciseVideoService exerciseVideoService;
 
   @GetMapping
   public ResponseEntity<ApiResult<List<ExerciseVideoWithTargetResponseDto>>> getAllExerciseVideoWithTarget() {
 
-    exerciseVideoService.getAllExerciseVideoWithTarget();
-    
-    return null;
+    List<ExerciseVideoWithTargetResponseDto> result = exerciseVideoService.getAllExerciseVideoWithTarget();
+
+    return !result.isEmpty() ? ResponseEntity.ok(ApiResult.success(result))
+        : ResponseEntity.ok(ApiResult.success(result, 204, NO_CONTENT));
   }
 
   @GetMapping("/{id}")
   public ResponseEntity<ApiResult<ExerciseVideoResponseDto>> getVideoDetail(@PathVariable long id) {
 
-    exerciseVideoService.getExerciseVideoWithTarget(id);
+    ExerciseVideoResponseDto result = exerciseVideoService.getExerciseVideoWithTarget(id);
 
-    return null;
+    return ResponseEntity.ok(ApiResult.success(result));
   }
 
   @PostMapping
   public ResponseEntity<ApiResult<ExerciseVideoResponseDto>> createExerciseVideoWithTarget(
       @RequestBody CreateExerciseVideoRequestDto requestDto) {
 
-    exerciseVideoService.createExerciseVideo(requestDto);
+    ExerciseVideoResponseDto result = exerciseVideoService.createExerciseVideo(requestDto);
 
-    return null;
+    return ResponseEntity.ok(ApiResult.success(result, 201, CREATED));
   }
 
   @PutMapping("/{id}")
   public ResponseEntity<ApiResult<ExerciseVideoResponseDto>> modifyExerciseVideo(
       @PathVariable Long id, @RequestBody ModifyExerciseVideoRequestDto requestDto) {
 
-    exerciseVideoService.modifyExerciseVideo(requestDto, id);
+    ExerciseVideoResponseDto result = exerciseVideoService.modifyExerciseVideo(requestDto, id);
 
-    return null;
+    return ResponseEntity.ok(ApiResult.success(result));
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<ApiResult<List<ExerciseVideoWithTargetResponseDto>>> deleteExerciseVideo(
+  public ResponseEntity<ApiResult<String>> deleteExerciseVideo(
       @PathVariable Long id) {
 
     exerciseVideoService.removeExerciseVideo(id);
 
-    return null;
+    return ResponseEntity.ok(ApiResult.success(DELETED));
   }
 
 
