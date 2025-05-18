@@ -54,7 +54,6 @@ public class ExerciseVideoServiceImpl implements ExerciseVideoService {
       throw new BadRequestException(BAD_REQUEST);
 
     }
-    ;
 
     return ExerciseVideoResponseDto.from(exerciseVideo);
 
