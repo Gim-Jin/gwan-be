@@ -1,0 +1,79 @@
+package com.kimnjin.gwanyeon.comment.controller;
+
+import com.kimnjin.gwanyeon.comment.dto.CommentResponseDto;
+import com.kimnjin.gwanyeon.comment.dto.CreateCommentRequestDto;
+import com.kimnjin.gwanyeon.comment.service.CommentService;
+import com.kimnjin.gwanyeon.commons.dto.ApiResult;
+import java.util.List;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/api")
+@RequiredArgsConstructor
+public class CommentController {
+
+  private final CommentService commentService;
+  private final String CREATED = "created";
+  private final String DELETED = "deleted";
+  private final String NO_CONTENT = "noContent";
+
+  @GetMapping("/exercise-videos/{videoId}/comments")
+  public ResponseEntity<ApiResult<List<CommentResponseDto>>> getAllCommentsByVideo(
+      @PathVariable Long videoId) {
+
+    List<CommentResponseDto> result = commentService.getAllCommentsByExerciseVideoId(videoId);
+
+    return !result.isEmpty() ? ResponseEntity.ok(ApiResult.success(result))
+        : ResponseEntity.ok(ApiResult.success(result, 204, NO_CONTENT));
+
+  }
+
+  @GetMapping("/exercise-videos/{videoId}/comments/{commentId}")
+  public ResponseEntity<ApiResult<CommentResponseDto>> getCommentDetail(@PathVariable Long videoId,
+      @PathVariable Long commentId) {
+
+    CommentResponseDto result = commentService.getCommentById(commentId);
+
+    return ResponseEntity.ok(ApiResult.success(result));
+  }
+
+  @PostMapping("/exercise-videos/{videoId}/comments")
+  public ResponseEntity<ApiResult<CommentResponseDto>> createComment(
+      @RequestBody CreateCommentRequestDto dto, @PathVariable Long videoId) {
+
+    CommentResponseDto result = commentService.save(dto, videoId);
+
+    return ResponseEntity.ok(ApiResult.success(result, 201, CREATED));
+  }
+
+  @DeleteMapping("/exercise-videos/{videoId}/comments/{commentId}")
+  public ResponseEntity<ApiResult<String>> deleteComment(@PathVariable Long commentId,
+      @PathVariable Long videoId) {
+
+    commentService.remove(commentId);
+
+    return ResponseEntity.ok(ApiResult.success(DELETED));
+  }
+
+  // 유저 입장에서의 Comment
+  // TODO : 나중에 유저 다 되면, /users/me/comments로 바꾸고 뭐 아이디를 세션이나, 뭐 저기 토큰이나 이런곳에서 가져와서 처리해야함.
+  @GetMapping("/users/{userId}/comments")
+  public ResponseEntity<ApiResult<List<CommentResponseDto>>> getAllCommentsByUserId(
+      @PathVariable Long userId) {
+
+    List<CommentResponseDto> result = commentService.getAllCommentsByUserId(userId);
+
+    return !result.isEmpty() ? ResponseEntity.ok(ApiResult.success(result))
+        : ResponseEntity.ok(ApiResult.success(result, 204, NO_CONTENT));
+  }
+
+
+}
