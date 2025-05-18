@@ -75,4 +75,16 @@ public class UserServiceImpl implements UserService {
     }
     return userDtoList;
   }
+
+  @Override
+  public UserResponseDto login(String loginId, String password) {
+    User loginUser = userRepository.findByLoginId(loginId);
+    if (loginUser == null) {
+      throw new IllegalArgumentException("해당하는 유저가 없습니다.");
+    }
+    if (!loginUser.getPassword().equals(password)) {
+      throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+    }
+    return UserResponseDto.from(loginUser);
+  }
 }

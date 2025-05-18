@@ -23,22 +23,10 @@ public class ApiResult<T> {
     return new ApiResult<>(true, code, message, data);
   }
 
-  public static <T> ApiResult<T> fail(int code, String message) {
+  public static <T> ApiResult<T> fail(int code, String errorMessage) {
     return new ApiResult<>(false, code, errorMessage, null);
   }
 
 }
-package com.kimnjin.gwanyeon.commons.dto;
 
-public class ApiResult<T> {
 
-  private boolean success;
-  private int code;
-  private String message;
-  private T data;
-
-//  public <T> ApiResult<T> success(T data) {
-//    return new ApiResult<>(true, 200, "요청 성공", data);
-//  }
-
-}
