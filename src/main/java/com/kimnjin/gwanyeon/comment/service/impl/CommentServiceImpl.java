@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +26,7 @@ public class CommentServiceImpl implements CommentService {
   private final String NOT_FOUND = "댓글을 찾을 수 없습니다.";
 
   @Override
+  @Transactional
   public CommentResponseDto save(CreateCommentRequestDto createCommentRequestDto, Long videoId) {
 
     Comment comment = createCommentRequestDto.toEntity();
@@ -41,6 +43,7 @@ public class CommentServiceImpl implements CommentService {
   }
 
   @Override
+  @Transactional
   public CommentResponseDto modify(ModifyCommentRequestDto modifyCommentRequestDto,
       Long commentId) {
 
@@ -65,6 +68,7 @@ public class CommentServiceImpl implements CommentService {
   }
 
   @Override
+  @Transactional
   public void remove(Long id) {
 
     int result = commentRepository.delete(id);

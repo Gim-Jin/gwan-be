@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 // TODO : 카테고리 별로 뽑아온다거나, 제목으로 뽑아오는 건 아직 구현 안함. 이건 프론트 나오는거 보고 할랭
 @Service
@@ -31,8 +32,9 @@ public class ExerciseVideoServiceImpl implements ExerciseVideoService {
 
   private final String BAD_REQUEST = "잘못된 요청입니다.";
 
-  
+
   @Override
+  @Transactional
   public ExerciseVideoResponseDto createExerciseVideo(CreateExerciseVideoRequestDto dto) {
 
     ExerciseVideo exerciseVideo = dto.toEntity();
@@ -52,13 +54,13 @@ public class ExerciseVideoServiceImpl implements ExerciseVideoService {
       throw new BadRequestException(BAD_REQUEST);
 
     }
-    ;
 
     return ExerciseVideoResponseDto.from(exerciseVideo);
 
   }
 
   @Override
+  @Transactional
   public ExerciseVideoResponseDto modifyExerciseVideo(ModifyExerciseVideoRequestDto dto, Long id) {
 
     ExerciseVideo existingExerciseVideo = exerciseVideoRepository.selectById(id);
@@ -85,6 +87,7 @@ public class ExerciseVideoServiceImpl implements ExerciseVideoService {
   }
 
   @Override
+  @Transactional
   public void removeExerciseVideo(Long id) {
 
     int result = exerciseVideoRepository.deleteById(id);
