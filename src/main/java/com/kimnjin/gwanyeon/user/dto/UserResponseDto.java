@@ -12,7 +12,6 @@ import lombok.Setter;
 public class UserResponseDto {
 
   private String loginId;
-  private String password;
   private String email;
   private String name;
   private String nickName;
@@ -21,9 +20,9 @@ public class UserResponseDto {
   public static UserResponseDto from(User user) {
     UserResponseDto responseDto = new UserResponseDto();
     responseDto.loginId = user.getLoginId();
-    responseDto.password = user.getPassword();
     responseDto.email = user.getEmail();
     responseDto.name = user.getName();
+    responseDto.nickName = user.getNickname();
     return responseDto;
   }
 }

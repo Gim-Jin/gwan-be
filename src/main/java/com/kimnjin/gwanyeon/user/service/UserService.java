@@ -18,5 +18,6 @@ public interface UserService {
 
   public List<SummaryUserDto> getUsers();
 
+  public UserResponseDto login(String email, String password);
 
 }
