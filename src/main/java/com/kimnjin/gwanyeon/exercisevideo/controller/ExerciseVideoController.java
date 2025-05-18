@@ -27,7 +27,7 @@ public class ExerciseVideoController {
   private final String CREATED = "created";
   private final String DELETED = "deleted";
   private final String NO_CONTENT = "noContent";
-  awdawd
+  
   private final ExerciseVideoService exerciseVideoService;
 
   @GetMapping
