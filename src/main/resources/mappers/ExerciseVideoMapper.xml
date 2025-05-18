@@ -4,23 +4,42 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kimnjin.gwanyeon.exercisevideo.repository.ExerciseVideoRepository">
 
-  <insert id="insert" parameterType="ExerciseVideo">
+  <resultMap id="exerciseVideoWithTarget" type="ExerciseVideoWithTarget">
+    <id property="exerciseVideoId" column="exercise_video_id"/>
+    <result property="userId" column="user_id"/>
+    <result property="title" column="title"/>
+    <result property="url" column="url"/>
+    <result property="youtubeId" column="youtube_id"/>
+    <result property="description" column="description"/>
+    <result property="createdAt" column="created_at"/>
+    <result property="updatedAt" column="updated_at"/>
+    <collection property="targets" ofType="String" javaType="ArrayList">
+      <result column="target_name"/>
+    </collection>
+  </resultMap>
+
+
+  <!-- 삽입 : 삽입 시 맵핑 테이블에도 데이터를 추가 해야하기 때문에, useGeneratedKeys를 이용해서 받아주고 keyProperty를 이용해서 아이디를 받을 수 있게 해줌.-->
+  <insert id="insert" parameterType="ExerciseVideo" useGeneratedKeys="true" keyProperty="exerciseVideoId">
     INSERT INTO exercise_videos (user_id, title, url, youtube_id, description)
     VALUES (#{userId}, #{title}, #{url}, #{youtubeId}, #{description})
   </insert>
 
+  <!-- 업뎃 -->
   <update id="update" parameterType="ExerciseVideo">
     UPDATE exercise_videos
-    SET (title = #{title}, url = #{url}, youtube_id = #{youtubeId}, description = #{description}, update_at = NOW())
+    SET (title = #{title},description = #{description}, update_at = NOW())
     WHERE exercise_video_id = #{exerciseVideoId}
   </update>
 
+  <!-- 삭제 -->
   <delete id="deleteById" parameterType="Long">
     DELETE FROM exercise_videos
     WHERE exercise_video_id = #{id}
   </delete>
 
-  <select id="findById" parameterType="Long" resultType="ExerciseVideo">
+  <!-- 오로지 exercise_video만 가지고 오는 애들 -->
+  <select id="selectById" parameterType="Long" resultType="exerciseVideoWithTarget">
     SELECT *
     FROM exercise_videos
     WHERE exercise_video_id = #{id}
@@ -30,4 +49,40 @@
     SELECT *
     FROM exercise_videos
   </select>
+
+  <!-- target도 같이 끌고오는 애들 -->
+  <select id="selectByIdWithTarget" parameterType="Long" resultMap="exerciseVideoWithTarget">
+    SELECT
+    v.exercise_video_id,
+    v.user_id,
+    v.title,
+    v.url,
+    v.youtube_id,
+    v.description,
+    v.created_at,
+    v.updated_at,
+    t.name AS target_name
+    FROM exercise_videos v
+    INNER JOIN video_targets vt ON v.exercise_video_id = vt.exercise_video_id
+    INNER JOIN targets t ON vt.target_id = t.target_id
+    WHERE v.exercise_video_id = #{id};
+  </select>
+
+  <select id="selectAllWithTargets" resultMap="exerciseVideoWithTarget">
+    SELECT
+    v.exercise_video_id,
+    v.user_id,
+    v.title,
+    v.url,
+    v.youtube_id,
+    v.description,
+    v.created_at,
+    v.updated_at,
+    t.name AS target_name
+    FROM exercise_videos v
+    INNER JOIN video_targets vt ON v.exercise_video_id = vt.exercise_video_id
+    INNER JOIN targets t ON vt.target_id = t.target_id;
+  </select>
+
+
 </mapper>

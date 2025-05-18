@@ -2,6 +2,7 @@ package com.kimnjin.gwanyeon.exercisevideo.dto;
 
 import com.kimnjin.gwanyeon.exercisevideo.entity.ExerciseVideo;
 import java.time.LocalDateTime;
+import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,6 +28,7 @@ public class ExerciseVideoResponseDto {
 
   LocalDateTime updatedAt;
 
+
   public static ExerciseVideoResponseDto from(ExerciseVideo exerciseVideo) {
     ExerciseVideoResponseDto responseDto = new ExerciseVideoResponseDto();
 
@@ -38,7 +40,6 @@ public class ExerciseVideoResponseDto {
     responseDto.description = exerciseVideo.getDescription();
     responseDto.createdAt = exerciseVideo.getCreatedAt();
     responseDto.updatedAt = exerciseVideo.getUpdatedAt();
-
 
     return responseDto;
   }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kimnjin.gwanyeon.exercisevideo.repository.VideoTargetRepository">
+  <insert id="insert" parameterType="VideoTarget">
+    INSERT INTO video_targets (exercise_video_id, target_id)
+    VALUES (#{exercise_video_id}, #{target_id})
+  </insert>
+
+  <delete id="delete" parameterType="Long">
+    DELETE FROM video_targets
+    WHERE video_target_id = #{id}
+  </delete>
+</mapper>
