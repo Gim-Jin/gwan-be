@@ -20,14 +20,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/exercise-video")
+@RequestMapping("/api/exercise-videos")
 @RequiredArgsConstructor
 public class ExerciseVideoController {
 
   private final String CREATED = "created";
   private final String DELETED = "deleted";
   private final String NO_CONTENT = "noContent";
-  
+
   private final ExerciseVideoService exerciseVideoService;
 
   @GetMapping
