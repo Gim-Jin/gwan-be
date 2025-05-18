@@ -11,6 +11,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class VideoTarget {
+
   Long exerciseVideoId;
+
   Long targetId;
+
 }

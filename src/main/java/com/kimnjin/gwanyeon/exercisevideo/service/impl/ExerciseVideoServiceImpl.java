@@ -18,6 +18,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+// TODO : 카테고리 별로 뽑아온다거나, 제목으로 뽑아오는 건 아직 구현 안함. 이건 프론트 나오는거 보고 할랭
 @Service
 @RequiredArgsConstructor
 public class ExerciseVideoServiceImpl implements ExerciseVideoService {
@@ -31,7 +32,7 @@ public class ExerciseVideoServiceImpl implements ExerciseVideoService {
 
     ExerciseVideo exerciseVideo = dto.toEntity();
 
-    if(exerciseVideoRepository.insert(exerciseVideo) == 0) {
+    if (exerciseVideoRepository.insert(exerciseVideo) == 0) {
 
       throw new BadRequestException("잘못된 요청입니다.");
 
@@ -41,11 +42,12 @@ public class ExerciseVideoServiceImpl implements ExerciseVideoService {
 
     VideoTarget videoTarget = new VideoTarget(videoId, dto.getTargetId());
 
-    if(videoTargetRepository.insert(videoTarget) == 0) {
+    if (videoTargetRepository.insert(videoTarget) == 0) {
 
       throw new BadRequestException("잘못된 요청입니다.");
 
-    };
+    }
+    ;
 
     return ExerciseVideoResponseDto.from(exerciseVideo);
 
@@ -56,9 +58,9 @@ public class ExerciseVideoServiceImpl implements ExerciseVideoService {
 
     ExerciseVideo existingExerciseVideo = exerciseVideoRepository.selectById(id);
 
-    if(existingExerciseVideo == null) {
+    if (existingExerciseVideo == null) {
 
-      throw new ResourceNotFoundException(id+"영상을 찾을 수 없습니다.");
+      throw new ResourceNotFoundException(id + "영상을 찾을 수 없습니다.");
 
     }
 
@@ -68,7 +70,7 @@ public class ExerciseVideoServiceImpl implements ExerciseVideoService {
 
     int result = exerciseVideoRepository.update(existingExerciseVideo);
 
-    if(result == 0) {
+    if (result == 0) {
 
       throw new BadRequestException("잘못된 요청입니다.");
 
@@ -82,9 +84,9 @@ public class ExerciseVideoServiceImpl implements ExerciseVideoService {
 
     int result = exerciseVideoRepository.deleteById(id);
 
-    if(result == 0) {
+    if (result == 0) {
 
-      throw new ResourceNotFoundException(id+"영상을 찾을 수 없습니다.");
+      throw new ResourceNotFoundException(id + "영상을 찾을 수 없습니다.");
 
     }
 
@@ -95,8 +97,8 @@ public class ExerciseVideoServiceImpl implements ExerciseVideoService {
 
     ExerciseVideo exerciseVideo = exerciseVideoRepository.selectById(id);
 
-    if(exerciseVideo == null) {
-      throw new ResourceNotFoundException(id+"영상을 찾을 수 없습니다.");
+    if (exerciseVideo == null) {
+      throw new ResourceNotFoundException(id + "영상을 찾을 수 없습니다.");
     }
 
     return ExerciseVideoResponseDto.from(exerciseVideo);
@@ -108,7 +110,7 @@ public class ExerciseVideoServiceImpl implements ExerciseVideoService {
 
     List<ExerciseVideo> videos = exerciseVideoRepository.selectAll();
 
-    if(videos.isEmpty()) {
+    if (videos.isEmpty()) {
       throw new NoContentException("영상이 없습니다.");
     }
 
@@ -128,8 +130,8 @@ public class ExerciseVideoServiceImpl implements ExerciseVideoService {
   public ExerciseVideoWithTargetResponseDto getExerciseVideoWithTarget(Long id) {
     ExerciseVideoWithTarget exerciseVideo = exerciseVideoRepository.selectByIdWithTarget(id);
 
-    if(exerciseVideo == null) {
-      throw new ResourceNotFoundException(id+"영상을 찾을 수 없습니다.");
+    if (exerciseVideo == null) {
+      throw new ResourceNotFoundException(id + "영상을 찾을 수 없습니다.");
     }
 
     return ExerciseVideoWithTargetResponseDto.from(exerciseVideo);
@@ -140,7 +142,7 @@ public class ExerciseVideoServiceImpl implements ExerciseVideoService {
 
     List<ExerciseVideoWithTarget> videos = exerciseVideoRepository.selectAllWithTargets();
 
-    if(videos.isEmpty()) {
+    if (videos.isEmpty()) {
 
       throw new NoContentException("영상이 없습니다.");
 

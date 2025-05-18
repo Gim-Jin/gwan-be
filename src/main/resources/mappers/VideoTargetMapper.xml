@@ -5,7 +5,7 @@
 <mapper namespace="com.kimnjin.gwanyeon.exercisevideo.repository.VideoTargetRepository">
   <insert id="insert" parameterType="VideoTarget">
     INSERT INTO video_targets (exercise_video_id, target_id)
-    VALUES (#{exercise_video_id}, #{target_id})
+    VALUES (#{exerciseVideoId}, #{targetId})
   </insert>
 
   <delete id="delete" parameterType="Long">
