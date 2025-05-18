@@ -1,6 +1,7 @@
 package com.kimnjin.gwanyeon.user.service.impl;
 
 import com.kimnjin.gwanyeon.user.dto.CreateUserRequestDto;
+import com.kimnjin.gwanyeon.user.dto.LoginUserRequestDto;
 import com.kimnjin.gwanyeon.user.dto.SummaryUserDto;
 import com.kimnjin.gwanyeon.user.dto.UpdateUserRequestDto;
 import com.kimnjin.gwanyeon.user.dto.UserResponseDto;
@@ -34,10 +35,13 @@ public class UserServiceImpl implements UserService {
 
   @Transactional
   @Override
-  public UserResponseDto updateUser(UpdateUserRequestDto updateUserRequestDto) {
-    User existingUser = userRepository.findByLoginId(updateUserRequestDto.getLoginId());
+  public UserResponseDto updateUser(Long userId, UpdateUserRequestDto updateUserRequestDto) {
+    User existingUser = userRepository.findById(userId);
     if (existingUser == null) {
       throw new IllegalArgumentException("대상없음");
+    }
+    if (!existingUser.getLoginId().equals(updateUserRequestDto.getLoginId())) {
+      throw new IllegalArgumentException("잘못된 접근");
     }
 
     existingUser.setNickname(updateUserRequestDto.getNickname());
@@ -77,12 +81,12 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public UserResponseDto login(String loginId, String password) {
-    User loginUser = userRepository.findByLoginId(loginId);
+  public UserResponseDto login(LoginUserRequestDto loginUserRequestDto) {
+    User loginUser = userRepository.findByLoginId(loginUserRequestDto.getLoginId());
     if (loginUser == null) {
       throw new IllegalArgumentException("해당하는 유저가 없습니다.");
     }
-    if (!loginUser.getPassword().equals(password)) {
+    if (!loginUser.getPassword().equals(loginUserRequestDto.getPassword())) {
       throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
     }
     return UserResponseDto.from(loginUser);
