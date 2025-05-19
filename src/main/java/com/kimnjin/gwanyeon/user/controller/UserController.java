@@ -53,16 +53,16 @@ public class UserController {
   }
 
   @Operation(summary = "본인 정보 조회", description = "본인의 정보를 조회하여 수정 확인 가능")
-  @GetMapping("/{id}")
-  public ResponseEntity<ApiResult<UserResponseDto>> getUser(@PathVariable Long id) {
+  @GetMapping("/{userId}")
+  public ResponseEntity<ApiResult<UserResponseDto>> getUser(@PathVariable Long userId) {
 
-    UserResponseDto userResponseDto = userService.getUser(id);
+    UserResponseDto userResponseDto = userService.getUser(userId);
     return ResponseEntity.status(HttpStatus.OK)
         .body(ApiResult.success(userResponseDto));
   }
 
   @Operation(summary = "본인 정보 수정", description = "본인의 정보만 수정할 수 있음")
-  @PutMapping("/{id}")
+  @PutMapping("/{userId}")
   public ResponseEntity<ApiResult<UserResponseDto>> updateUser(@PathVariable Long userId,
       @RequestBody UpdateUserRequestDto updateUserRequestDto) {
     UserResponseDto userResponseDto = userService.updateUser(userId, updateUserRequestDto);
