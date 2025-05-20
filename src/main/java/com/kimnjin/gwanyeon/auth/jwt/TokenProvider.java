@@ -13,6 +13,8 @@ import java.security.Key;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.Random;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -45,6 +47,7 @@ public class TokenProvider {
 
     return Jwts.builder()
         .setSubject("access")
+        .setId(UUID.randomUUID().toString())
         .claim("userId", userId)
         .claim("userNickName", userNickName)
         .claim("userRole", userRole)
@@ -61,6 +64,7 @@ public class TokenProvider {
 
     return Jwts.builder()
         .setSubject("refresh")
+        .setId(UUID.randomUUID().toString())
         .claim("userId", userId)
         .setIssuedAt(now)
         .setExpiration(expiryDate)
@@ -81,7 +85,6 @@ public class TokenProvider {
     }
   }
 
-  // claims추출 ||claims가 없는데?
 
   public Claims parseToken(String token) {
     return Jwts.parserBuilder()
