@@ -14,5 +14,5 @@ public interface AuthService {
   void logout(String refreshToken);
 
   // 에세스 만료시 업데이트
-  public ResponseTokenDto refresh(TokenReissueRequestDto tokenReissueRequestDto);
+  public ResponseTokenDto reissue(TokenReissueRequestDto tokenReissueRequestDto);
 }

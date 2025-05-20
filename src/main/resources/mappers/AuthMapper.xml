@@ -5,18 +5,19 @@
 <mapper namespace="com.kimnjin.gwanyeon.auth.repository.AuthRepository">
 
   <insert id="insert" parameterType="RefreshToken">
-    INSERT INTO refresh_tokens (refresh_token_id, user_id, refreshToken, expiresAt)
+    INSERT INTO refresh_tokens (refresh_token_id, user_id, refresh_token, expires_at)
     VALUES (#{refreshTokenId}, #{userId}, #{refreshToken}, #{expiresAt})
   </insert>
 
   <update id="update" parameterType="RefreshToken">
     UPDATE refresh_tokens
-    SET expires_at = #{expitresAt}
-    WHERE refresh_token = #{refreshToken}
+    SET expires_at = #{expiresAt},
+    refresh_token = #{refreshToken}
+    WHERE user_id = #{userId}
   </update>
 
   <delete id="delete" parameterType="RefreshToken">
-    DELECT FROM refresh_tokens
+    DELETE FROM refresh_tokens
     WHERE refresh_token = #{refreshToken}
   </delete>
 

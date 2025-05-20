@@ -85,7 +85,7 @@ public class AuthServiceImpl implements AuthService {
 
   @Transactional
   @Override
-  public ResponseTokenDto refresh(TokenReissueRequestDto tokenReissueRequestDto) {
+  public ResponseTokenDto reissue(TokenReissueRequestDto tokenReissueRequestDto) {
     String requestRefreshToken = tokenReissueRequestDto.getRefreshToken();
     if (!tokenProvider.validateToken(requestRefreshToken)) {
       throw new BadRequestException("INVALID_REFRESH_TOKEN");
