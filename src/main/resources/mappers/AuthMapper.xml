@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kimnjin.gwanyeon.auth.repository.AuthRepository">
+
+  <insert id="insert" parameterType="RefreshToken">
+    INSERT INTO refresh_tokens (refresh_token_id, user_id, refreshToken, expiresAt)
+    VALUES (#{refreshTokenId}, #{userId}, #{refreshToken}, #{expiresAt})
+  </insert>
+
+  <update id="update" parameterType="RefreshToken">
+    UPDATE refresh_tokens
+    SET expires_at = #{expitresAt}
+    WHERE refresh_token = #{refreshToken}
+  </update>
+
+  <delete id="delete" parameterType="RefreshToken">
+    DELECT FROM refresh_tokens
+    WHERE refresh_token = #{refreshToken}
+  </delete>
+
+  <select id="findByUserId" parameterType="Long">
+    SELECT *
+    FROM refresh_tokens
+    WHERE user_id = #{userId}
+  </select>
+
+  <select id="findByRefreshToken" parameterType="String">
+    SELECT *
+    FROM refresh_tokens
+    WHERE refresh_token = #{refreshToken}
+  </select>
+
+</mapper>

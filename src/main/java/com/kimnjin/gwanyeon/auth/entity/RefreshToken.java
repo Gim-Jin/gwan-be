@@ -11,9 +11,16 @@ import lombok.Setter;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class RefreshToken {
 
+  private Long refreshTokenId;
   private Long userId;
   private String refreshToken;
   private LocalDateTime expiresAt;
+
+  public RefreshToken(Long userId, String refreshToken, LocalDateTime expiresAt) {
+    this.userId = userId;
+    this.refreshToken = refreshToken;
+    this.expiresAt = expiresAt;
+  }
 
   public void updateToken(String refreshToken, LocalDateTime expiresAt) {
     this.refreshToken = refreshToken;
