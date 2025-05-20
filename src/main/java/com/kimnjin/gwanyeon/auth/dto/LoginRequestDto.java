@@ -1,4 +1,4 @@
-package com.kimnjin.gwanyeon.user.dto;
+package com.kimnjin.gwanyeon.auth.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,8 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class LoginUserRequestDto {
+public class LoginRequestDto {
 
-  private String loginId;
+  private String loginUserId;
   private String password;
 }
