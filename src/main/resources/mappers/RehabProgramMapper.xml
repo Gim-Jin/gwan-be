@@ -13,7 +13,7 @@
 
   <update id="update" parameterType="Long">
     UPDATE rehab_programs
-    SET is_done = true
+    SET isdone = true
     WHERE rehab_program_id = #{id}
   </update>
 
