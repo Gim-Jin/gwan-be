@@ -42,4 +42,5 @@ public class UserSurveyRequestDto {
   // 운동 선호
   private String exercisePreference;
 
+
 }

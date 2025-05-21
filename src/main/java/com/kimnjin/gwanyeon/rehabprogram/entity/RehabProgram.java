@@ -16,7 +16,7 @@ import lombok.Setter;
 @Builder
 public class RehabProgram {
 
-  private Long routineId;
+  private Long rehabProgramId;
 
   private Long userId;
 
@@ -30,7 +30,6 @@ public class RehabProgram {
 
   private LocalDateTime createdAt;
 
-  private LocalDateTime updatedAt;
-
+  private LocalDateTime refreshAt;
 
 }
