@@ -1,6 +1,7 @@
 package com.kimnjin.gwanyeon.rehabprogram.dto;
 
 import com.kimnjin.gwanyeon.rehabprogram.entity.Part;
+import com.kimnjin.gwanyeon.rehabprogram.entity.RehabProgram;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,6 +29,31 @@ public class RehabProgramResponseDto {
 
   private LocalDateTime createdAt;
 
-  private LocalDateTime updatedAt;
+  private LocalDateTime refreshAt;
+
+
+  public static RehabProgramResponseDto from(RehabProgram rehabProgram) {
+
+    RehabProgramResponseDto dto = new RehabProgramResponseDto();
+
+    dto.setRoutineId(rehabProgram.getRehabProgramId());
+
+    dto.setUserId(rehabProgram.getUserId());
+
+    dto.setPart(rehabProgram.getPart());
+
+    dto.setQuestion(rehabProgram.getQuestion());
+
+    dto.setPrescription(rehabProgram.getPrescription());
+
+    dto.setIsDone(rehabProgram.getIsDone());
+
+    dto.setCreatedAt(rehabProgram.getCreatedAt());
+
+    dto.setRefreshAt(rehabProgram.getRefreshAt());
+
+    return dto;
+
+  }
 
 }
