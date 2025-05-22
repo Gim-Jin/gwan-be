@@ -32,25 +32,12 @@ public class ExerciseVideoController {
   private final ExerciseVideoService exerciseVideoService;
 
   @GetMapping
-  public ResponseEntity<ApiResult<List<ExerciseVideoWithTargetResponseDto>>> getAllExerciseVideoWithTarget(
-      @RequestParam(name = "sort", required = false) String sort,
-      @RequestParam(name = "keyword", required = false) String keyword,
-      @RequestParam(name = "target", required = false) String target
+  public ResponseEntity<ApiResult<List<ExerciseVideoWithTargetResponseDto>>> searchVideos(
+      @RequestParam(required = false) String keyword,
+      @RequestParam(required = false) String target,
+      @RequestParam(required = false) String sort
   ) {
-
-    List<ExerciseVideoWithTargetResponseDto> results = null;
-
-    // 좋아요가 많은 순 정렬 후 반환
-    if (sort != null && sort.equals("likes")) {
-      results = exerciseVideoService.getRankedExerciseVideo();
-    } else if (keyword != null) {
-      results = exerciseVideoService.getAllExerciseVideoWithTargetByKeyword(keyword);
-    } else if (target != null) {
-      results = exerciseVideoService.getAllExerciseVideoWithTargetByTarget(target);
-    } else {
-      results = exerciseVideoService.getAllExerciseVideoWithTarget();
-    }
-
+    List<ExerciseVideoWithTargetResponseDto> results = exerciseVideoService.searchVideos(keyword, target, sort);
     return !results.isEmpty() ? ResponseEntity.ok(ApiResult.success(results))
         : ResponseEntity.ok(ApiResult.success(results, 204, NO_CONTENT));
   }
