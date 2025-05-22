@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -31,12 +32,27 @@ public class ExerciseVideoController {
   private final ExerciseVideoService exerciseVideoService;
 
   @GetMapping
-  public ResponseEntity<ApiResult<List<ExerciseVideoWithTargetResponseDto>>> getAllExerciseVideoWithTarget() {
+  public ResponseEntity<ApiResult<List<ExerciseVideoWithTargetResponseDto>>> getAllExerciseVideoWithTarget(
+      @RequestParam(name = "sort", required = false) String sort,
+      @RequestParam(name = "keyword", required = false) String keyword,
+      @RequestParam(name = "target", required = false) String target
+  ) {
 
-    List<ExerciseVideoWithTargetResponseDto> result = exerciseVideoService.getAllExerciseVideoWithTarget();
+    List<ExerciseVideoWithTargetResponseDto> results = null;
 
-    return !result.isEmpty() ? ResponseEntity.ok(ApiResult.success(result))
-        : ResponseEntity.ok(ApiResult.success(result, 204, NO_CONTENT));
+    // 좋아요가 많은 순 정렬 후 반환
+    if (sort != null && sort.equals("likes")) {
+      results = exerciseVideoService.getRankedExerciseVideo();
+    } else if (keyword != null) {
+      results = exerciseVideoService.getAllExerciseVideoWithTargetByKeyword(keyword);
+    } else if (target != null) {
+      results = exerciseVideoService.getAllExerciseVideoWithTargetByTarget(target);
+    } else {
+      results = exerciseVideoService.getAllExerciseVideoWithTarget();
+    }
+
+    return !results.isEmpty() ? ResponseEntity.ok(ApiResult.success(results))
+        : ResponseEntity.ok(ApiResult.success(results, 204, NO_CONTENT));
   }
 
   @GetMapping("/{id}")
