@@ -33,15 +33,18 @@ public class PromptFormatter {
         
         질문 예시 :
         사용자 정보
-        나이: 20세
-        키:177cm
-        몸무게: 75kg
+        나이: 28세
+        키:180cm
+        몸무게: 100kg
         성별: 남성
-        생활 습관: 하루 12시간 이상 컴퓨터 앞에 앉아 있고, 웨이트트레이닝을 주 45회 1시간 정도 진행하고 있습니다.
-        특이사항 : 과거 오른쪽 무릎 슬개건 완전 파열로 인한 수술을 받았습니다.
+        수면 시간: 하루 5시간 수면
+        생활 습관: 하루 12시간 이상 컴퓨터 앞에 앉아 있고,
+        운동 경험: 현재는 운동을 하지 않습니다.
+        특이사항 : 과거 오른쪽 무릎 슬개건 완전 파열로 인한 수술을 받았습니다. 그리고 통풍이 있습니다.
         통증 부위 : 오른쪽 팔꿈치 통증을 호소하고 있습니다.
         통증 발생 조건 : 장시간 컴퓨터 사용
         통증 양상 : 시큰거리는 느낌이 팔꿈치부터 올라옵니다.
+        통증 시작 시기 : 이틀 전 부터 아팠습니다 흙
         통증 강도(10점 만점) :  평소 5점, 심한 통증 7점
         
         
@@ -270,7 +273,6 @@ public class PromptFormatter {
         .append("- 수면 시간: ").append(userSurveyRequestDto.getSleepHours()).append("\n")
         .append("- 일상 활동: ").append(userSurveyRequestDto.getDailyActivity()).append("\n")
         .append("- 운동 경험: ").append(userSurveyRequestDto.getExerciseExperience()).append("\n")
-        .append("- 운동 선호 여부: ").append(userSurveyRequestDto.getExercisePreference()).append("\n")
         .append("Answer: ")
         .append("\n");
 
