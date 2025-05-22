@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class TargetServiceImpl implements TargetService {
 
-  private TargetRepository targetRepository;
+  private final TargetRepository targetRepository;
   private final String BAD_REQUEST = "잘못된 요청입니다.  ";
 
   @Transactional
