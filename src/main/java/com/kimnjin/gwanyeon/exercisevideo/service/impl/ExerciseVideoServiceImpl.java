@@ -129,7 +129,7 @@ public class ExerciseVideoServiceImpl implements ExerciseVideoService {
 
   // 이건 잠시 보류 -> 쿼리에서 처리할지, 서비스에서 처리할지.
   @Override
-  public List<ExerciseVideoResponseDto> getExerciseVideoByTitle(String title) {
+  public List<ExerciseVideoResponseDto> getExerciseVideoByKeyword(String keyword) {
     return List.of();
   }
 
@@ -159,14 +159,40 @@ public class ExerciseVideoServiceImpl implements ExerciseVideoService {
 
   // 이건 잠시 보류 -> 쿼리에서 처리할지, 서비스에서 처리할지.
   @Override
-  public List<ExerciseVideoWithTargetResponseDto> getExerciseVideoWithTargetByTarget(
+  public List<ExerciseVideoWithTargetResponseDto> getAllExerciseVideoWithTargetByTarget(
       String target) {
-    return List.of();
+
+    List<ExerciseVideoWithTarget> videos = exerciseVideoRepository.searchByTarget(target);
+
+    if (videos.isEmpty()) {
+      return Collections.emptyList();
+    }
+
+    return videos.stream().map(ExerciseVideoWithTargetResponseDto::from).toList();
   }
 
   // 이건 잠시 보류 -> 쿼리에서 처리할지, 서비스에서 처리할지.
   @Override
-  public List<ExerciseVideoWithTargetResponseDto> getExerciseVideoWithTargetByTitle(String title) {
-    return List.of();
+  public List<ExerciseVideoWithTargetResponseDto> getAllExerciseVideoWithTargetByKeyword(
+      String keyword) {
+
+    List<ExerciseVideoWithTarget> videos = exerciseVideoRepository.searchByKeyword(keyword);
+
+    if (videos.isEmpty()) {
+      return Collections.emptyList();
+    }
+
+    return videos.stream().map(ExerciseVideoWithTargetResponseDto::from).toList();
+  }
+
+  @Override
+  public List<ExerciseVideoWithTargetResponseDto> getRankedExerciseVideo() {
+
+    List<ExerciseVideoWithTarget> exerciseVideos = exerciseVideoRepository.selectNineVideosWithLikeCount();
+    if (exerciseVideos.isEmpty()) {
+      return Collections.emptyList();
+    }
+
+    return exerciseVideos.stream().map(ExerciseVideoWithTargetResponseDto::from).toList();
   }
 }

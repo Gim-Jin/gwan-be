@@ -254,26 +254,23 @@ public class PromptFormatter {
           ]
         }
         
-        Question :
+        질문 :
         """);
 
-    prompt.append("\n\n[증상 정보]\n")
-        .append("-  통증 부위: ").append(userSurveyRequestDto.getPainArea()).append("\n")
-        .append("- 통증 강도: ").append(userSurveyRequestDto.getPainLevel()).append("\n")
-        .append("- 통증 양상: ").append(userSurveyRequestDto.getPainPattern()).append("\n")
-        .append("- 통증 발생 조건: ").append(userSurveyRequestDto.getPainTrigger()).append("\n")
-        .append("_ 질환 및 수술 이력: ").append(userSurveyRequestDto.getMedicalHistory()).append("\n")
-        .append("- 통증 시작 시점: ").append(userSurveyRequestDto.getPainStartTime()).append("\n");
-
-    prompt.append("\n\n[신체 조건 및 생활 습관]\n")
-        .append("- 나이: ").append(userSurveyRequestDto.getAge()).append("\n")
-        .append("- 성별: ").append(userSurveyRequestDto.getGender()).append("\n")
-        .append("- 키: ").append(userSurveyRequestDto.getHeight()).append("\n")
-        .append("- 체중: ").append(userSurveyRequestDto.getWeight()).append("\n")
-        .append("- 수면 시간: ").append(userSurveyRequestDto.getSleepHours()).append("\n")
-        .append("- 일상 활동: ").append(userSurveyRequestDto.getDailyActivity()).append("\n")
-        .append("- 운동 경험: ").append(userSurveyRequestDto.getExerciseExperience()).append("\n")
-        .append("Answer: ")
+    prompt.append("\n\n사용자 정보\n")
+        .append("나이: ").append(userSurveyRequestDto.getAge()).append("\n")
+        .append("키: ").append(userSurveyRequestDto.getHeight()).append("\n")
+        .append("몸무게: ").append(userSurveyRequestDto.getWeight()).append("\n")
+        .append("성별: ").append(userSurveyRequestDto.getGender()).append("\n")
+        .append("수면 시간: ").append(userSurveyRequestDto.getSleepHours()).append("\n")
+        .append("운동 경험: ").append(userSurveyRequestDto.getExerciseExperience()).append("\n")
+        .append("특이사항: ").append(userSurveyRequestDto.getMedicalHistory()).append("\n")
+        .append("통증 부위: ").append(userSurveyRequestDto.getPainArea()).append("\n")
+        .append("통증 발생 조건: ").append(userSurveyRequestDto.getPainTrigger()).append("\n")
+        .append("통증 양상: ").append(userSurveyRequestDto.getPainPattern()).append("\n")
+        .append("통증 시작 시기: ").append(userSurveyRequestDto.getPainStartTime()).append("\n")
+        .append("통증 강도: ").append(userSurveyRequestDto.getPainLevel()).append("\n")
+        .append("\n응답: ")
         .append("\n");
 
     return prompt.toString();

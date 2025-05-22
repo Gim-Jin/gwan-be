@@ -13,8 +13,11 @@ public class GptMessageDto {
   private String content;
 
   public GptMessageDto(String role, String content) {
+
     this.role = role;
+
     this.content = content;
+
   }
 
 }

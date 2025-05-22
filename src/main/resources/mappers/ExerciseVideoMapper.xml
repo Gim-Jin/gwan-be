@@ -20,7 +20,8 @@
 
 
   <!-- 삽입 : 삽입 시 맵핑 테이블에도 데이터를 추가 해야하기 때문에, useGeneratedKeys를 이용해서 받아주고 keyProperty를 이용해서 아이디를 받을 수 있게 해줌.-->
-  <insert id="insert" parameterType="ExerciseVideo" useGeneratedKeys="true" keyProperty="exerciseVideoId">
+  <insert id="insert" parameterType="ExerciseVideo" useGeneratedKeys="true"
+    keyProperty="exerciseVideoId">
     INSERT INTO exercise_videos (user_id, title, url, youtube_id, description)
     VALUES (#{userId}, #{title}, #{url}, #{youtubeId}, #{description})
   </insert>
@@ -84,5 +85,71 @@
     INNER JOIN targets t ON vt.target_id = t.target_id;
   </select>
 
+  <!-- selectTen-->
+  <select id="selectNineVideosWithLikeCount" resultMap="exerciseVideoWithTarget">
+    SELECT
+    v.exercise_video_id,
+    v.user_id,
+    v.title,
+    v.url,
+    v.youtube_id,
+    v.description,
+    v.created_at,
+    v.updated_at,
+    t.name AS target_name,
+    top_videos.like_count
+    FROM (
+    SELECT
+    ev.exercise_video_id,
+    COUNT(l.like_id) AS like_count
+    FROM exercise_videos ev
+    LEFT JOIN likes l ON ev.exercise_video_id = l.exercise_video_id
+    GROUP BY ev.exercise_video_id
+    ORDER BY like_count DESC, ev.exercise_video_id ASC
+    LIMIT 9
+    ) top_videos
+    JOIN exercise_videos v ON v.exercise_video_id = top_videos.exercise_video_id
+    JOIN video_targets vt ON v.exercise_video_id = vt.exercise_video_id
+    JOIN targets t ON vt.target_id = t.target_id
+    ORDER BY top_videos.like_count DESC, v.exercise_video_id ASC;
+  </select>
+
+  <select id="searchByKeyword" parameterType="String" resultMap="exerciseVideoWithTarget">
+
+    SELECT
+    v.exercise_video_id,
+    v.user_id,
+    v.title,
+    v.url,
+    v.youtube_id,
+    v.description,
+    v.created_at,
+    v.updated_at,
+    t.name AS target_name
+    FROM exercise_videos v
+    INNER JOIN video_targets vt ON v.exercise_video_id = vt.exercise_video_id
+    INNER JOIN targets t ON vt.target_id = t.target_id;
+    WHERE v.title LIKE CONCAT('%', #{keyword}, '%')
+
+  </select>
+
+  <select id="searchByTarget" parameterType="String" resultMap="exerciseVideoWithTarget">
+
+    SELECT
+    v.exercise_video_id,
+    v.user_id,
+    v.title,
+    v.url,
+    v.youtube_id,
+    v.description,
+    v.created_at,
+    v.updated_at,
+    t.name AS target_name
+    FROM exercise_videos v
+    INNER JOIN video_targets vt ON v.exercise_video_id = vt.exercise_video_id
+    INNER JOIN targets t ON vt.target_id = t.target_id;
+    WHERE t.name LIKE CONCAT('%', #{keyword}, '%')
+
+  </select>
 
 </mapper>
