@@ -31,13 +31,9 @@ public interface ExerciseVideoService {
   // 전체 검색 222
   List<ExerciseVideoWithTargetResponseDto> getAllExerciseVideoWithTarget();
 
-  // 카테고리 검색 느낌?
-  List<ExerciseVideoWithTargetResponseDto> getAllExerciseVideoWithTargetByTarget(String target);
-
-  // 제목 검색 222
-  List<ExerciseVideoWithTargetResponseDto> getAllExerciseVideoWithTargetByKeyword(String keyword);
-
   // 메인에 뿌릴건데, Exercisevideo
   List<ExerciseVideoWithTargetResponseDto> getRankedExerciseVideo();
+
+  List<ExerciseVideoWithTargetResponseDto> searchVideos(String keyword, String target, String sort);
 
 }

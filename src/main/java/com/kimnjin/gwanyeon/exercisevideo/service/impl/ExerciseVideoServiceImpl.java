@@ -157,34 +157,6 @@ public class ExerciseVideoServiceImpl implements ExerciseVideoService {
     return videos.stream().map(ExerciseVideoWithTargetResponseDto::from).toList();
   }
 
-  // 이건 잠시 보류 -> 쿼리에서 처리할지, 서비스에서 처리할지.
-  @Override
-  public List<ExerciseVideoWithTargetResponseDto> getAllExerciseVideoWithTargetByTarget(
-      String target) {
-
-    List<ExerciseVideoWithTarget> videos = exerciseVideoRepository.searchByTarget(target);
-
-    if (videos.isEmpty()) {
-      return Collections.emptyList();
-    }
-
-    return videos.stream().map(ExerciseVideoWithTargetResponseDto::from).toList();
-  }
-
-  // 이건 잠시 보류 -> 쿼리에서 처리할지, 서비스에서 처리할지.
-  @Override
-  public List<ExerciseVideoWithTargetResponseDto> getAllExerciseVideoWithTargetByKeyword(
-      String keyword) {
-
-    List<ExerciseVideoWithTarget> videos = exerciseVideoRepository.searchByKeyword(keyword);
-
-    if (videos.isEmpty()) {
-      return Collections.emptyList();
-    }
-
-    return videos.stream().map(ExerciseVideoWithTargetResponseDto::from).toList();
-  }
-
   @Override
   public List<ExerciseVideoWithTargetResponseDto> getRankedExerciseVideo() {
 
@@ -195,4 +167,11 @@ public class ExerciseVideoServiceImpl implements ExerciseVideoService {
 
     return exerciseVideos.stream().map(ExerciseVideoWithTargetResponseDto::from).toList();
   }
+
+  @Override
+  public List<ExerciseVideoWithTargetResponseDto> searchVideos(String keyword, String target, String sort) {
+    List<ExerciseVideoWithTarget> videos = exerciseVideoRepository.searchWithConditions(keyword, target, sort);
+    return videos.stream().map(ExerciseVideoWithTargetResponseDto::from).toList();
+  }
 }
+

@@ -4,6 +4,7 @@ import com.kimnjin.gwanyeon.exercisevideo.entity.ExerciseVideo;
 import com.kimnjin.gwanyeon.exercisevideo.entity.ExerciseVideoWithTarget;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface ExerciseVideoRepository {
@@ -24,7 +25,9 @@ public interface ExerciseVideoRepository {
 
   List<ExerciseVideoWithTarget> selectNineVideosWithLikeCount();
 
-  List<ExerciseVideoWithTarget> searchByKeyword(String keyword);
-
-  List<ExerciseVideoWithTarget> searchByTarget(String target);
+  List<ExerciseVideoWithTarget> searchWithConditions(
+    @Param("keyword") String keyword,
+    @Param("target") String target,
+    @Param("sort") String sort
+  );
 }

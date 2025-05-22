@@ -114,42 +114,37 @@
     ORDER BY top_videos.like_count DESC, v.exercise_video_id ASC;
   </select>
 
-  <select id="searchByKeyword" parameterType="String" resultMap="exerciseVideoWithTarget">
-
+  <select id="searchWithConditions" resultMap="exerciseVideoWithTarget">
     SELECT
-    v.exercise_video_id,
-    v.user_id,
-    v.title,
-    v.url,
-    v.youtube_id,
-    v.description,
-    v.created_at,
-    v.updated_at,
-    t.name AS target_name
+      v.exercise_video_id,
+      v.user_id,
+      v.title,
+      v.url,
+      v.youtube_id,
+      v.description,
+      v.created_at,
+      v.updated_at,
+      t.name AS target_name
     FROM exercise_videos v
     INNER JOIN video_targets vt ON v.exercise_video_id = vt.exercise_video_id
-    INNER JOIN targets t ON vt.target_id = t.target_id;
-    WHERE v.title LIKE CONCAT('%', #{keyword}, '%')
-
-  </select>
-
-  <select id="searchByTarget" parameterType="String" resultMap="exerciseVideoWithTarget">
-
-    SELECT
-    v.exercise_video_id,
-    v.user_id,
-    v.title,
-    v.url,
-    v.youtube_id,
-    v.description,
-    v.created_at,
-    v.updated_at,
-    t.name AS target_name
-    FROM exercise_videos v
-    INNER JOIN video_targets vt ON v.exercise_video_id = vt.exercise_video_id
-    INNER JOIN targets t ON vt.target_id = t.target_id;
-    WHERE t.name LIKE CONCAT('%', #{keyword}, '%')
-
+    INNER JOIN targets t ON vt.target_id = t.target_id
+    WHERE 1=1
+      <if test="keyword != null and keyword != ''">
+        AND v.title LIKE CONCAT('%', #{keyword}, '%')
+      </if>
+      <if test="target != null and target != ''">
+        AND t.name = #{target}
+      </if>
+    <choose>
+      <when test="sort == 'likes'">
+        ORDER BY (
+          SELECT COUNT(*) FROM likes l WHERE l.exercise_video_id = v.exercise_video_id
+        ) DESC
+      </when>
+      <otherwise>
+        ORDER BY v.exercise_video_id DESC
+      </otherwise>
+    </choose>
   </select>
 
 </mapper>
