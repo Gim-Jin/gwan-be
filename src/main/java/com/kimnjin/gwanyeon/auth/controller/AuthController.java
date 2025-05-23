@@ -7,6 +7,7 @@ import com.kimnjin.gwanyeon.auth.dto.ResponseTokenDto;
 import com.kimnjin.gwanyeon.auth.dto.TokenReissueRequestDto;
 import com.kimnjin.gwanyeon.auth.service.AuthService;
 import com.kimnjin.gwanyeon.commons.dto.ApiResult;
+import com.kimnjin.gwanyeon.commons.util.CookieUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import java.time.Duration;
 import lombok.RequiredArgsConstructor;
@@ -39,43 +40,30 @@ public class AuthController {
 
   @Operation(summary = "로그인", description = "아이디와 비밀번호를 통해 JWT를 반환")
   @PostMapping("/login")
-  public ResponseEntity<ApiResult<ResponseTokenDto>> login(
+  public ResponseEntity<ApiResult<String>> login(
       @RequestBody LoginRequestDto loginRequestDto) {
     ResponseTokenDto tokenDto = authService.login(loginRequestDto);
-
-    ResponseCookie refreshCookie = ResponseCookie.from("refreshToken", tokenDto.getRefreshToken())
-        .httpOnly(true)
-        .secure(true)
-        .path("/")
-        .maxAge(Duration.ofDays(7))
-        .sameSite("Strict")
-        .build();
+    HttpHeaders headers = CookieUtil.createCookies(tokenDto.getAccessToken(),tokenDto.getRefreshToken());
 
     return ResponseEntity.ok()
-        .header(HttpHeaders.SET_COOKIE, refreshCookie.toString())
-        .body(ApiResult.success(new ResponseTokenDto(tokenDto.getAccessToken(), null), 200,
-            "로그인 성공"));
+        .headers(headers)
+        .body(ApiResult.success("로그인 성공"));
+
+
   }
 
   @Operation(summary = "에세스 토큰 재발급", description = "토큰 만료시 리프래시 토큰을 활용하여 프론트엔드 axios에서 요청을 합니다")
   @PutMapping("/reissue")
-  public ResponseEntity<ApiResult<ResponseTokenDto>> reissue(
+  public ResponseEntity<ApiResult<String>> reissue(
       @CookieValue("refreshToken") String refreshToken,
       @RequestBody TokenReissueRequestDto tokenReissueRequestDto) {
     tokenReissueRequestDto.setRefreshToken(refreshToken);
     ResponseTokenDto tokenDto = authService.reissue(tokenReissueRequestDto);
-    ResponseCookie refreshCookie = ResponseCookie.from("refreshToken", tokenDto.getRefreshToken())
-        .httpOnly(true)
-        .secure(true)
-        .path("/")
-        .maxAge(Duration.ofDays(7))
-        .sameSite("Strict")
-        .build();
+    HttpHeaders headers = CookieUtil.createCookies(tokenDto.getAccessToken(),tokenDto.getRefreshToken());
 
     return ResponseEntity.ok()
-        .header(HttpHeaders.SET_COOKIE, refreshCookie.toString())
-        .body(ApiResult.success(new ResponseTokenDto(tokenDto.getAccessToken(), null), 200,
-            "재발급 성공"));
+        .headers(headers)
+        .body(ApiResult.success("재발급 성공"));
 
   }
 
