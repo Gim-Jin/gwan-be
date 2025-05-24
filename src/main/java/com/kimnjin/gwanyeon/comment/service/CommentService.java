@@ -7,7 +7,8 @@ import java.util.List;
 
 public interface CommentService {
 
-  CommentResponseDto save(CreateCommentRequestDto createCommentRequestDto, Long videoId);
+  CommentResponseDto save(CreateCommentRequestDto createCommentRequestDto, Long videoId,
+      Long userId);
 
   CommentResponseDto modify(ModifyCommentRequestDto modifyCommentRequestDto, Long commentId);
 

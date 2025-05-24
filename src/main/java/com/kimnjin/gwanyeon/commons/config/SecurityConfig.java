@@ -28,20 +28,35 @@ public class SecurityConfig {
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//    return http
+//        .csrf(AbstractHttpConfigurer::disable)
+//        .cors(Customizer.withDefaults())
+//        .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//        .authorizeHttpRequests(auth -> auth
+//            .requestMatchers(
+//                "/api/auth/**",
+//                "/swagger-ui/**",
+//                "/swagger-resources/**",
+//                "/v3/api-docs/**",
+//                "/v3/api-docs",
+//                "/webjars/**"
+//            ).permitAll()
+//            .requestMatchers(HttpMethod.GET, "/api/exercise-videos").permitAll()
+//            .requestMatchers(HttpMethod.GET, "/api/targets").permitAll()
+//            .anyRequest().authenticated()
+//
+//        )
+//        .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+//        .build();
+
+    // 개발용
     return http
         .csrf(AbstractHttpConfigurer::disable)
         .cors(Customizer.withDefaults())
         .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(auth -> auth
-            .requestMatchers(
-                "/api/auth/**",
-                "/swagger-ui/**",
-                "/swagger-resources/**",
-                "/v3/api-docs/**",
-                "/v3/api-docs",
-                "/webjars/**"
-            ).permitAll()
-            .anyRequest().authenticated()
+            .requestMatchers("/**").permitAll().anyRequest().authenticated()
+
         )
         .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
         .build();
