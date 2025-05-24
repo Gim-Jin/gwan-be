@@ -1,6 +1,11 @@
 package com.kimnjin.gwanyeon.user.service.impl;
 
 import com.kimnjin.gwanyeon.auth.dto.LoginRequestDto;
+import com.kimnjin.gwanyeon.comment.repository.CommentRepository;
+import com.kimnjin.gwanyeon.commons.exception.ResourceNotFoundException;
+import com.kimnjin.gwanyeon.exercisevideo.repository.ExerciseVideoRepository;
+import com.kimnjin.gwanyeon.likes.repository.LikeRepository;
+import com.kimnjin.gwanyeon.user.dto.MypageResponseDto;
 import com.kimnjin.gwanyeon.user.dto.SummaryUserDto;
 import com.kimnjin.gwanyeon.user.dto.UpdateUserRequestDto;
 import com.kimnjin.gwanyeon.user.dto.UserResponseDto;
@@ -18,6 +23,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl implements UserService {
 
   private final UserRepository userRepository;
+  private final LikeRepository likeRepository;
+  private final CommentRepository commentRepository;
 
 
   @Transactional
@@ -65,6 +72,23 @@ public class UserServiceImpl implements UserService {
       userDtoList.add(SummaryUserDto.from(user));
     }
     return userDtoList;
+  }
+
+  @Override
+  public MypageResponseDto getMypage(Long userId) {
+    User user = userRepository.findById(userId);
+    if (user == null) {
+      throw new ResourceNotFoundException("유저가 없습니다.");
+    }
+    int vCnt = likeRepository.selectByUserId(userId);
+    int cCnt = commentRepository.selectAllByUserId(userId).size();
+    MypageResponseDto mypageResponseDto = new MypageResponseDto();
+    mypageResponseDto.setNickName(user.getNickname());
+    mypageResponseDto.setEmail(user.getEmail());
+    mypageResponseDto.setVideoCnt(vCnt);
+    mypageResponseDto.setCommentCnt(cCnt);
+
+    return mypageResponseDto;
   }
 
 }

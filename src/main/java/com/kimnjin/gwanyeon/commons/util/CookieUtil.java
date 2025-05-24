@@ -9,21 +9,22 @@ public class CookieUtil {
 
   public static HttpHeaders createCookies(String accessToken, String refreshToken) {
 
-    ResponseCookie refreshCookie = ResponseCookie.from("refreshToken",refreshToken)
+    ResponseCookie refreshCookie = ResponseCookie.from("refreshToken", refreshToken)
         .httpOnly(true)
-        .secure(true)
+        .secure(false)
         .path("/")
         .maxAge(Duration.ofDays(7))
-        .sameSite("Strict")
+        .sameSite("Lax")
         .build();
 
-    ResponseCookie accessCookie = ResponseCookie.from("accessToken",accessToken)
+    ResponseCookie accessCookie = ResponseCookie.from("accessToken", accessToken)
         .httpOnly(true)
-        .secure(true)
+        .secure(false)
         .path("/")
         .maxAge(Duration.ofMinutes(30))
-        .sameSite("Strict")
+        .sameSite("Lax")
         .build();
+
     HttpHeaders headers = new HttpHeaders();
     headers.add(HttpHeaders.SET_COOKIE, refreshCookie.toString());
     headers.add(HttpHeaders.SET_COOKIE, accessCookie.toString());
