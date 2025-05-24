@@ -80,7 +80,7 @@ public class TokenProvider {
           .build()
           .parseClaimsJws(token);
       return true;
-    } catch (JwtException | UnAuthorizedException e) {
+    } catch (JwtException e) {
       return false;
     }
   }

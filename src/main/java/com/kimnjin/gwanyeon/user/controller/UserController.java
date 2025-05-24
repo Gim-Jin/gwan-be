@@ -2,6 +2,8 @@ package com.kimnjin.gwanyeon.user.controller;
 
 import com.kimnjin.gwanyeon.commons.dto.ApiResult;
 import com.kimnjin.gwanyeon.auth.dto.LoginRequestDto;
+import com.kimnjin.gwanyeon.commons.security.UserPrincipal;
+import com.kimnjin.gwanyeon.user.dto.MypageResponseDto;
 import com.kimnjin.gwanyeon.user.dto.UpdateUserRequestDto;
 import com.kimnjin.gwanyeon.user.dto.UserResponseDto;
 import com.kimnjin.gwanyeon.user.service.UserService;
@@ -9,6 +11,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserController {
 
   private final String DELETED = "deleted";
@@ -58,4 +61,10 @@ public class UserController {
 //        .body(ApiResult.success(null));
   }
 
+  @Operation(summary = "마이 페이지 조회", description = "유저의 닉네임,유저 이메일,좋아요한 비디오수, 댓글 수")
+  @GetMapping("/mypage")
+  public ResponseEntity<ApiResult<MypageResponseDto>> loadMypage(@AuthenticationPrincipal UserPrincipal userPrincipal) {
+    MypageResponseDto responseDto = userService.getMypage(userPrincipal.getUserId());
+    return ResponseEntity.ok(ApiResult.success(responseDto));
+  }
 }
