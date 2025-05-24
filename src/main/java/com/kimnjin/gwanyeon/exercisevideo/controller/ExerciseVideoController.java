@@ -37,7 +37,8 @@ public class ExerciseVideoController {
       @RequestParam(required = false) String target,
       @RequestParam(required = false) String sort
   ) {
-    List<ExerciseVideoWithTargetResponseDto> results = exerciseVideoService.searchVideos(keyword, target, sort);
+    List<ExerciseVideoWithTargetResponseDto> results = exerciseVideoService.searchVideos(keyword,
+        target, sort);
     return !results.isEmpty() ? ResponseEntity.ok(ApiResult.success(results))
         : ResponseEntity.ok(ApiResult.success(results, 204, NO_CONTENT));
   }

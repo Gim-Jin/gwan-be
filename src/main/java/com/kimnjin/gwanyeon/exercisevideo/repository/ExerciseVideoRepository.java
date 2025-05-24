@@ -19,6 +19,8 @@ public interface ExerciseVideoRepository {
 
   List<ExerciseVideo> selectAll();
 
+  List<ExerciseVideo> selectLikesVideoByUserId(Long userId);
+
   ExerciseVideoWithTarget selectByIdWithTarget(Long id);
 
   List<ExerciseVideoWithTarget> selectAllWithTargets();
@@ -26,8 +28,8 @@ public interface ExerciseVideoRepository {
   List<ExerciseVideoWithTarget> selectNineVideosWithLikeCount();
 
   List<ExerciseVideoWithTarget> searchWithConditions(
-    @Param("keyword") String keyword,
-    @Param("target") String target,
-    @Param("sort") String sort
+      @Param("keyword") String keyword,
+      @Param("target") String target,
+      @Param("sort") String sort
   );
 }
