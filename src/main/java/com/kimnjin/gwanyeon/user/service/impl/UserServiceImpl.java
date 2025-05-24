@@ -80,7 +80,7 @@ public class UserServiceImpl implements UserService {
     if (user == null) {
       throw new ResourceNotFoundException("유저가 없습니다.");
     }
-    int vCnt = likeRepository.selectByUserId(userId);
+    int vCnt = likeRepository.countByUserId(userId);
     int cCnt = commentRepository.selectAllByUserId(userId).size();
     MypageResponseDto mypageResponseDto = new MypageResponseDto();
     mypageResponseDto.setNickName(user.getNickname());

@@ -14,7 +14,7 @@
     WHERE exercise_video_id = #{exerciseVideoId} AND #{userId};
   </delete>
 
-  <select id="selectByUserId" parameterType="Long" resultType="int">
+  <select id="countByUserId" parameterType="Long" resultType="int">
     SELECT COUNT(*)
     FROM likes
     WHERE user_id = #{userId}
