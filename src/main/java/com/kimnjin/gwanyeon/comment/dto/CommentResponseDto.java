@@ -1,6 +1,7 @@
 package com.kimnjin.gwanyeon.comment.dto;
 
 import com.kimnjin.gwanyeon.comment.entity.Comment;
+import com.kimnjin.gwanyeon.comment.entity.CommentWithNickname;
 import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,8 @@ public class CommentResponseDto {
   private Long exerciseVideoId;
 
   private Long userId;
+
+  private String nickname;
 
   private String content;
 
@@ -38,6 +41,16 @@ public class CommentResponseDto {
     dto.setCreatedAt(comment.getCreatedAt());
 
     dto.setUpdatedAt(comment.getUpdatedAt());
+
+    return dto;
+  }
+
+
+  public static CommentResponseDto fromWithNickname(CommentWithNickname comment) {
+
+    CommentResponseDto dto = from(comment);
+
+    dto.setNickname(comment.getNickname());
 
     return dto;
   }

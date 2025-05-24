@@ -1,6 +1,7 @@
 package com.kimnjin.gwanyeon.comment.repository;
 
 import com.kimnjin.gwanyeon.comment.entity.Comment;
+import com.kimnjin.gwanyeon.comment.entity.CommentWithNickname;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -15,7 +16,7 @@ public interface CommentRepository {
 
   Comment selectById(Long id);
 
-  List<Comment> selectAllByExerciseVideoId(Long exerciseVideoId);
+  List<CommentWithNickname> selectAllByExerciseVideoId(Long exerciseVideoId);
 
   List<Comment> selectAllByUserId(Long userId);
 

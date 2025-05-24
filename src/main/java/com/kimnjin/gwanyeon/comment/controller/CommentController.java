@@ -4,9 +4,11 @@ import com.kimnjin.gwanyeon.comment.dto.CommentResponseDto;
 import com.kimnjin.gwanyeon.comment.dto.CreateCommentRequestDto;
 import com.kimnjin.gwanyeon.comment.service.CommentService;
 import com.kimnjin.gwanyeon.commons.dto.ApiResult;
+import com.kimnjin.gwanyeon.commons.security.UserPrincipal;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -47,9 +49,10 @@ public class CommentController {
 
   @PostMapping("/exercise-videos/{videoId}/comments")
   public ResponseEntity<ApiResult<CommentResponseDto>> createComment(
-      @RequestBody CreateCommentRequestDto dto, @PathVariable Long videoId) {
+      @RequestBody CreateCommentRequestDto dto, @PathVariable Long videoId,
+      @AuthenticationPrincipal UserPrincipal userPrincipal) {
 
-    CommentResponseDto result = commentService.save(dto, videoId);
+    CommentResponseDto result = commentService.save(dto, videoId, userPrincipal.getUserId());
 
     return ResponseEntity.ok(ApiResult.success(result, 201, CREATED));
   }
