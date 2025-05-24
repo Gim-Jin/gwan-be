@@ -16,6 +16,18 @@
 
   </resultMap>
 
+  <resultMap id="commentWithVideoTitle" type="CommentWithVideoTitleAndUrl">
+    <id property="commentId" column="comment_id"/>
+    <result property="exerciseVideoId" column="exercise_video_id"/>
+    <result property="userId" column="user_id"/>
+    <result property="content" column="content"/>
+    <result property="createdAt" column="created_at"/>
+    <result property="updatedAt" column="updated_at"/>
+    <result property="exerciseVideoTitle" column="title"/>
+    <result property="youtube_id" column="youtubeId"/>
+
+  </resultMap>
+
 
   <insert id="insert" parameterType="Comment" useGeneratedKeys="true" keyProperty="commentId">
     INSERT INTO comments (exercise_video_id, user_id, content)
@@ -23,8 +35,8 @@
   </insert>
 
   <update id="update" parameterType="Comment">
-    UPDATE
-    SET content=#{content}, updated_at = NOW(),
+    UPDATE comments
+    SET content=#{content}, updated_at = NOW()
     WHERE comment_id = #{commentId}
   </update>
 
@@ -35,7 +47,7 @@
 
   <select id="selectById" parameterType="Long" resultType="Comment">
     SELECT * FROM comments
-    WHERE comment_id = #{id}
+    WHERE comment_id = #{commentId}
   </select>
 
   <select id="selectAllByExerciseVideoId" parameterType="Long" resultMap="commentWithNickname">
@@ -44,9 +56,11 @@
     WHERE exercise_video_id = #{exerciseVideoId}
   </select>
 
-  <select id="selectAllByUserId" parameterType="Long" resultType="Comment">
-    SELECT * FROM comments
-    WHERE user_id = #{userId}
+  <select id="selectAllByUserId" parameterType="Long" resultMap="commentWithVideoTitle">
+    SELECT c.*, ev.title, ev.youtube_id FROM comments c
+    INNER JOIN exercise_videos ev ON c.exercise_video_id = ev.exercise_video_id
+    WHERE c.user_id = #{userId}
   </select>
+
 
 </mapper>

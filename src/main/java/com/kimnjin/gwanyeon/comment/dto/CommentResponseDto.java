@@ -2,6 +2,7 @@ package com.kimnjin.gwanyeon.comment.dto;
 
 import com.kimnjin.gwanyeon.comment.entity.Comment;
 import com.kimnjin.gwanyeon.comment.entity.CommentWithNickname;
+import com.kimnjin.gwanyeon.comment.entity.CommentWithVideoTitleAndUrl;
 import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,10 @@ public class CommentResponseDto {
   private String nickname;
 
   private String content;
+
+  private String exerciseVideoTitle;
+
+  private String youtubeUrl;
 
   LocalDateTime createdAt;
 
@@ -54,4 +59,17 @@ public class CommentResponseDto {
 
     return dto;
   }
+
+  public static CommentResponseDto fromWithVideoTitle(CommentWithVideoTitleAndUrl comment) {
+
+    CommentResponseDto dto = from(comment);
+
+    dto.setExerciseVideoTitle(comment.getExerciseVideoTitle());
+
+    dto.setYoutubeUrl(comment.getYoutubeId());
+
+    return dto;
+  }
+
+
 }

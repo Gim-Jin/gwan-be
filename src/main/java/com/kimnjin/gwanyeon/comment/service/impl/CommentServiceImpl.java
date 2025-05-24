@@ -5,10 +5,13 @@ import com.kimnjin.gwanyeon.comment.dto.CreateCommentRequestDto;
 import com.kimnjin.gwanyeon.comment.dto.ModifyCommentRequestDto;
 import com.kimnjin.gwanyeon.comment.entity.Comment;
 import com.kimnjin.gwanyeon.comment.entity.CommentWithNickname;
+import com.kimnjin.gwanyeon.comment.entity.CommentWithVideoTitleAndUrl;
 import com.kimnjin.gwanyeon.comment.repository.CommentRepository;
 import com.kimnjin.gwanyeon.comment.service.CommentService;
 import com.kimnjin.gwanyeon.commons.exception.BadRequestException;
 import com.kimnjin.gwanyeon.commons.exception.ResourceNotFoundException;
+import com.kimnjin.gwanyeon.commons.exception.UnAuthorizedException;
+import com.kimnjin.gwanyeon.commons.security.UserPrincipal;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -48,14 +51,17 @@ public class CommentServiceImpl implements CommentService {
 
   @Override
   @Transactional
-  public CommentResponseDto modify(ModifyCommentRequestDto modifyCommentRequestDto,
-      Long commentId) {
+  public CommentResponseDto modify(ModifyCommentRequestDto modifyCommentRequestDto) {
 
-    Comment existingComment = commentRepository.selectById(commentId);
+    Comment existingComment = commentRepository.selectById(modifyCommentRequestDto.getCommentId());
 
     if (existingComment == null) {
 
-      throw new ResourceNotFoundException(commentId + NOT_FOUND);
+      throw new ResourceNotFoundException(modifyCommentRequestDto.getCommentId() + NOT_FOUND);
+    }
+
+    if (!modifyCommentRequestDto.getUserId().equals(existingComment.getUserId())) {
+      throw new UnAuthorizedException("권한이 없습니다.");
     }
 
     existingComment.setContent(modifyCommentRequestDto.getContent());
@@ -73,14 +79,30 @@ public class CommentServiceImpl implements CommentService {
 
   @Override
   @Transactional
-  public void remove(Long id) {
+  public void remove(Long id, UserPrincipal user) {
 
-    int result = commentRepository.delete(id);
+    // 영자는 다 지우게 해 줘야지.
+    if (user.getRole().equals("ADMIN")) {
 
-    if (result == 0) {
+      int result = commentRepository.delete(id);
 
-      throw new ResourceNotFoundException(id + NOT_FOUND);
+      if (result == 0) {
+        throw new ResourceNotFoundException(id + NOT_FOUND);
+      }
+    } else {
+
+      // 만약 댓글을 쓴 사람이랑 지우려고 하는 댓글이 같으면?
+      if (commentRepository.selectById(id).getUserId().equals(user.getUserId())) {
+        int result = commentRepository.delete(id);
+        if (result == 0) {
+          throw new ResourceNotFoundException(id + NOT_FOUND);
+        }
+        //아니면 막아.
+      } else {
+        throw new UnAuthorizedException("권한이 없습니다ㅏ.");
+      }
     }
+
 
   }
 
@@ -102,14 +124,15 @@ public class CommentServiceImpl implements CommentService {
   @Override
   public List<CommentResponseDto> getAllCommentsByUserId(Long userId) {
 
-    List<Comment> comments = commentRepository.selectAllByUserId(userId);
+    List<CommentWithVideoTitleAndUrl> comments = commentRepository.selectAllByUserId(userId);
 
     if (comments.isEmpty()) {
 
       return Collections.emptyList();
     }
 
-    return comments.stream().map(CommentResponseDto::from).collect(Collectors.toList());
+    return comments.stream().map(CommentResponseDto::fromWithVideoTitle)
+        .collect(Collectors.toList());
 
   }
 
@@ -126,4 +149,6 @@ public class CommentServiceImpl implements CommentService {
     return CommentResponseDto.from(comment);
 
   }
+
+
 }
