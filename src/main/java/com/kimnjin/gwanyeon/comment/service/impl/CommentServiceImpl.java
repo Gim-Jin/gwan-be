@@ -4,6 +4,7 @@ import com.kimnjin.gwanyeon.comment.dto.CommentResponseDto;
 import com.kimnjin.gwanyeon.comment.dto.CreateCommentRequestDto;
 import com.kimnjin.gwanyeon.comment.dto.ModifyCommentRequestDto;
 import com.kimnjin.gwanyeon.comment.entity.Comment;
+import com.kimnjin.gwanyeon.comment.entity.CommentWithNickname;
 import com.kimnjin.gwanyeon.comment.repository.CommentRepository;
 import com.kimnjin.gwanyeon.comment.service.CommentService;
 import com.kimnjin.gwanyeon.commons.exception.BadRequestException;
@@ -27,7 +28,10 @@ public class CommentServiceImpl implements CommentService {
 
   @Override
   @Transactional
-  public CommentResponseDto save(CreateCommentRequestDto createCommentRequestDto, Long videoId) {
+  public CommentResponseDto save(CreateCommentRequestDto createCommentRequestDto, Long videoId,
+      Long userId) {
+
+    createCommentRequestDto.setUserId(userId);
 
     Comment comment = createCommentRequestDto.toEntity();
 
@@ -83,14 +87,15 @@ public class CommentServiceImpl implements CommentService {
   @Override
   public List<CommentResponseDto> getAllCommentsByExerciseVideoId(Long exerciseVideoId) {
 
-    List<Comment> comments = commentRepository.selectAllByExerciseVideoId(exerciseVideoId);
+    List<CommentWithNickname> comments = commentRepository.selectAllByExerciseVideoId(
+        exerciseVideoId);
 
     if (comments.isEmpty()) {
 
       return Collections.emptyList();
     }
 
-    return comments.stream().map(CommentResponseDto::from).collect(Collectors.toList());
+    return comments.stream().map(CommentResponseDto::fromWithNickname).collect(Collectors.toList());
 
   }
 
