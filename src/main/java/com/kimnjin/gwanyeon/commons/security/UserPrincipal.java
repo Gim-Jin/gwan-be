@@ -17,12 +17,12 @@ public class UserPrincipal implements UserDetails {
     this.userId = user.getUserId();
     this.userLoginId = user.getLoginId();
     this.password = user.getPassword();
-    this.role=user.getRole().name();
+    this.role = user.getRole().name();
   }
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    return List.of(()->"ROLE_"+role);
+    return List.of(() -> "ROLE_" + role);
   }
 
   @Override
@@ -38,15 +38,28 @@ public class UserPrincipal implements UserDetails {
   public Long getUserId() {
     return userId;
   }
-  @Override
-  public boolean isAccountNonExpired() {return true; }
 
   @Override
-  public boolean isAccountNonLocked() {return true; }
+  public boolean isAccountNonExpired() {
+    return true;
+  }
 
   @Override
-  public boolean isCredentialsNonExpired() {return true; }
+  public boolean isAccountNonLocked() {
+    return true;
+  }
 
   @Override
-  public boolean isEnabled() {return true; }
+  public boolean isCredentialsNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isEnabled() {
+    return true;
+  }
+
+  public String getRole() {
+    return role;
+  }
 }
