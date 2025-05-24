@@ -11,6 +11,6 @@ public interface LikeRepository {
 
   int delete(Like like);
 
-  int selectByUserId(Long userId);
+  int countByUserId(Long userId);
 
 }

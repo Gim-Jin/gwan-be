@@ -31,4 +31,26 @@ public class CookieUtil {
 
     return headers;
   }
+
+  public static HttpHeaders cleanCookies() {
+    ResponseCookie refreshCookie = ResponseCookie.from("refreshToken", null)
+        .httpOnly(true)
+        .secure(false)
+        .path("/")
+        .maxAge(0)
+        .sameSite("Lax")//Strict-> 젤빡셈 Lax -> 중간단계
+        .build();
+
+    ResponseCookie accessCookie = ResponseCookie.from("accessToken",null)
+        .httpOnly(true)
+        .secure(false)
+        .path("/")
+        .maxAge(0)
+        .sameSite("Lax")
+        .build();
+    HttpHeaders header = new HttpHeaders();
+    header.add(HttpHeaders.SET_COOKIE, refreshCookie.toString());
+    header.add(HttpHeaders.SET_COOKIE, accessCookie.toString());
+    return header;
+  }
 }

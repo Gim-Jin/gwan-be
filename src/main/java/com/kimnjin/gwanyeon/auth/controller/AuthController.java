@@ -69,9 +69,12 @@ public class AuthController {
 
   @Operation(summary = "로그아웃", description = "db의 리프레시 토큰을 삭제합니다.")
   @DeleteMapping("/logout")
-  public ResponseEntity<ApiResult<Void>> logout(@CookieValue("refreshToken") String refreshToken) {
+  public ResponseEntity<ApiResult<String>> logout(@CookieValue("refreshToken") String refreshToken) {
     authService.logout(refreshToken);
-    return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    HttpHeaders headers = CookieUtil.cleanCookies();
+    return ResponseEntity.status(HttpStatus.NO_CONTENT)
+        .headers(headers)
+        .body(ApiResult.success("로그아웃 성공"));
   }
 
 }
