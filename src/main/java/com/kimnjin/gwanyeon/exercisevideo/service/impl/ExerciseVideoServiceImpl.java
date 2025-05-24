@@ -13,7 +13,6 @@ import com.kimnjin.gwanyeon.exercisevideo.entity.VideoTarget;
 import com.kimnjin.gwanyeon.exercisevideo.repository.ExerciseVideoRepository;
 import com.kimnjin.gwanyeon.exercisevideo.repository.VideoTargetRepository;
 import com.kimnjin.gwanyeon.exercisevideo.service.ExerciseVideoService;
-import java.util.Collections;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -100,39 +99,6 @@ public class ExerciseVideoServiceImpl implements ExerciseVideoService {
 
   }
 
-  @Override
-  public ExerciseVideoResponseDto getExerciseVideo(Long id) {
-
-    ExerciseVideo exerciseVideo = exerciseVideoRepository.selectById(id);
-
-    if (exerciseVideo == null) {
-      throw new ResourceNotFoundException(id + NOT_FOUND);
-    }
-
-    return ExerciseVideoResponseDto.from(exerciseVideo);
-
-  }
-
-  @Override
-  public List<ExerciseVideoResponseDto> getAllExerciseVideo() {
-
-    List<ExerciseVideo> videos = exerciseVideoRepository.selectAll();
-
-    if (videos.isEmpty()) {
-      return Collections.emptyList();
-    }
-
-    return videos.stream().map(
-        ExerciseVideoResponseDto::from).toList();
-  }
-
-
-  // 이건 잠시 보류 -> 쿼리에서 처리할지, 서비스에서 처리할지.
-  @Override
-  public List<ExerciseVideoResponseDto> getExerciseVideoByKeyword(String keyword) {
-    return List.of();
-  }
-
 
   @Override
   public ExerciseVideoWithTargetResponseDto getExerciseVideoWithTarget(Long id) {
@@ -145,33 +111,15 @@ public class ExerciseVideoServiceImpl implements ExerciseVideoService {
     return ExerciseVideoWithTargetResponseDto.from(exerciseVideo);
   }
 
+
   @Override
-  public List<ExerciseVideoWithTargetResponseDto> getAllExerciseVideoWithTarget() {
-
-    List<ExerciseVideoWithTarget> videos = exerciseVideoRepository.selectAllWithTargets();
-
-    if (videos.isEmpty()) {
-      return Collections.emptyList();
-    }
-
+  public List<ExerciseVideoWithTargetResponseDto> searchVideos(String keyword, String target,
+      String sort) {
+    List<ExerciseVideoWithTarget> videos = exerciseVideoRepository.searchWithConditions(keyword,
+        target, sort);
     return videos.stream().map(ExerciseVideoWithTargetResponseDto::from).toList();
   }
 
-  @Override
-  public List<ExerciseVideoWithTargetResponseDto> getRankedExerciseVideo() {
 
-    List<ExerciseVideoWithTarget> exerciseVideos = exerciseVideoRepository.selectNineVideosWithLikeCount();
-    if (exerciseVideos.isEmpty()) {
-      return Collections.emptyList();
-    }
-
-    return exerciseVideos.stream().map(ExerciseVideoWithTargetResponseDto::from).toList();
-  }
-
-  @Override
-  public List<ExerciseVideoWithTargetResponseDto> searchVideos(String keyword, String target, String sort) {
-    List<ExerciseVideoWithTarget> videos = exerciseVideoRepository.searchWithConditions(keyword, target, sort);
-    return videos.stream().map(ExerciseVideoWithTargetResponseDto::from).toList();
-  }
 }
 

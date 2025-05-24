@@ -16,23 +16,8 @@ public interface ExerciseVideoService {
 
   void removeExerciseVideo(Long id);
 
-  //r 근데 타겟이 없는
-  ExerciseVideoResponseDto getExerciseVideo(Long id);
-
-  // 전체 검색
-  List<ExerciseVideoResponseDto> getAllExerciseVideo();
-
-  // 제목 검색
-  List<ExerciseVideoResponseDto> getExerciseVideoByKeyword(String keyword);
-
   // r근데 타겟이 있는
   ExerciseVideoWithTargetResponseDto getExerciseVideoWithTarget(Long id);
-
-  // 전체 검색 222
-  List<ExerciseVideoWithTargetResponseDto> getAllExerciseVideoWithTarget();
-
-  // 메인에 뿌릴건데, Exercisevideo
-  List<ExerciseVideoWithTargetResponseDto> getRankedExerciseVideo();
 
   List<ExerciseVideoWithTargetResponseDto> searchVideos(String keyword, String target, String sort);
 
