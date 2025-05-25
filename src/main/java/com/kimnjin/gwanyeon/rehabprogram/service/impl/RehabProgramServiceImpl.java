@@ -2,9 +2,11 @@ package com.kimnjin.gwanyeon.rehabprogram.service.impl;
 
 import com.kimnjin.gwanyeon.commons.exception.BadRequestException;
 import com.kimnjin.gwanyeon.commons.exception.ResourceNotFoundException;
+import com.kimnjin.gwanyeon.rehabprogram.dto.PrescriptionResponseDto;
 import com.kimnjin.gwanyeon.rehabprogram.dto.RehabProgramResponseDto;
 import com.kimnjin.gwanyeon.rehabprogram.dto.UserSurveyRequestDto;
 import com.kimnjin.gwanyeon.rehabprogram.entity.Part;
+import com.kimnjin.gwanyeon.rehabprogram.entity.Prescription;
 import com.kimnjin.gwanyeon.rehabprogram.entity.RehabProgram;
 import com.kimnjin.gwanyeon.rehabprogram.repository.RehabProgramRepository;
 import com.kimnjin.gwanyeon.rehabprogram.service.RehabProgramService;
@@ -78,6 +80,15 @@ public class RehabProgramServiceImpl implements RehabProgramService {
     return result.stream().map(RehabProgramResponseDto::from).collect(Collectors.toList());
   }
 
+  @Override
+  public List<PrescriptionResponseDto> getAllPrescriptionsByUserId(Long userId) {
+
+    List<Prescription> results = rehabProgramRepository.selectProgramDescriptionByUserId(userId);
+
+    return results.stream().map(PrescriptionResponseDto::from).collect(Collectors.toList());
+
+  }
+
   // 굳이 뭘 넘겨 줄 필요는 없는 것 같음.
   @Transactional
   @Override
@@ -99,4 +110,10 @@ public class RehabProgramServiceImpl implements RehabProgramService {
 
   }
 
+  @Override
+  public List<PrescriptionResponseDto> getLatestPrescriptionsByUserId(Long userId) {
+    List<Prescription> results = rehabProgramRepository.selectLatestProgramDescription(userId);
+
+    return results.stream().map(PrescriptionResponseDto::from).collect(Collectors.toList());
+  }
 }

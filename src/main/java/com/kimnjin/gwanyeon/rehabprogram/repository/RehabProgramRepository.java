@@ -1,5 +1,6 @@
 package com.kimnjin.gwanyeon.rehabprogram.repository;
 
+import com.kimnjin.gwanyeon.rehabprogram.entity.Prescription;
 import com.kimnjin.gwanyeon.rehabprogram.entity.RehabProgram;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
@@ -18,5 +19,8 @@ public interface RehabProgramRepository {
 
   List<RehabProgram> selectAllRehabProgramsByUserId(Long userId);
 
+  List<Prescription> selectProgramDescriptionByUserId(Long userId);
+
+  List<Prescription> selectLatestProgramDescription(Long userId);
 
 }
