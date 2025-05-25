@@ -7,6 +7,7 @@ import com.kimnjin.gwanyeon.auth.dto.ResponseTokenDto;
 import com.kimnjin.gwanyeon.auth.dto.TokenReissueRequestDto;
 import com.kimnjin.gwanyeon.auth.service.AuthService;
 import com.kimnjin.gwanyeon.commons.dto.ApiResult;
+import com.kimnjin.gwanyeon.commons.security.UserPrincipal;
 import com.kimnjin.gwanyeon.commons.util.CookieUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import java.time.Duration;
@@ -15,8 +16,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -64,6 +67,16 @@ public class AuthController {
         .headers(headers)
         .body(ApiResult.success(role));
 
+  }
+
+  @Operation(summary = "토큰 유효성 검사", description = "새로고침 시 갖고 있는 토큰이 유효한지 확인합니다.")
+  @GetMapping("/me")
+  public ResponseEntity<ApiResult<String>> me(@AuthenticationPrincipal UserPrincipal userPrincipal) {
+    if(userPrincipal ==null){
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ApiResult.fail(401,"유효하지 않은 토큰"));
+    }
+    String role = userPrincipal.getRole();
+    return ResponseEntity.status(HttpStatus.OK).body(ApiResult.success("role"));
   }
 
   @Operation(summary = "로그아웃", description = "db의 리프레시 토큰을 삭제합니다.")
