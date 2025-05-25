@@ -52,8 +52,7 @@ public class AuthServiceImpl implements AuthService {
     if (!passwordEncoder.matches(loginRequestDto.getPassword(), user.getPassword())) {
       throw new BadRequestException("INVALID_PASSWORD");
     }
-    String accessToken = tokenProvider.generateAccessToken(
-        user.getUserId(), user.getNickname(), user.getRole().name());
+    String accessToken = tokenProvider.generateAccessToken(user.getUserId(), user.getNickname(), user.getRole().name());
 
     String refreshToken = tokenProvider.generateRefreshToken(user.getUserId());
 
@@ -72,7 +71,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
 
-    return new ResponseTokenDto(accessToken, refreshToken, user.getRole().name());
+    return new ResponseTokenDto(accessToken, refreshToken, user.getRole());
   }
 
   @Transactional
@@ -112,6 +111,6 @@ public class AuthServiceImpl implements AuthService {
     tokenEntity.updateToken(newRefreshToken, tokenProvider.getRefreshTokenExpiryDate());
     authRepository.update(tokenEntity);
 
-    return new ResponseTokenDto(newAccessToken, newRefreshToken, user.getRole().name());
+    return new ResponseTokenDto(newAccessToken, newRefreshToken, user.getRole());
   }
 }
