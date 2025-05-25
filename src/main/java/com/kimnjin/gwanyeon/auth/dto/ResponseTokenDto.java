@@ -1,5 +1,6 @@
 package com.kimnjin.gwanyeon.auth.dto;
 
+import com.kimnjin.gwanyeon.user.entity.UserRole;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,9 +11,9 @@ public class ResponseTokenDto {
   private final String refreshToken;
   private final String userRole;
 
-  public ResponseTokenDto(String accessToken, String refreshToken,String userRole) {
+  public ResponseTokenDto(String accessToken, String refreshToken,UserRole userRole) {
     this.accessToken = accessToken;
     this.refreshToken = refreshToken;
-    this.userRole = userRole;
+    this.userRole = userRole.toString();
   }
 }
