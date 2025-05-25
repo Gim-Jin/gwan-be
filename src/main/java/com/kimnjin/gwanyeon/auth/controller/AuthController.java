@@ -76,7 +76,7 @@ public class AuthController {
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ApiResult.fail(401,"유효하지 않은 토큰"));
     }
     String role = userPrincipal.getRole();
-    return ResponseEntity.status(HttpStatus.OK).body(ApiResult.success("role"));
+    return ResponseEntity.status(HttpStatus.OK).body(ApiResult.success(role));
   }
 
   @Operation(summary = "로그아웃", description = "db의 리프레시 토큰을 삭제합니다.")
