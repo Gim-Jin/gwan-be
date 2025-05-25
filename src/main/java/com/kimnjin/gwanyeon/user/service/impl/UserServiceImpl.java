@@ -2,6 +2,7 @@ package com.kimnjin.gwanyeon.user.service.impl;
 
 import com.kimnjin.gwanyeon.auth.dto.LoginRequestDto;
 import com.kimnjin.gwanyeon.comment.repository.CommentRepository;
+import com.kimnjin.gwanyeon.commons.exception.BadRequestException;
 import com.kimnjin.gwanyeon.commons.exception.ResourceNotFoundException;
 import com.kimnjin.gwanyeon.exercisevideo.repository.ExerciseVideoRepository;
 import com.kimnjin.gwanyeon.likes.repository.LikeRepository;
@@ -10,6 +11,7 @@ import com.kimnjin.gwanyeon.user.dto.SummaryUserDto;
 import com.kimnjin.gwanyeon.user.dto.UpdateUserRequestDto;
 import com.kimnjin.gwanyeon.user.dto.UserResponseDto;
 import com.kimnjin.gwanyeon.user.entity.User;
+import com.kimnjin.gwanyeon.user.entity.UserRole;
 import com.kimnjin.gwanyeon.user.repository.UserRepository;
 import com.kimnjin.gwanyeon.user.service.UserService;
 import java.util.ArrayList;
@@ -27,6 +29,7 @@ public class UserServiceImpl implements UserService {
   private final CommentRepository commentRepository;
 
 
+
   @Transactional
   @Override
   public UserResponseDto updateUser(Long userId, UpdateUserRequestDto updateUserRequestDto) {
@@ -38,9 +41,13 @@ public class UserServiceImpl implements UserService {
       throw new IllegalArgumentException("잘못된 접근");
     }
 
+    String role=updateUserRequestDto.getRole();
+    UserRole userRole = UserRole.valueOf(role);
+
     existingUser.setNickname(updateUserRequestDto.getNickname());
     existingUser.setEmail(updateUserRequestDto.getEmail());
     existingUser.setPassword(updateUserRequestDto.getPassword());
+    existingUser.setRole(userRole);
 
     int result = userRepository.update(existingUser);
     if (result == 0) {
@@ -90,5 +97,23 @@ public class UserServiceImpl implements UserService {
 
     return mypageResponseDto;
   }
+
+  @Transactional
+  @Override
+  public void deleteUserForced(Long userId) {
+    User user = userRepository.findById(userId);
+
+    if (user == null) {
+      throw new ResourceNotFoundException("존재하지 않는 유저입니다.");
+    }
+    if(user.getRole().equals(UserRole.ADMIN)){
+      throw new BadRequestException("관리자 계정은 삭제할 수 없습니다.");
+    }
+    int result = userRepository.delete(userId);
+    if(result == 0){
+      throw new IllegalStateException("삭제에 실패했습니다.");
+    }
+  }
+
 
 }

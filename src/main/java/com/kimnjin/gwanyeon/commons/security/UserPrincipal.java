@@ -20,12 +20,12 @@ public class UserPrincipal implements UserDetails {
     this.password = user.getPassword();
     this.role = user.getRole();
 
-    System.out.println("유저 권한: "+user.getRole());
   }
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    return List.of(() -> "ROLE_" + role);
+//    System.out.println("UserPrincipal 권한: ROLE_" + this.role.name());
+    return List.of(() -> "ROLE_" + this.role.name());
   }
 
   @Override
