@@ -70,7 +70,8 @@ public class AuthServiceImpl implements AuthService {
       authRepository.insert(tokenEntity);
     }
 
-    return new ResponseTokenDto(accessToken, refreshToken);
+
+    return new ResponseTokenDto(accessToken, refreshToken, user.getRole().name());
   }
 
   @Transactional
@@ -110,6 +111,6 @@ public class AuthServiceImpl implements AuthService {
     tokenEntity.updateToken(newRefreshToken, tokenProvider.getRefreshTokenExpiryDate());
     authRepository.update(tokenEntity);
 
-    return new ResponseTokenDto(newAccessToken, newRefreshToken);
+    return new ResponseTokenDto(newAccessToken, newRefreshToken, user.getRole().name());
   }
 }

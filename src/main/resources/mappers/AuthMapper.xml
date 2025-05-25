@@ -25,12 +25,16 @@
     SELECT *
     FROM refresh_tokens
     WHERE user_id = #{userId}
+    ORDER BY expires_at DESC
+    LIMIT 1
   </select>
 
   <select id="findByRefreshToken" parameterType="String">
     SELECT *
     FROM refresh_tokens
     WHERE refresh_token = #{refreshToken}
+    ORDER BY expires_at DESC
+    LIMIT 1
   </select>
 
 </mapper>
