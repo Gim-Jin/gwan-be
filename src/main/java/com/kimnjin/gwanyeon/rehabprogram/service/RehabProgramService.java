@@ -1,5 +1,6 @@
 package com.kimnjin.gwanyeon.rehabprogram.service;
 
+import com.kimnjin.gwanyeon.rehabprogram.dto.PrescriptionResponseDto;
 import com.kimnjin.gwanyeon.rehabprogram.dto.RehabProgramResponseDto;
 import com.kimnjin.gwanyeon.rehabprogram.dto.UserSurveyRequestDto;
 import java.util.List;
@@ -15,6 +16,12 @@ public interface RehabProgramService {
 
   // 3. 유저는 자기가 질문을 던져서 만든 루틴들을 전체 조회 할 수 있지. -> 셀렉트 올
   List<RehabProgramResponseDto> getAllRehabProgramsByUserId(Long userId);
+
+
+  List<PrescriptionResponseDto> getAllPrescriptionsByUserId(Long userId);
+
+  // 4. 가장 최근의 완료 안된 루틴만 가져와
+  List<PrescriptionResponseDto> getLatestPrescriptionsByUserId(Long userId);
 
   // 2. 루틴을 끝낼 수 있음 -> 업데이트
   void doneRehabProgram(Long rehabProgramId);

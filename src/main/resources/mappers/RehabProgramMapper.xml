@@ -34,4 +34,17 @@
     WHERE user_id = #{id}
   </select>
 
+  <select id="selectProgramDescriptionByUserId" parameterType="Long" resultType="Prescription">
+    SELECT rehab_program_id,user_id,part ,prescription, isdone, created_at, refresh_at
+    FROM rehab_programs
+    WHERE user_id = #{userId}
+  </select>
+
+  <select id="selectLatestProgramDescription" parameterType="Long" resultType="Prescription">
+    SELECT rehab_program_id,user_id,part ,prescription, isdone, created_at, refresh_at
+    FROM rehab_programs
+    WHERE user_id = #{userId} AND isdone = false
+    ORDER BY created_at DESC
+    LIMIT 1
+  </select>
 </mapper>
