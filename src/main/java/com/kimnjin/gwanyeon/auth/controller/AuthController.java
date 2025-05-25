@@ -44,12 +44,11 @@ public class AuthController {
       @RequestBody LoginRequestDto loginRequestDto) {
     ResponseTokenDto tokenDto = authService.login(loginRequestDto);
     HttpHeaders headers = CookieUtil.createCookies(tokenDto.getAccessToken(),tokenDto.getRefreshToken());
+    String role = tokenDto.getUserRole();
 
     return ResponseEntity.ok()
         .headers(headers)
-        .body(ApiResult.success("로그인 성공"));
-
-
+        .body(ApiResult.success(role));
   }
 
   @Operation(summary = "에세스 토큰 재발급", description = "토큰 만료시 리프래시 토큰을 활용하여 프론트엔드 axios에서 요청을 합니다")
@@ -60,10 +59,10 @@ public class AuthController {
     tokenReissueRequestDto.setRefreshToken(refreshToken);
     ResponseTokenDto tokenDto = authService.reissue(tokenReissueRequestDto);
     HttpHeaders headers = CookieUtil.createCookies(tokenDto.getAccessToken(),tokenDto.getRefreshToken());
-
+    String role = tokenDto.getUserRole();
     return ResponseEntity.ok()
         .headers(headers)
-        .body(ApiResult.success("재발급 성공"));
+        .body(ApiResult.success(role));
 
   }
 
