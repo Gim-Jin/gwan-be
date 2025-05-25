@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -21,6 +22,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
+@EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
   private final TokenProvider tokenProvider;
@@ -28,37 +30,37 @@ public class SecurityConfig {
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//    return http
-//        .csrf(AbstractHttpConfigurer::disable)
-//        .cors(Customizer.withDefaults())
-//        .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//        .authorizeHttpRequests(auth -> auth
-//            .requestMatchers(
-//                "/api/auth/**",
-//                "/swagger-ui/**",
-//                "/swagger-resources/**",
-//                "/v3/api-docs/**",
-//                "/v3/api-docs",
-//                "/webjars/**"
-//            ).permitAll()
-//            .requestMatchers(HttpMethod.GET, "/api/exercise-videos").permitAll()
-//            .requestMatchers(HttpMethod.GET, "/api/targets").permitAll()
-//            .anyRequest().authenticated()
-//
-//        )
-//        .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-//        .build();
-
-    // 개발용
     return http
         .csrf(AbstractHttpConfigurer::disable)
         .cors(Customizer.withDefaults())
         .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/**").permitAll().anyRequest().authenticated()
+            .requestMatchers(
+                "/api/auth/**",
+                "/swagger-ui/**",
+                "/swagger-resources/**",
+                "/v3/api-docs/**",
+                "/v3/api-docs",
+                "/webjars/**"
+            ).permitAll()
+            .requestMatchers(HttpMethod.GET, "/api/exercise-videos").permitAll()
+            .requestMatchers(HttpMethod.GET, "/api/targets").permitAll()
+            .anyRequest().authenticated()
+
         )
         .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
         .build();
+
+    // 개발용
+//    return http
+//        .csrf(AbstractHttpConfigurer::disable)
+//        .cors(Customizer.withDefaults())
+//        .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//        .authorizeHttpRequests(auth -> auth
+//            .requestMatchers("/**").permitAll().anyRequest().authenticated()
+//        )
+//        .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+//        .build();
   }
 
   @Bean

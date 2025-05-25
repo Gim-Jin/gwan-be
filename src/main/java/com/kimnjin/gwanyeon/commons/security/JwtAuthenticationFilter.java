@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -69,6 +70,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     filterChain.doFilter(request, response);
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//    System.out.println("최종 SecurityContext Authentication: " + auth);
+//    System.out.println("isAuthenticated: " + (auth != null && auth.isAuthenticated()));
+//    System.out.println("Authorities: " + (auth != null ? auth.getAuthorities() : "null"));
   }
   
   private void authenticateUser(String token) {
@@ -77,6 +82,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
         userDetails, null, userDetails.getAuthorities());
     SecurityContextHolder.getContext().setAuthentication(authentication);
+//    System.out.println("==> 인증된 권한: " + authentication.getAuthorities());
+
+
   }
 
   private String resolveAccessToken(HttpServletRequest request) {

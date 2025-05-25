@@ -21,4 +21,5 @@ public interface UserService {
 
   public MypageResponseDto getMypage(Long userId);
 
+  public void deleteUserForced(Long userId);
 }
