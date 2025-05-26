@@ -29,7 +29,8 @@
   <!-- 업뎃 -->
   <update id="update" parameterType="ExerciseVideo">
     UPDATE exercise_videos
-    SET (title = #{title},description = #{description}, update_at = NOW())
+    SET title = #{title},description = #{description}, url=#{url}, youtube_id=#{youtubeId},
+    updated_at = NOW()
     WHERE exercise_video_id = #{exerciseVideoId}
   </update>
 
