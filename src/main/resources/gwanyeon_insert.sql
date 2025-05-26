@@ -2,23 +2,16 @@
 
 INSERT INTO `users`
     (login_id, password, nickname, email, role, name)
-VALUES ('admin', 'admin', 'admin', 'admin@admin.com', 'ADMIN', '관리자1');
+VALUES ('test', '$2a$10$f/2KuNX3rXk9riLLP0r/pOBPAj4ntUtXXfWhjfi8xSINVG.zkXhiC', 'admin', 'admin@test.com', 'ADMIN', '관리자1');
 
 INSERT INTO `users`
     (login_id, password, nickname, email, role, name)
-VALUES ('user1', 'user1', 'user1', 'user1@user.com', 'GENERAL', '유저1');
+VALUES ('user', '$2a$10$VoRGIZFtTDkiomO9NWgalOQ2irtVFX4iTsGxaQgFhfx57Ri7InNdK', 'user', 'user1@test.com', 'GENERAL', '유저1');
 
 INSERT INTO `users`
     (login_id, password, nickname, email, role, name)
-VALUES ('user2', 'user2', 'user2', 'user2@user.com', 'GENERAL', '유저2');
+VALUES ('testps', '$2a$10$OkTGwfVJrjLhGH59maCTYOuMQ.QEHLCFTogajnhsP63C2ZIIMwW.i', 'advisor', 'testps@test.com', 'PRESCRIBER', '유저2');
 
-INSERT INTO `users`
-    (login_id, password, nickname, email, role, name)
-VALUES ('user3', 'user3', 'user3', 'user3@user.com', 'GENERAL', '유저3');
-
-INSERT INTO `users`
-    (login_id, password, nickname, email, role, name)
-VALUES ('user4', 'user4', 'user4', 'user4@user.com', 'GENERAL', '유저4');
 
 -- 영자는 영상을 추가함. 그 전에 target이라는 카테고리 중 하나 또는 여러개를 고를 수 이쓰~
 
@@ -285,40 +278,10 @@ VALUES (1, 7),
        (69, 1),
        (70, 1);
 
--- 이제 유저는 영상을 보면서 좋아요를 누르겄지..
-INSERT INTO likes (user_id, exercise_video_id)
-VALUES (2, 1),
-       (2, 2),
-       (2, 5),
-       (2, 6),
-       (3, 5),
-       (3, 1),
-       (3, 7),
-       (3, 4),
-       (4, 1),
-       (4, 2),
-       (4, 3),
-       (4, 4),
-       (4, 5),
-       (4, 6),
-       (4, 7),
-       (4, 8),
-       (5, 2),
-       (5, 6),
-       (5, 2);
-
-
 -- 유저는 댓글도 달아둠.
 INSERT INTO comments (user_id, exercise_video_id, content)
 VALUES (2, 1, '헥헥 너무 힘들어요 🥵'),
        (3, 1, 'ㅋㅋ 그거 님이 저질 체력이라 그럼 ㅋ'),
        (2, 1, '? 왜 갑자기 시비? 님 부모가 그리 가르침?'),
        (3, 1, 'ㅋ 긁혔죠?'),
-       (4, 1, '심심한 @ㅗ빠들 내 프로필 당장 클릭해 ㅂr 🥵');
-
--- 이제 유저는 운동 프로그램을 처방 받을 수 있음.
-INSERT INTO rehab_programs (user_id, part, question, prescription)
-VALUES (2, 'KNEE', '무릎이 자주 아파요', '스쿼트와 무릎 안정화 운동 처방'),
-       (3, 'WRIST', '손목이 자주 뻐근해요', '손목 회전 운동과 스트레칭'),
-       (4, 'NECK', '장시간 컴퓨터 사용 후 목 통증', '거북목 교정 운동과 자세 개선');
-
+       (2, 1, '심심한 @ㅗ빠들 내 프로필 당장 클릭해 ㅂr 🥵');

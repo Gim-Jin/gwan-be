@@ -26,7 +26,7 @@ public class TokenProvider {
 
   @Value("${jwt.secret}")
   private String secretKeyPlain;
-
+  
   @Value("${jwt.access-token-expiration-ms}")
   private long accessTokenExpiration;
 

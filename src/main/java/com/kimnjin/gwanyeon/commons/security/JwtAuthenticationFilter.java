@@ -70,7 +70,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     filterChain.doFilter(request, response);
-    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 //    System.out.println("최종 SecurityContext Authentication: " + auth);
 //    System.out.println("isAuthenticated: " + (auth != null && auth.isAuthenticated()));
 //    System.out.println("Authorities: " + (auth != null ? auth.getAuthorities() : "null"));

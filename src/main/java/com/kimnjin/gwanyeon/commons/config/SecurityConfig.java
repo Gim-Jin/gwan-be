@@ -35,21 +35,33 @@ public class SecurityConfig {
         .cors(Customizer.withDefaults())
         .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(auth -> auth
+            // 인증 관련 엔드포인트
             .requestMatchers(
-                "/api/auth/**",
+                "/api/auth/login",
+                "/api/auth/signup",
+                "/api/auth/reissue",
+                "/api/auth/logout"
+            ).permitAll()
+
+            // 공개 API
+            .requestMatchers(HttpMethod.GET, "/api/exercise-videos/**").permitAll()
+            .requestMatchers(HttpMethod.GET, "/api/targets").permitAll()
+
+            // Swagger UI
+            .requestMatchers(
                 "/swagger-ui/**",
                 "/swagger-resources/**",
                 "/v3/api-docs/**",
                 "/v3/api-docs",
                 "/webjars/**"
             ).permitAll()
-            .requestMatchers(HttpMethod.GET, "/api/exercise-videos").permitAll()
-            .requestMatchers(HttpMethod.GET, "/api/targets").permitAll()
-            .anyRequest().authenticated()
 
+            // 나머지 요청은 인증 필요
+            .anyRequest().authenticated()
         )
         .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
         .build();
+
 
     // 개발용
 //    return http
