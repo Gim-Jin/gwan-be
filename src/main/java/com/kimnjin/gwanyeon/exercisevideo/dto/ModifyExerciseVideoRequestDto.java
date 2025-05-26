@@ -13,5 +13,8 @@ public class ModifyExerciseVideoRequestDto {
 
   private String description;
 
+  private String url;
+
+  private String youtubeId;
 
 }
