@@ -2,15 +2,18 @@
 
 INSERT INTO `users`
     (login_id, password, nickname, email, role, name)
-VALUES ('test', '$2a$10$f/2KuNX3rXk9riLLP0r/pOBPAj4ntUtXXfWhjfi8xSINVG.zkXhiC', 'admin', 'admin@test.com', 'ADMIN', '관리자1');
+VALUES ('test', '$2a$10$f/2KuNX3rXk9riLLP0r/pOBPAj4ntUtXXfWhjfi8xSINVG.zkXhiC', 'admin',
+        'admin@test.com', 'ADMIN', '관리자1');
 
 INSERT INTO `users`
     (login_id, password, nickname, email, role, name)
-VALUES ('user', '$2a$10$VoRGIZFtTDkiomO9NWgalOQ2irtVFX4iTsGxaQgFhfx57Ri7InNdK', 'user', 'user1@test.com', 'GENERAL', '유저1');
+VALUES ('user', '$2a$10$VoRGIZFtTDkiomO9NWgalOQ2irtVFX4iTsGxaQgFhfx57Ri7InNdK', 'user',
+        'user1@test.com', 'GENERAL', '유저1');
 
 INSERT INTO `users`
     (login_id, password, nickname, email, role, name)
-VALUES ('testps', '$2a$10$OkTGwfVJrjLhGH59maCTYOuMQ.QEHLCFTogajnhsP63C2ZIIMwW.i', 'advisor', 'testps@test.com', 'PRESCRIBER', '유저2');
+VALUES ('testps', '$2a$10$OkTGwfVJrjLhGH59maCTYOuMQ.QEHLCFTogajnhsP63C2ZIIMwW.i', 'advisor',
+        'testps@test.com', 'PRESCRIBER', '유저2');
 
 
 -- 영자는 영상을 추가함. 그 전에 target이라는 카테고리 중 하나 또는 여러개를 고를 수 이쓰~
@@ -30,6 +33,8 @@ INSERT INTO targets (name)
 VALUES ('허리');
 INSERT INTO targets (name)
 VALUES ('팔꿈치');
+INSERT INTO targets (name)
+VALUES ('손목');
 
 -- 영상 더미 들어가면서 같이 target이랑도 맵핑 되어야함.
 
@@ -205,6 +210,30 @@ VALUES (1, '목디스크, 거북목 재활운동 베스트3! - 재활의학과 �
         'https://www.youtube.com/watch?v=cSwm7ziLQu4', 'cSwm7ziLQu4',
         '정선근 교수가 소개하는 목디스크 치료를 위한 간단한 운동법입니다.', NOW(), NOW());
 
+-- 손목 10
+INSERT INTO exercise_videos (user_id, title, url, youtube_id, description, created_at, updated_at)
+VALUES (1, '다친 손목을 회복시키는 손목 재활운동', 'https://www.youtube.com/watch?v=HoFFKY583S8', 'HoFFKY583S8',
+        '일산백병원 근골격계 재활치료실에서 소개하는 손목 회복을 위한 재활운동입니다.', NOW(), NOW()),
+       (1, '손목 골절 수술 후 손목 재활운동(0~6주)', 'https://www.youtube.com/watch?v=Ab9MiEh20xY', 'Ab9MiEh20xY',
+        '일산백병원에서 제공하는 손목 골절 수술 후 0~6주차에 적합한 재활운동입니다.', NOW(), NOW()),
+       (1, '손목 수술 후 재활운동', 'https://www.youtube.com/watch?v=isUEVlJUKmU', 'isUEVlJUKmU',
+        '손가락 및 손목 손상 환자를 위한 자가 운동치료 동영상입니다.', NOW(), NOW()),
+       (1, '집에서 할 수 있는 손목 골절 후 운동법 7가지', 'https://www.youtube.com/watch?v=B7STAq6LjgA',
+        'B7STAq6LjgA', '손목 수술 후 재활과정에서 도움이 되는 7가지 운동법을 소개합니다.', NOW(), NOW()),
+       (1, '손목 골절 수술 후 손목 재활운동(6~12주)', 'https://www.youtube.com/watch?v=4qYA8hzAF8w',
+        '4qYA8hzAF8w', '일산백병원에서 제공하는 손목 골절 수술 후 6~12주차에 적합한 재활운동입니다.', NOW(), NOW()),
+       (1, '손목 골절 수술 후 재활운동 2 - 손목 스트레칭', 'https://www.youtube.com/shorts/bH4wqYlKAzU',
+        'bH4wqYlKAzU', '더서울병원에서 소개하는 손목 골절 수술 후 손목 스트레칭 재활운동입니다.', NOW(), NOW()),
+       (1, '손목 수술 후 재활운동 - 이렇게 할 수 있습니다!', 'https://www.youtube.com/watch?v=mMuvVZxRWtM',
+        'mMuvVZxRWtM', '손목 수술 후 재활 운동을 하는 방법을 안내하는 동영상입니다.', NOW(), NOW()),
+       (1, '손목 재활 운동 - 수건을 이용한 잡기 운동', 'https://www.youtube.com/watch?v=example1', 'example1',
+        '성모윌병원에서 소개하는 수건을 이용한 손목 재활 운동입니다.', NOW(), NOW()),
+       (1, '손목 재활 운동 - 고무줄을 이용한 강화 운동', 'https://www.youtube.com/watch?v=example2', 'example2',
+        '성모윌병원에서 소개하는 고무줄을 이용한 손목 강화 운동입니다.', NOW(), NOW()),
+       (1, '손목 재활 운동 - 손목 근육 강화 운동', 'https://www.youtube.com/watch?v=example3', 'example3',
+        '성모윌병원에서 소개하는 손목 근육 강화 운동입니다.', NOW(), NOW());
+
+
 -- 타겟 맵핑 쿼리
 INSERT INTO video_targets (exercise_video_id, target_id)
 VALUES (1, 7),
@@ -276,7 +305,17 @@ VALUES (1, 7),
        (67, 1),
        (68, 1),
        (69, 1),
-       (70, 1);
+       (70, 1),
+       (71, 8),
+       (72, 8),
+       (73, 8),
+       (74, 8),
+       (75, 8),
+       (76, 8),
+       (77, 8),
+       (78, 8),
+       (79, 8),
+       (80, 8);
 
 -- 유저는 댓글도 달아둠.
 INSERT INTO comments (user_id, exercise_video_id, content)
