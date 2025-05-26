@@ -1,4 +1,4 @@
-package com.kimnjin.gwanyeon.user.dto;
+package com.kimnjin.gwanyeon.auth.dto;
 
 import com.kimnjin.gwanyeon.user.entity.User;
 import com.kimnjin.gwanyeon.user.entity.UserRole;
@@ -9,9 +9,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CreateUserRequestDto {
+public class CreateRequestDto {
 
-  private String loginId;
+  private String loginUserId;
   private String password;
   private String email;
   private String name;
@@ -20,7 +20,7 @@ public class CreateUserRequestDto {
 
   public User toEntity() {
     return User.builder()
-        .loginId(this.loginId)
+        .loginId(this.loginUserId)
         .password(this.password)
         .email(this.email)
         .nickname(this.nickname)

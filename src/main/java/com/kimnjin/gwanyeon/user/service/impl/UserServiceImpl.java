@@ -1,15 +1,23 @@
 package com.kimnjin.gwanyeon.user.service.impl;
 
-import com.kimnjin.gwanyeon.user.dto.CreateUserRequestDto;
+import com.kimnjin.gwanyeon.auth.dto.LoginRequestDto;
+import com.kimnjin.gwanyeon.comment.repository.CommentRepository;
+import com.kimnjin.gwanyeon.commons.exception.BadRequestException;
+import com.kimnjin.gwanyeon.commons.exception.ResourceNotFoundException;
+import com.kimnjin.gwanyeon.exercisevideo.repository.ExerciseVideoRepository;
+import com.kimnjin.gwanyeon.likes.repository.LikeRepository;
+import com.kimnjin.gwanyeon.user.dto.MypageResponseDto;
 import com.kimnjin.gwanyeon.user.dto.SummaryUserDto;
 import com.kimnjin.gwanyeon.user.dto.UpdateUserRequestDto;
 import com.kimnjin.gwanyeon.user.dto.UserResponseDto;
 import com.kimnjin.gwanyeon.user.entity.User;
+import com.kimnjin.gwanyeon.user.entity.UserRole;
 import com.kimnjin.gwanyeon.user.repository.UserRepository;
 import com.kimnjin.gwanyeon.user.service.UserService;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,31 +26,29 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl implements UserService {
 
   private final UserRepository userRepository;
+  private final LikeRepository likeRepository;
+  private final CommentRepository commentRepository;
+  private final PasswordEncoder passwordEncoder;
+
 
   @Transactional
   @Override
-  public UserResponseDto signUp(CreateUserRequestDto createUserRequestDto) {
-    User user = createUserRequestDto.toEntity();
-    int result = userRepository.insert(user);
-
-    if (result == 0) {
-      throw new IllegalArgumentException("회원 가입 실패");
-    }
-
-    return UserResponseDto.from(user);
-  }
-
-  @Transactional
-  @Override
-  public UserResponseDto updateUser(UpdateUserRequestDto updateUserRequestDto) {
-    User existingUser = userRepository.findByLoginId(updateUserRequestDto.getLoginId());
+  public UserResponseDto updateUser(Long userId, UpdateUserRequestDto updateUserRequestDto) {
+    User existingUser = userRepository.findById(userId);
     if (existingUser == null) {
       throw new IllegalArgumentException("대상없음");
     }
+    if (!existingUser.getLoginId().equals(updateUserRequestDto.getLoginId())) {
+      throw new IllegalArgumentException("잘못된 접근");
+    }
+
+    String role=updateUserRequestDto.getRole();
+    UserRole userRole = UserRole.valueOf(role);
 
     existingUser.setNickname(updateUserRequestDto.getNickname());
     existingUser.setEmail(updateUserRequestDto.getEmail());
-    existingUser.setPassword(updateUserRequestDto.getPassword());
+    existingUser.setPassword(passwordEncoder.encode(updateUserRequestDto.getPassword()));
+    existingUser.setRole(userRole);
 
     int result = userRepository.update(existingUser);
     if (result == 0) {
@@ -77,14 +83,38 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public UserResponseDto login(String loginId, String password) {
-    User loginUser = userRepository.findByLoginId(loginId);
-    if (loginUser == null) {
-      throw new IllegalArgumentException("해당하는 유저가 없습니다.");
+  public MypageResponseDto getMypage(Long userId) {
+    User user = userRepository.findById(userId);
+    if (user == null) {
+      throw new ResourceNotFoundException("유저가 없습니다.");
     }
-    if (!loginUser.getPassword().equals(password)) {
-      throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
-    }
-    return UserResponseDto.from(loginUser);
+    int vCnt = likeRepository.countByUserId(userId);
+    int cCnt = commentRepository.selectAllByUserId(userId).size();
+    MypageResponseDto mypageResponseDto = new MypageResponseDto();
+    mypageResponseDto.setNickName(user.getNickname());
+    mypageResponseDto.setEmail(user.getEmail());
+    mypageResponseDto.setVideoCnt(vCnt);
+    mypageResponseDto.setCommentCnt(cCnt);
+
+    return mypageResponseDto;
   }
+
+  @Transactional
+  @Override
+  public void deleteUserForced(Long userId) {
+    User user = userRepository.findById(userId);
+
+    if (user == null) {
+      throw new ResourceNotFoundException("존재하지 않는 유저입니다.");
+    }
+    if(user.getRole().equals(UserRole.ADMIN)){
+      throw new BadRequestException("관리자 계정은 삭제할 수 없습니다.");
+    }
+    int result = userRepository.delete(userId);
+    if(result == 0){
+      throw new IllegalStateException("삭제에 실패했습니다.");
+    }
+  }
+
+
 }

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kimnjin.gwanyeon.rehabprogram.repository.RehabProgramRepository">
+
+  <insert id="insert" parameterType="RehabProgram">
+    INSERT INTO rehab_programs
+    (user_id, part, question, prescription, created_at, refresh_at)
+    VALUES (#{userId}, #{part}, #{question}, #{prescription}, NOW(), DATE_ADD(NOW(), INTERVAL 7
+    DAY))
+  </insert>
+
+  <update id="update" parameterType="Long">
+    UPDATE rehab_programs
+    SET isdone = true
+    WHERE rehab_program_id = #{id}
+  </update>
+
+  <delete id="delete" parameterType="Long">
+    DELETE FROM rehab_programs
+    WHERE rehab_program_id = #{id}
+  </delete>
+
+  <select id="selectRehabProgramByProgramId" parameterType="Long" resultType="RehabProgram">
+    SELECT *
+    FROM rehab_programs
+    WHERE rehab_program_id = #{id}
+  </select>
+
+  <select id="selectAllRehabProgramsByUserId" parameterType="Long" resultType="RehabProgram">
+    SELECT *
+    FROM rehab_programs
+    WHERE user_id = #{id}
+  </select>
+
+  <select id="selectProgramDescriptionByUserId" parameterType="Long" resultType="Prescription">
+    SELECT rehab_program_id,user_id,part ,prescription, isdone, created_at, refresh_at
+    FROM rehab_programs
+    WHERE user_id = #{userId}
+  </select>
+
+  <select id="selectLatestProgramDescription" parameterType="Long" resultType="Prescription">
+    SELECT rehab_program_id,user_id,part ,prescription, isdone, created_at, refresh_at
+    FROM rehab_programs
+    WHERE user_id = #{userId} AND isdone = false
+    ORDER BY created_at DESC
+    LIMIT 1
+  </select>
+</mapper>

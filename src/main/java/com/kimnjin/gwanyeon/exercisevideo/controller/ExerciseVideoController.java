@@ -17,26 +17,30 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/exercise-video")
+@RequestMapping("/api/exercise-videos")
 @RequiredArgsConstructor
 public class ExerciseVideoController {
 
   private final String CREATED = "created";
   private final String DELETED = "deleted";
   private final String NO_CONTENT = "noContent";
-  
+
   private final ExerciseVideoService exerciseVideoService;
 
   @GetMapping
-  public ResponseEntity<ApiResult<List<ExerciseVideoWithTargetResponseDto>>> getAllExerciseVideoWithTarget() {
-
-    List<ExerciseVideoWithTargetResponseDto> result = exerciseVideoService.getAllExerciseVideoWithTarget();
-
-    return !result.isEmpty() ? ResponseEntity.ok(ApiResult.success(result))
-        : ResponseEntity.ok(ApiResult.success(result, 204, NO_CONTENT));
+  public ResponseEntity<ApiResult<List<ExerciseVideoWithTargetResponseDto>>> searchVideos(
+      @RequestParam(required = false) String keyword,
+      @RequestParam(required = false) String target,
+      @RequestParam(required = false) String sort
+  ) {
+    List<ExerciseVideoWithTargetResponseDto> results = exerciseVideoService.searchVideos(keyword,
+        target, sort);
+    return !results.isEmpty() ? ResponseEntity.ok(ApiResult.success(results))
+        : ResponseEntity.ok(ApiResult.success(results, 204, NO_CONTENT));
   }
 
   @GetMapping("/{id}")

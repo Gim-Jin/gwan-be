@@ -23,6 +23,7 @@ public class UserResponseDto {
     responseDto.email = user.getEmail();
     responseDto.name = user.getName();
     responseDto.nickName = user.getNickname();
+    responseDto.role = user.getRole();
     return responseDto;
   }
 }

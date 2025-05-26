@@ -13,10 +13,10 @@ import com.kimnjin.gwanyeon.exercisevideo.entity.VideoTarget;
 import com.kimnjin.gwanyeon.exercisevideo.repository.ExerciseVideoRepository;
 import com.kimnjin.gwanyeon.exercisevideo.repository.VideoTargetRepository;
 import com.kimnjin.gwanyeon.exercisevideo.service.ExerciseVideoService;
-import java.util.Collections;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 // TODO : 카테고리 별로 뽑아온다거나, 제목으로 뽑아오는 건 아직 구현 안함. 이건 프론트 나오는거 보고 할랭
 @Service
@@ -31,8 +31,9 @@ public class ExerciseVideoServiceImpl implements ExerciseVideoService {
 
   private final String BAD_REQUEST = "잘못된 요청입니다.";
 
-  
+
   @Override
+  @Transactional
   public ExerciseVideoResponseDto createExerciseVideo(CreateExerciseVideoRequestDto dto) {
 
     ExerciseVideo exerciseVideo = dto.toEntity();
@@ -52,13 +53,13 @@ public class ExerciseVideoServiceImpl implements ExerciseVideoService {
       throw new BadRequestException(BAD_REQUEST);
 
     }
-    ;
 
     return ExerciseVideoResponseDto.from(exerciseVideo);
 
   }
 
   @Override
+  @Transactional
   public ExerciseVideoResponseDto modifyExerciseVideo(ModifyExerciseVideoRequestDto dto, Long id) {
 
     ExerciseVideo existingExerciseVideo = exerciseVideoRepository.selectById(id);
@@ -85,6 +86,7 @@ public class ExerciseVideoServiceImpl implements ExerciseVideoService {
   }
 
   @Override
+  @Transactional
   public void removeExerciseVideo(Long id) {
 
     int result = exerciseVideoRepository.deleteById(id);
@@ -95,39 +97,6 @@ public class ExerciseVideoServiceImpl implements ExerciseVideoService {
 
     }
 
-  }
-
-  @Override
-  public ExerciseVideoResponseDto getExerciseVideo(Long id) {
-
-    ExerciseVideo exerciseVideo = exerciseVideoRepository.selectById(id);
-
-    if (exerciseVideo == null) {
-      throw new ResourceNotFoundException(id + NOT_FOUND);
-    }
-
-    return ExerciseVideoResponseDto.from(exerciseVideo);
-
-  }
-
-  @Override
-  public List<ExerciseVideoResponseDto> getAllExerciseVideo() {
-
-    List<ExerciseVideo> videos = exerciseVideoRepository.selectAll();
-
-    if (videos.isEmpty()) {
-      return Collections.emptyList();
-    }
-
-    return videos.stream().map(
-        ExerciseVideoResponseDto::from).toList();
-  }
-
-
-  // 이건 잠시 보류 -> 쿼리에서 처리할지, 서비스에서 처리할지.
-  @Override
-  public List<ExerciseVideoResponseDto> getExerciseVideoByTitle(String title) {
-    return List.of();
   }
 
 
@@ -142,28 +111,15 @@ public class ExerciseVideoServiceImpl implements ExerciseVideoService {
     return ExerciseVideoWithTargetResponseDto.from(exerciseVideo);
   }
 
+
   @Override
-  public List<ExerciseVideoWithTargetResponseDto> getAllExerciseVideoWithTarget() {
-
-    List<ExerciseVideoWithTarget> videos = exerciseVideoRepository.selectAllWithTargets();
-
-    if (videos.isEmpty()) {
-      return Collections.emptyList();
-    }
-
+  public List<ExerciseVideoWithTargetResponseDto> searchVideos(String keyword, String target,
+      String sort) {
+    List<ExerciseVideoWithTarget> videos = exerciseVideoRepository.searchWithConditions(keyword,
+        target, sort);
     return videos.stream().map(ExerciseVideoWithTargetResponseDto::from).toList();
   }
 
-  // 이건 잠시 보류 -> 쿼리에서 처리할지, 서비스에서 처리할지.
-  @Override
-  public List<ExerciseVideoWithTargetResponseDto> getExerciseVideoWithTargetByTarget(
-      String target) {
-    return List.of();
-  }
 
-  // 이건 잠시 보류 -> 쿼리에서 처리할지, 서비스에서 처리할지.
-  @Override
-  public List<ExerciseVideoWithTargetResponseDto> getExerciseVideoWithTargetByTitle(String title) {
-    return List.of();
-  }
 }
+

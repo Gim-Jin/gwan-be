@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kimnjin.gwanyeon.target.repository.TargetRepository">
+
+  <insert id="insert" parameterType="Target">
+    INSERT INTO targets (name) VALUES(#{name})
+  </insert>
+
+  <select id="selectAll" resultType="Target">
+    SELECT *
+    FROM targets;
+  </select>
+
+  <select id="selectAllOrderByLikesCount" resultType="Target">
+    SELECT
+    t.target_id,
+    t.name,
+    COUNT(l.like_id) AS total_likes
+    FROM targets t
+    JOIN video_targets vt ON t.target_id = vt.target_id
+    JOIN exercise_videos ev ON vt.exercise_video_id = ev.exercise_video_id
+    LEFT JOIN likes l ON ev.exercise_video_id = l.exercise_video_id
+    GROUP BY t.target_id, t.name
+    ORDER BY total_likes DESC;
+  </select>
+
+</mapper>

@@ -93,6 +93,36 @@
       <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
       <version>2.7.0</version>
     </dependency>
+    <!-- 스프링 시큐리티: 스프링 기반의 인증 및 인가 기능 제공 -->
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+
+    <!-- JWT API JWT 생성, 파싱, 서명 처리를 위한 인터페이스-->
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt-api</artifactId>
+      <version>0.11.5</version>
+    </dependency>
+
+    <!-- JWT 구현체: JWT 서명 및 파싱 구현체 (실행 시 필요한 의존성) -->
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt-impl</artifactId>
+      <version>0.11.5</version>
+      <scope>runtime</scope>
+    </dependency>
+
+    <!-- JWT JSON 변환: JWT Claim을 JSON으로 직렬화/역직렬화  -->
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt-jackson</artifactId>
+      <version>0.11.5</version>
+      <scope>runtime</scope>
+    </dependency>
+
   </dependencies>
 
   <dependencyManagement>
