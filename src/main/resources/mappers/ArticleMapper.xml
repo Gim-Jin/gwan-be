@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kimnjin.gwanyeon.article.repository.ArticleRepository">
+
+  <insert id="insert" parameterType="Article">
+    INSERT INTO articles ( user_id, title, content, created_at, updated_at)
+    VALUES ( #{userId}, #{title}, #{content}, NOW(), NOW())
+  </insert>
+
+  <update id="update" parameterType="Article">
+    UPDATE articles
+    SET title = #{title}, content = #{content}, updated_at = NOW()
+    WHERE article_id = #{articleId}
+  </update>
+
+  <delete id="delete" parameterType="Long">
+    DELETE FROM articles
+    WHERE article_id = #{articleId}
+  </delete>
+
+  <select id="selectArticle" parameterType="Long" resultType="Article">
+    SELECT *
+    FROM articles
+    WHERE article_id = #{articleId}
+  </select>
+
+  <select id="selectArticlesByUserId" parameterType="Long" resultType="com.kimnjin.gwanyeon.article.dto.SummaryArticleDto">
+    SELECT
+    a.article_id   AS articleId,
+    a.user_id      AS userId,
+    u.name         AS userName,
+    a.title        AS title,
+    a.created_at   AS createAt
+    FROM articles a
+    JOIN users u ON a.user_id = u.user_id
+    WHERE a.user_id = #{userId}
+    ORDER BY a.created_at DESC
+  </select>
+
+  <select id="selectArticles" resultType="com.kimnjin.gwanyeon.article.dto.SummaryArticleDto">
+    SELECT
+    a.article_id     AS articleId,
+    a.user_id        AS userId,
+    u.name           AS userName,
+    a.title          AS title,
+    a.created_at     AS createAt
+    FROM articles a
+    JOIN users u ON a.user_id = u.user_id
+    ORDER BY a.created_at DESC
+  </select>
+
+</mapper>
