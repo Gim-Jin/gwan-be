@@ -17,6 +17,7 @@ import com.kimnjin.gwanyeon.user.service.UserService;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,7 +28,7 @@ public class UserServiceImpl implements UserService {
   private final UserRepository userRepository;
   private final LikeRepository likeRepository;
   private final CommentRepository commentRepository;
-
+  private final PasswordEncoder passwordEncoder;
 
 
   @Transactional
@@ -46,7 +47,7 @@ public class UserServiceImpl implements UserService {
 
     existingUser.setNickname(updateUserRequestDto.getNickname());
     existingUser.setEmail(updateUserRequestDto.getEmail());
-    existingUser.setPassword(updateUserRequestDto.getPassword());
+    existingUser.setPassword(passwordEncoder.encode(updateUserRequestDto.getPassword()));
     existingUser.setRole(userRole);
 
     int result = userRepository.update(existingUser);
