@@ -33,10 +33,10 @@ public class UserController {
 
 
   @Operation(summary = "본인 정보 조회", description = "본인의 정보를 조회하여 수정 확인 가능")
-  @GetMapping("/{userId}")
-  public ResponseEntity<ApiResult<UserResponseDto>> getUser(@PathVariable Long userId) {
+  @GetMapping
+  public ResponseEntity<ApiResult<UserResponseDto>> getUser(@AuthenticationPrincipal UserPrincipal userPrincipal) {
 
-    UserResponseDto userResponseDto = userService.getUser(userId);
+    UserResponseDto userResponseDto = userService.getUser(userPrincipal.getUserId());
     return ResponseEntity.status(HttpStatus.OK)
         .body(ApiResult.success(userResponseDto));
   }

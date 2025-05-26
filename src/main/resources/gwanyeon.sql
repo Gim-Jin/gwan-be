@@ -18,7 +18,7 @@ CREATE TABLE `users`
     `password`   TEXT        NOT NULL COMMENT 'Bcrypt 해시 처리',
     `nickname`   VARCHAR(10) NOT NULL,
     `email`      VARCHAR(30) NOT NULL,
-    `role`       ENUM('GENERAL', 'ADMIN') NOT NULL DEFAULT 'GENERAL' COMMENT 'GENERAL, ADMIN',
+    `role`       ENUM('GENERAL', 'ADMIN','PRESCRIBER') NOT NULL DEFAULT 'GENERAL' COMMENT 'GENERAL, ADMIN, PRESCRIBER',
     `created_at` TIMESTAMP   NOT NULL DEFAULT NOW(),
     `name`       VARCHAR(20) NOT NULL,
     PRIMARY KEY (`user_id`)
