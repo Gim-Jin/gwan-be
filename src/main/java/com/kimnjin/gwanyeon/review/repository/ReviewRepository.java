@@ -17,7 +17,7 @@ public interface ReviewRepository {
 
   List<Review> selectReviewsByArticleId(Long articleId);
 
-  List<Review> selectReviewsByUserId(Long userId);
+  List<ResponseReviewDto> selectReviewsByUserId(Long userId);
 
   Review selectReviewById(Long reviewId);
 

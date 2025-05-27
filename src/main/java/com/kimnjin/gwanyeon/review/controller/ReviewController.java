@@ -9,10 +9,12 @@ import com.kimnjin.gwanyeon.review.dto.ResponseReviewDto;
 import com.kimnjin.gwanyeon.review.dto.UpdateReviewDto;
 import com.kimnjin.gwanyeon.review.service.ReviewService;
 import io.swagger.v3.oas.annotations.Operation;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -63,5 +65,12 @@ public class ReviewController {
     return ResponseEntity.ok(ApiResult.success("삭제 성공"));
   }
 
-
+  @Operation(summary = "유저 댓글들 조회", description = "작성자가 쓴 댓글 모음")
+  @GetMapping("/users/reviews")
+  public ResponseEntity<ApiResult<List<ResponseReviewDto>>> getReviews(
+      @AuthenticationPrincipal UserPrincipal userPrincipal
+  ){
+    List<ResponseReviewDto> reviews = reviewService.getReviewsByUserId(userPrincipal.getUserId());
+    return ResponseEntity.ok(ApiResult.success(reviews));
+  }
 }
