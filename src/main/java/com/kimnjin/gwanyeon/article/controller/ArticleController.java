@@ -2,6 +2,7 @@ package com.kimnjin.gwanyeon.article.controller;
 
 import com.kimnjin.gwanyeon.article.dto.CreateArticleDto;
 import com.kimnjin.gwanyeon.article.dto.ResponseArticleDto;
+import com.kimnjin.gwanyeon.article.dto.ResponseDetailArticleDto;
 import com.kimnjin.gwanyeon.article.dto.SummaryArticleDto;
 import com.kimnjin.gwanyeon.article.dto.UpdateArticleDto;
 import com.kimnjin.gwanyeon.article.service.ArticleService;
@@ -67,9 +68,9 @@ public class ArticleController {
 
   @Operation(summary = "게시글 자세히 보기", description = "게시글 보기")
   @GetMapping("/{articleId}")
-  public ResponseEntity<ApiResult<ResponseArticleDto>> getArticle(@PathVariable Long articleId) {
-    ResponseArticleDto responseArticleDto = articleService.getArticleById(articleId);
-    return ResponseEntity.ok(ApiResult.success(responseArticleDto));
+  public ResponseEntity<ApiResult<ResponseDetailArticleDto>> getArticle(@PathVariable Long articleId) {
+    ResponseDetailArticleDto responseDetailArticleDto = articleService.getArticleById(articleId);
+    return ResponseEntity.ok(ApiResult.success(responseDetailArticleDto));
   }
 
   @Operation(summary = "게시글 전체 보기", description = "게시글 리스트를 호출")

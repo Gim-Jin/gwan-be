@@ -1,5 +1,6 @@
 package com.kimnjin.gwanyeon.review.repository;
 
+import com.kimnjin.gwanyeon.review.dto.ResponseReviewDto;
 import com.kimnjin.gwanyeon.review.dto.UpdateReviewDto;
 import com.kimnjin.gwanyeon.review.entity.Review;
 import java.util.List;
@@ -19,5 +20,7 @@ public interface ReviewRepository {
   List<Review> selectReviewsByUserId(Long userId);
 
   Review selectReviewById(Long reviewId);
+
+  List<ResponseReviewDto> selectReviewsForArticle(Long articleId);
 
 }
