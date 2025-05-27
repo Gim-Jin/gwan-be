@@ -25,6 +25,7 @@ public class ResponseReviewDto {
     ResponseReviewDto dto = new ResponseReviewDto();
     dto.articleId = review.getArticleId();
     dto.reviewId = review.getReviewId();
+    dto.userId = review.getUserId();
     dto.writerNickName = user.getNickname();
     dto.userRole = user.getRole().name();
     dto.content = review.getContent();

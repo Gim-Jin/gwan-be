@@ -40,22 +40,34 @@
     ORDER BY a.created_at DESC
   </select>
 
-  <select id="selectArticles" resultType="com.kimnjin.gwanyeon.article.dto.SummaryArticleDto">
+  <select id="selectArticles" parameterType="long"
+    resultType="com.kimnjin.gwanyeon.article.dto.SummaryArticleDto">
     SELECT
     a.article_id AS articleId,
     a.user_id AS userId,
-    u.name AS userName,
-    a.title AS title,
-    a.created_at AS createAt,
-    COUNT(r.review_id) AS reviewCount
+    u.nickname AS userName,
+    a.title,
+    a.created_at AS createdAt,
+    COALESCE(rv.reviewCount, 0) AS reviewCount,
+    COALESCE(rc.recommendCount, 0) AS recommentCount
     FROM articles a
-    JOIN users u ON a.user_id = u.user_id
-    LEFT JOIN reviews r ON a.article_id = r.article_id
-    GROUP BY a.article_id, a.user_id, u.name, a.title, a.created_at
-    ORDER BY a.created_at DESC;
+    JOIN users u ON u.user_id = a.user_id
+    LEFT JOIN (
+    SELECT article_id, COUNT(*) AS reviewCount
+    FROM reviews
+    GROUP BY article_id
+    ) rv ON rv.article_id = a.article_id
+    LEFT JOIN (
+    SELECT article_id, COUNT(*) AS recommendCount
+    FROM recommands
+    GROUP BY article_id
+    ) rc ON rc.article_id = a.article_id
+
+    ORDER BY a.created_at DESC
   </select>
 
-  <select id="selectRecommendArticleByUserId" resultType="com.kimnjin.gwanyeon.article.dto.SummaryArticleDto" parameterType="Long">
+  <select id="selectRecommendArticleByUserId"
+    resultType="com.kimnjin.gwanyeon.article.dto.SummaryArticleDto" parameterType="Long">
     SELECT * FROM articles a
     INNER JOIN recommands r ON a.article_id = r.article_id
     WHERE r.user_id = #{userId}

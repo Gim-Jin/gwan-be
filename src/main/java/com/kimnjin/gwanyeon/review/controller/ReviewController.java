@@ -2,7 +2,6 @@ package com.kimnjin.gwanyeon.review.controller;
 
 
 import com.kimnjin.gwanyeon.commons.dto.ApiResult;
-import com.kimnjin.gwanyeon.commons.exception.BadRequestException;
 import com.kimnjin.gwanyeon.commons.security.UserPrincipal;
 import com.kimnjin.gwanyeon.review.dto.CreateReviewDto;
 import com.kimnjin.gwanyeon.review.dto.ResponseReviewDto;
@@ -48,9 +47,6 @@ public class ReviewController {
       @PathVariable Long articleId,
       @RequestBody UpdateReviewDto updateReviewDto
   ) {
-    if (articleId != updateReviewDto.getArticleId()) {
-      throw new BadRequestException("잘못된 접근(게시글이 다름)");
-    }
 
     ResponseReviewDto responseReviewDto = reviewService.updateReview(updateReviewDto,
         userPrincipal.getUserId(), articleId);

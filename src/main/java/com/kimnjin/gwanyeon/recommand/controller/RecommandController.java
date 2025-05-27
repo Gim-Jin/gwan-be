@@ -33,7 +33,7 @@ public class RecommandController {
       @PathVariable Long articeid) {
 
     return ResponseEntity.ok(
-        ApiResult.success(recommandService.isRecommand(userPrincipal.getUserId(), articeid))
+        ApiResult.success(recommandService.isRecommand(articeid, userPrincipal.getUserId()))
     );
   }
 
@@ -42,19 +42,20 @@ public class RecommandController {
   public ResponseEntity<ApiResult<Boolean>> createRecommand(
       @AuthenticationPrincipal UserPrincipal userPrincipal,
       @RequestBody CreateRecommandDto createRecommandDto
-  ){
+  ) {
     createRecommandDto.setUserId(userPrincipal.getUserId());
 
     recommandService.save(createRecommandDto);
-    return ResponseEntity.ok(ApiResult.success(true,201,"created"));
+    return ResponseEntity.ok(ApiResult.success(true, 201, "created"));
   }
 
   @Operation(summary = "내가 추천 누른 게시글")
   @GetMapping
   public ResponseEntity<ApiResult<List<SummaryArticleDto>>> getRecommandArticles(
       @AuthenticationPrincipal UserPrincipal userPrincipal
-  ){
-    List<SummaryArticleDto> articles = recommandService.getRecommandArticle(userPrincipal.getUserId());
+  ) {
+    List<SummaryArticleDto> articles = recommandService.getRecommandArticle(
+        userPrincipal.getUserId());
 
     return !articles.isEmpty() ? ResponseEntity.ok(ApiResult.success(articles))
         : ResponseEntity.ok(ApiResult.success(articles, 204, "없음"));
@@ -65,7 +66,7 @@ public class RecommandController {
   public ResponseEntity<ApiResult<Boolean>> deleteRecommand(
       @AuthenticationPrincipal UserPrincipal userPrincipal,
       @PathVariable Long articleId
-  ){
+  ) {
     recommandService.delete(userPrincipal.getUserId(), articleId);
     return ResponseEntity.ok(ApiResult.success(true));
   }

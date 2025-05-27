@@ -1,6 +1,5 @@
 package com.kimnjin.gwanyeon.recommand.service.impl;
 
-import com.kimnjin.gwanyeon.article.dto.ResponseArticleDto;
 import com.kimnjin.gwanyeon.article.dto.SummaryArticleDto;
 import com.kimnjin.gwanyeon.article.repository.ArticleRepository;
 import com.kimnjin.gwanyeon.commons.exception.BadRequestException;
@@ -24,7 +23,7 @@ public class RecommandServiceImpl implements RecommandService {
   @Override
   public boolean save(CreateRecommandDto createRecommandDto) {
     Recommand recommand = createRecommandDto.toEntity();
-    if(recommandRepository.insert(recommand) == 0) {
+    if (recommandRepository.insert(recommand) == 0) {
       throw new BadRequestException("잘못된 요청입니다.");
     }
     return true;
@@ -32,9 +31,9 @@ public class RecommandServiceImpl implements RecommandService {
 
   @Transactional
   @Override
-  public boolean delete(Long userId, Long recommandId) {
-    Recommand recommand = Recommand.builder().userId(userId).recommandId(recommandId).build();
-    if(recommandRepository.delete(recommand) == 0) {
+  public boolean delete(Long userId, Long articleId) {
+    Recommand recommand = Recommand.builder().userId(userId).articleId(articleId).build();
+    if (recommandRepository.delete(recommand) == 0) {
       throw new BadRequestException("잘못된 요청입니다.");
     }
     return true;
