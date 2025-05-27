@@ -142,6 +142,39 @@ CREATE TABLE `refresh_tokens`
     FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+CREATE TABLE `articles`
+(
+    `article_id`BIGINT    NOT NULL auto_increment,
+    `user_id`    BIGINT    NOT NULL,
+    `title`        VARCHAR(20)    NOT NULL,
+    `content`    TEXT    NULL,
+    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    primary key(`article_id`),
+    foreign key(`user_id`) references `users`(`user_id`) on delete cascade on update cascade
+);
+
+CREATE TABLE `recommands` (
+                              `recommand_id` BIGINT NOT NULL AUTO_INCREMENT,
+                              `article_id` BIGINT NOT NULL,
+                              `user_id` BIGINT NOT NULL,
+                              PRIMARY KEY (`recommand_id`),
+                              UNIQUE KEY `uk_article_user` (`article_id`, `user_id`),
+                              FOREIGN KEY (`article_id`) REFERENCES `articles`(`article_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+                              FOREIGN KEY (`user_id`) REFERENCES `users`(`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE `reviews` (
+                           `review_id`    BIGINT    NOT NULL auto_increment,
+                           `article_id`    BIGINT    NOT NULL,
+                           `user_id`    BIGINT    NOT NULL,
+                           `content`    TEXT    NULL,
+                           `created_at`    TIMESTAMP    NOT NULL,
+                           `updated_at`    TIMESTAMP    NOT NULL,
+                           primary key(`review_id`),
+                           foreign key(`article_id`) references `articles`(`article_id`) on delete cascade on update cascade,
+                           foreign key(`user_id`) references `users`(`user_id`) on delete cascade on update cascade
+);
 
 
 
