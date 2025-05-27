@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kimnjin.gwanyeon.review.repository.ReviewRepository">
+
+
+  <insert id="insertReview" parameterType="Review">
+    INSERT INTO reviews (user_id, article_id, content, created_at, updated_at)
+    VALUES (#{userId}, #{articleId}, #{content}, NOW(), NOW())
+  </insert>
+
+  <update id="updateReview" parameterType="Review">
+    UPDATE reviews
+    SET content = #{content}, updated_at = NOW()
+    WHERE review_id = #{reviewId}
+  </update>
+
+  <delete id="deleteReview" parameterType="Long">
+    DELETE FROM reviews
+    WHERE review_id = #{reviewId}
+  </delete>
+
+  <select id="selectReviewsByArticleId" parameterType="Long">
+    SELECT *
+    FROM reviews
+    WHERE article_id = #{articleId}
+  </select>
+
+  <select id="selectReviewsByUserId" parameterType="Long" resultType="com.kimnjin.gwanyeon.review.dto.ResponseReviewDto">
+    SELECT *
+    FROM reviews
+    WHERE user_id = #{userId}
+  </select>
+
+  <select id="selectReviewById" parameterType="Long" resultType="Review">
+    SELECT *
+    FROM reviews
+    WHERE review_id = #{reviewId}
+  </select>
+
+</mapper>

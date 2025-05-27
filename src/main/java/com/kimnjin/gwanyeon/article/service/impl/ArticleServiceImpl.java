@@ -1,4 +1,4 @@
-package com.kimnjin.gwanyeon.article.service.imple;
+package com.kimnjin.gwanyeon.article.service.impl;
 
 import com.kimnjin.gwanyeon.article.dto.CreateArticleDto;
 import com.kimnjin.gwanyeon.article.dto.ResponseArticleDto;

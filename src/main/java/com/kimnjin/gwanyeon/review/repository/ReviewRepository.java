@@ -10,10 +10,14 @@ public interface ReviewRepository {
 
   int insertReview(Review review);
 
-  int deleteReview(Long reivewId, Long userId);
+  int deleteReview(Long reviewId);
 
-  int updateReview(UpdateReviewDto updateReviewDto);
+  int updateReview(Review review);
 
-  List<Review> selectReviews(Long articleId);
+  List<Review> selectReviewsByArticleId(Long articleId);
+
+  List<Review> selectReviewsByUserId(Long userId);
+
+  Review selectReviewById(Long reviewId);
 
 }
