@@ -46,6 +46,7 @@ public class SecurityConfig {
             // 공개 API
             .requestMatchers(HttpMethod.GET, "/api/exercise-videos/**").permitAll()
             .requestMatchers(HttpMethod.GET, "/api/targets").permitAll()
+            .requestMatchers(HttpMethod.GET, "/api/articles").permitAll()
 
             // Swagger UI
             .requestMatchers(

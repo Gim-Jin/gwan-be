@@ -2,6 +2,7 @@ package com.kimnjin.gwanyeon.article.service.impl;
 
 import com.kimnjin.gwanyeon.article.dto.CreateArticleDto;
 import com.kimnjin.gwanyeon.article.dto.ResponseArticleDto;
+import com.kimnjin.gwanyeon.article.dto.ResponseDetailArticleDto;
 import com.kimnjin.gwanyeon.article.dto.SummaryArticleDto;
 import com.kimnjin.gwanyeon.article.dto.UpdateArticleDto;
 import com.kimnjin.gwanyeon.article.entity.Article;
@@ -9,6 +10,9 @@ import com.kimnjin.gwanyeon.article.repository.ArticleRepository;
 import com.kimnjin.gwanyeon.article.service.ArticleService;
 import com.kimnjin.gwanyeon.commons.exception.BadRequestException;
 import com.kimnjin.gwanyeon.commons.exception.UnAuthorizedException;
+import com.kimnjin.gwanyeon.review.dto.ResponseReviewDto;
+import com.kimnjin.gwanyeon.review.entity.Review;
+import com.kimnjin.gwanyeon.review.repository.ReviewRepository;
 import com.kimnjin.gwanyeon.user.entity.User;
 import com.kimnjin.gwanyeon.user.repository.UserRepository;
 import java.util.List;
@@ -22,6 +26,7 @@ public class ArticleServiceImpl implements ArticleService {
 
   private final ArticleRepository articleRepository;
   private final UserRepository userRepository;
+  private final ReviewRepository reviewRepository;
 
   @Transactional
   @Override
@@ -79,13 +84,14 @@ public class ArticleServiceImpl implements ArticleService {
   }
 
   @Override
-  public ResponseArticleDto getArticleById(Long articleId) {
+  public ResponseDetailArticleDto getArticleById(Long articleId) {
     Article article = articleRepository.selectArticle(articleId);
     if (article == null) {
       throw new BadRequestException("글이 없습니다.");
     }
     User writer = userRepository.findById(article.getUserId());
-    return ResponseArticleDto.from(article, writer.getUserId(), writer.getNickname());
+    List<ResponseReviewDto> reviews = reviewRepository.selectReviewsForArticle(articleId);
+    return ResponseDetailArticleDto.from(article, writer.getUserId(), writer.getNickname(),reviews);
   }
 
   @Override
