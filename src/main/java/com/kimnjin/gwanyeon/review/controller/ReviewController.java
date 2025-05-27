@@ -29,38 +29,40 @@ public class ReviewController {
 
   private final ReviewService reviewService;
 
-  @Operation(summary = "댓글 생성",description = "가입한 유저만 쓸 수 있습니다")
+  @Operation(summary = "댓글 생성", description = "가입한 유저만 쓸 수 있습니다")
   @PostMapping("/articles/{articleId}/review")
   public ResponseEntity<ApiResult<ResponseReviewDto>> createReview(
       @AuthenticationPrincipal UserPrincipal userPrincipal,
       @PathVariable Long articleId,
       @RequestBody CreateReviewDto createReviewDto
-  ){
-    ResponseReviewDto responseReviewDto=reviewService.createReview(createReviewDto, userPrincipal.getUserId(), articleId);
+  ) {
+    ResponseReviewDto responseReviewDto = reviewService.createReview(createReviewDto, articleId,
+        userPrincipal.getUserId());
     return ResponseEntity.ok(ApiResult.success(responseReviewDto));
   }
 
-  @Operation(summary = "댓글 수정",description = "작성자 본인만 수정 가능")
+  @Operation(summary = "댓글 수정", description = "작성자 본인만 수정 가능")
   @PutMapping("/articles/{articleId}/review")
   public ResponseEntity<ApiResult<ResponseReviewDto>> updateReview(
       @AuthenticationPrincipal UserPrincipal userPrincipal,
       @PathVariable Long articleId,
       @RequestBody UpdateReviewDto updateReviewDto
-  ){
-    if(articleId != updateReviewDto.getArticleId()){
+  ) {
+    if (articleId != updateReviewDto.getArticleId()) {
       throw new BadRequestException("잘못된 접근(게시글이 다름)");
     }
 
-    ResponseReviewDto responseReviewDto=reviewService.updateReview(updateReviewDto, userPrincipal.getUserId(), articleId);
+    ResponseReviewDto responseReviewDto = reviewService.updateReview(updateReviewDto,
+        userPrincipal.getUserId(), articleId);
     return ResponseEntity.ok(ApiResult.success(responseReviewDto));
   }
 
-  @Operation(summary = "댓글 삭제",description = "작성자 본인만 삭제 가능")
+  @Operation(summary = "댓글 삭제", description = "작성자 본인만 삭제 가능")
   @DeleteMapping("/articles/{articleId}/review/{reviewId}")
   public ResponseEntity<ApiResult<String>> removeReview(
       @PathVariable Long reviewId,
       @AuthenticationPrincipal UserPrincipal userPrincipal
-  ){
+  ) {
     reviewService.deleteReview(reviewId, userPrincipal.getUserId());
     return ResponseEntity.ok(ApiResult.success("삭제 성공"));
   }
@@ -69,7 +71,7 @@ public class ReviewController {
   @GetMapping("/users/reviews")
   public ResponseEntity<ApiResult<List<ResponseReviewDto>>> getReviews(
       @AuthenticationPrincipal UserPrincipal userPrincipal
-  ){
+  ) {
     List<ResponseReviewDto> reviews = reviewService.getReviewsByUserId(userPrincipal.getUserId());
     return ResponseEntity.ok(ApiResult.success(reviews));
   }
