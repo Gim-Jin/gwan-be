@@ -16,5 +16,6 @@ public class SummaryArticleDto {
   private String userName;
   private String title;
   private LocalDateTime createAt;
+  private Long reviewCount;
 
 }
