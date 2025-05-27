@@ -6,6 +6,7 @@ import com.kimnjin.gwanyeon.commons.exception.BadRequestException;
 import com.kimnjin.gwanyeon.commons.exception.ResourceNotFoundException;
 import com.kimnjin.gwanyeon.exercisevideo.repository.ExerciseVideoRepository;
 import com.kimnjin.gwanyeon.likes.repository.LikeRepository;
+import com.kimnjin.gwanyeon.recommand.repository.RecommandRepository;
 import com.kimnjin.gwanyeon.user.dto.MypageResponseDto;
 import com.kimnjin.gwanyeon.user.dto.SummaryUserDto;
 import com.kimnjin.gwanyeon.user.dto.UpdateUserRequestDto;
@@ -27,6 +28,7 @@ public class UserServiceImpl implements UserService {
 
   private final UserRepository userRepository;
   private final LikeRepository likeRepository;
+  private final RecommandRepository recommandRepository;
   private final CommentRepository commentRepository;
   private final PasswordEncoder passwordEncoder;
 
@@ -88,7 +90,7 @@ public class UserServiceImpl implements UserService {
     if (user == null) {
       throw new ResourceNotFoundException("유저가 없습니다.");
     }
-    int vCnt = likeRepository.countByUserId(userId);
+    int vCnt = likeRepository.countByUserId(userId)+recommandRepository.countByUserId(userId);
     int cCnt = commentRepository.selectAllByUserId(userId).size();
     MypageResponseDto mypageResponseDto = new MypageResponseDto();
     mypageResponseDto.setNickName(user.getNickname());

@@ -55,4 +55,9 @@
     ORDER BY a.created_at DESC;
   </select>
 
+  <select id="selectRecommendArticleByUserId" resultType="com.kimnjin.gwanyeon.article.dto.SummaryArticleDto" parameterType="Long">
+    SELECT * FROM articles a
+    INNER JOIN recommands r ON a.article_id = r.article_id
+    WHERE r.user_id = #{userId}
+  </select>
 </mapper>
