@@ -321,14 +321,9 @@ VALUES (1, 7),
 INSERT INTO comments (user_id, exercise_video_id, content)
 VALUES (2, 1, '헥헥 너무 힘들어요 🥵'),
        (3, 1, 'ㅋㅋ 그거 님이 저질 체력이라 그럼 ㅋ'),
-       (2, 1, '? 왜 갑자기 시비? 님 부모가 그리 가르침?'),
-       (3, 1, 'ㅋ 긁혔죠?'),
-       (2, 1, '심심한 @ㅗ빠들 내 프로필 당장 클릭해 ㅂr 🥵');
+       (3, 1, 'ㅋ 긁혔죠?');
 
 
--- 유저 글 작성~
-INSERT INTO articles (user_id, title, content)
-VALUES (3, '[속보] 이재명 구 ... ', '구콘 먹다 흘려 ㅎㄷㄷ;;');
 
 INSERT INTO articles (user_id, title, content)
 VALUES (3, '거북목 환자분들 꼭 읽으세요.',
@@ -338,13 +333,5 @@ VALUES (3, '거북목 환자분들 꼭 읽으세요.',
 INSERT INTO reviews (article_id, user_id, content, created_at, updated_at)
 VALUES (1, 2, '선생님...여기서 이러시면 안됩니다..', NOW(), NOW());
 
-INSERT INTO reviews (article_id, user_id, content, created_at, updated_at)
-VALUES (2, 2,
-        '하.. 이재명 윤석열 싸움 수준 ㄹㅇ 실화냐? 진짜 세계관최강자들의 싸움이다.. 그찐따같던 이재명이 맞나? 진짜 이재명은 전설이다..진짜옛날에 맨날이재명봤는데 왕같은존재인 대통령이 되서 세계최강 전설적인 영웅이된이재명을보면 진짜내가다 감격스럽고 이재명 노래부터 명장면까지 가슴을울리는장면들이 뇌리에 스치면서 가슴이 웅장해진다..',
-        NOW(), NOW());
 
-INSERT INTO reviews (article_id, user_id, content, created_at, updated_at)
-VALUES (2, 1, '항상 감사합니다... 나이 칠순먹고 컴퓨터 배우니 참 좋습니다..', NOW(), NOW());
 
-INSERT INTO reviews (article_id, user_id, content, created_at, updated_at)
-VALUES (1, 1, '이녀석아 이재명이 친구냐? 친일파는 돌아가라!', NOW(), NOW());
