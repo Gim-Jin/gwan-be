@@ -102,7 +102,7 @@ CREATE TABLE `rehab_programs`
 (
     `rehab_program_id` BIGINT                                                              NOT NULL AUTO_INCREMENT,
     `user_id`          BIGINT                                                              NOT NULL,
-    `part`             ENUM ('NECK', 'SHOULDER', 'BACK', 'KNEE', 'ANKLE', 'WRIST', 'ELBO') NOT NULL DEFAULT 'NECK',
+    `part`             ENUM ('NECK', 'SHOULDER', 'BACK', 'KNEE', 'ANKLE', 'WRIST', 'ELBOW') NOT NULL DEFAULT 'NECK',
     `question`         TEXT                                                                NOT NULL,
     `prescription`     TEXT                                                                NOT NULL,
     `isdone`           BOOLEAN                                                             NOT NULL DEFAULT false,
