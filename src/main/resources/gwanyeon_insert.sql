@@ -316,6 +316,304 @@ VALUES (1, 7),
        (78, 8),
        (79, 8),
        (80, 8);
+/* ───────────────────────────
+   1. exercise_videos INSERT
+   ───────────────────────────*/
+INSERT INTO exercise_videos
+(user_id, title, url, youtube_id, description, created_at, updated_at)
+VALUES
+/* ── ① 목(1) ───────────────────────────────────────────────── */
+    (3, '5-Minute Neck Pain Relief Routine',
+     'https://www.youtube.com/watch?v=Q12nIfVCpdU', 'Q12nIfVCpdU',
+     '짧은 5분 루틴으로 거북목·목결림 해소.', NOW(), NOW()),       -- :contentReference[oaicite:0]{index=0}
+    (3, 'Neck Pain Stretches & Exercises',
+     'https://www.youtube.com/watch?v=2NOsE-VPpkE', '2NOsE-VPpkE',
+     '물리치료사가 추천하는 목 스트레칭 모음.', NOW(), NOW()),       -- :contentReference[oaicite:1]{index=1}
+
+/* ── ② 어깨(2) ─────────────────────────────────────────────── */
+    (3, 'Science-Based Rotator-Cuff Strengthening',
+     'https://www.youtube.com/watch?v=x39ISQrcXuQ', 'x39ISQrcXuQ',
+     '회전근개 강화 핵심 동작 5가지.', NOW(), NOW()),           -- :contentReference[oaicite:2]{index=2}
+    (3, 'Rotator Cuff Tear Rehab & Exercises',
+     'https://www.youtube.com/watch?v=1Wy8jh4QQH8', '1Wy8jh4QQH8',
+     '찢어진 회전근개 재활을 위한 단계별 운동.', NOW(), NOW()),      -- :contentReference[oaicite:3]{index=3}
+
+/* ── ③ 등(3) ──────────────────────────────────────────────── */
+    (3, '7 Upper-Back Stretches for Pain Relief',
+     'https://www.youtube.com/watch?v=vuGnzLxRvZM', 'vuGnzLxRvZM',
+     '등 상부·흉추 유연성 향상 스트레칭.', NOW(), NOW()),         -- :contentReference[oaicite:4]{index=4}
+    (3, 'Upper-Back Pain Relief Exercises',
+     'https://www.youtube.com/watch?v=wbF7obvVWaI', 'wbF7obvVWaI',
+     '책상족을 위한 빠른 등 통증 완화 루틴.', NOW(), NOW()),       -- :contentReference[oaicite:5]{index=5}
+
+/* ── ④ 무릎(4) ─────────────────────────────────────────────── */
+    (3, 'Stop Knee Pain – 5 Strength Moves',
+     'https://www.youtube.com/watch?v=ikt6NME0k9E', 'ikt6NME0k9E',
+     '무릎 주위 근육 강화로 통증 잡기.', NOW(), NOW()),          -- :contentReference[oaicite:6]{index=6}
+    (3, 'Daily Knee-Pain PT Routine',
+     'https://www.youtube.com/watch?v=8UcPSritoL0', '8UcPSritoL0',
+     '매일 따라 하는 물리치료사 무릎 루틴.', NOW(), NOW()),        -- :contentReference[oaicite:7]{index=7}
+
+/* ── ⑤ 발목(5) ─────────────────────────────────────────────── */
+    (3, 'BEST Sprained-Ankle Rehab Exercises',
+     'https://www.youtube.com/watch?v=ga_OAPf6IOI', 'ga_OAPf6IOI',
+     '염좌 초기부터 단계별 회복 프로그램.', NOW(), NOW()),         -- :contentReference[oaicite:8]{index=8}
+    (3, 'Early-Stage Ankle Exercises #Shorts',
+     'https://www.youtube.com/shorts/FXRUvRbxxB0', 'FXRUvRbxxB0',
+     '초기 붓기 빠지는 발목 운동 60초 버전.', NOW(), NOW()),      -- :contentReference[oaicite:9]{index=9}
+
+/* ── ⑥ 허리(6) ─────────────────────────────────────────────── */
+    (3, 'Home Exercises for Low-Back Pain',
+     'https://www.youtube.com/watch?v=5Wlhkuyakok', '5Wlhkuyakok',
+     'UCSD Pain Center 제공 허리 자가운동.', NOW(), NOW()), -- :contentReference[oaicite:10]{index=10}
+    (3, '20-Minute Lower-Back Rehab',
+     'https://www.youtube.com/watch?v=p6CMso14NWk', 'p6CMso14NWk',
+     '코어·둔근 강화로 허리 통증 예방.', NOW(), NOW()),          -- :contentReference[oaicite:11]{index=11}
+
+/* ── ⑦ 팔꿈치(7) ───────────────────────────────────────────── */
+    (3, '3 Home Exercises for Tennis Elbow',
+     'https://www.youtube.com/watch?v=8ZTXWe81k8E', '8ZTXWe81k8E',
+     '테니스엘보 완화 스트레칭 & 강화.', NOW(), NOW()),          -- :contentReference[oaicite:12]{index=12}
+    (3, 'Physio-Guided Tennis-Elbow Routine',
+     'https://www.youtube.com/watch?v=oDPNW8EnToQ', 'oDPNW8EnToQ',
+     '영국 BESS 물리치료사 공식 가이드.', NOW(), NOW()),        -- :contentReference[oaicite:13]{index=13}
+
+/* ── ⑧ 손목(8) ─────────────────────────────────────────────── */
+    (3, 'Follow-Along Wrist-Pain Fix',
+     'https://www.youtube.com/watch?v=bOXI-wxepmI', 'bOXI-wxepmI',
+     '실시간 스트레칭·강화 루틴으로 손목 통증 완화.', NOW(), NOW()),   -- :contentReference[oaicite:14]{index=14}
+    (3, '손목 골절 후 재활 운동 (0~6주)',
+     'https://www.youtube.com/watch?v=HoFFKY583S8', 'HoFFKY583S8',
+     '병원 재활치료실 제공 초기 회복 운동.', NOW(), NOW());
+-- 이미 DB에 없는 새 URL
+
+
+/* ───────────────────────────
+   2. video_targets 매핑
+   ───────────────────────────*/
+INSERT INTO video_targets (exercise_video_id, target_id)
+SELECT ev.exercise_video_id,
+       CASE ev.youtube_id
+           WHEN 'Q12nIfVCpdU' THEN 1
+           WHEN '2NOsE-VPpkE' THEN 1
+           WHEN 'x39ISQrcXuQ' THEN 2
+           WHEN '1Wy8jh4QQH8' THEN 2
+           WHEN 'vuGnzLxRvZM' THEN 3
+           WHEN 'wbF7obvVWaI' THEN 3
+           WHEN 'ikt6NME0k9E' THEN 4
+           WHEN '8UcPSritoL0' THEN 4
+           WHEN 'ga_OAPf6IOI' THEN 5
+           WHEN 'FXRUvRbxxB0' THEN 5
+           WHEN '5Wlhkuyakok' THEN 6
+           WHEN 'p6CMso14NWk' THEN 6
+           WHEN '8ZTXWe81k8E' THEN 7
+           WHEN 'oDPNW8EnToQ' THEN 7
+           WHEN 'bOXI-wxepmI' THEN 8
+           WHEN 'HoFFKY583S8' THEN 8
+           END AS target_id
+FROM exercise_videos ev
+WHERE ev.youtube_id IN ('Q12nIfVCpdU', '2NOsE-VPpkE',
+                        'x39ISQrcXuQ', '1Wy8jh4QQH8',
+                        'vuGnzLxRvZM', 'wbF7obvVWaI',
+                        'ikt6NME0k9E', '8UcPSritoL0',
+                        'ga_OAPf6IOI', 'FXRUvRbxxB0',
+                        '5Wlhkuyakok', 'p6CMso14NWk',
+                        '8ZTXWe81k8E', 'oDPNW8EnToQ',
+                        'bOXI-wxepmI', 'HoFFKY583S8');
+/* ───────────────────────────
+   1. exercise_videos INSERT
+   ───────────────────────────*/
+INSERT INTO exercise_videos
+(user_id, title, url, youtube_id, description, created_at, updated_at)
+VALUES
+/* ── ① 목(1) ───────────────────────────────────────────────── */
+    (3, '5-Minute Neck Pain Relief Routine',
+     'https://www.youtube.com/watch?v=Q12nIfVCpdU', 'Q12nIfVCpdU',
+     '짧은 5분 루틴으로 거북목·목결림 해소.', NOW(), NOW()),       -- :contentReference[oaicite:0]{index=0}
+    (3, 'Neck Pain Stretches & Exercises',
+     'https://www.youtube.com/watch?v=2NOsE-VPpkE', '2NOsE-VPpkE',
+     '물리치료사가 추천하는 목 스트레칭 모음.', NOW(), NOW()),       -- :contentReference[oaicite:1]{index=1}
+
+/* ── ② 어깨(2) ─────────────────────────────────────────────── */
+    (3, 'Science-Based Rotator-Cuff Strengthening',
+     'https://www.youtube.com/watch?v=x39ISQrcXuQ', 'x39ISQrcXuQ',
+     '회전근개 강화 핵심 동작 5가지.', NOW(), NOW()),           -- :contentReference[oaicite:2]{index=2}
+    (3, 'Rotator Cuff Tear Rehab & Exercises',
+     'https://www.youtube.com/watch?v=1Wy8jh4QQH8', '1Wy8jh4QQH8',
+     '찢어진 회전근개 재활을 위한 단계별 운동.', NOW(), NOW()),      -- :contentReference[oaicite:3]{index=3}
+
+/* ── ③ 등(3) ──────────────────────────────────────────────── */
+    (3, '7 Upper-Back Stretches for Pain Relief',
+     'https://www.youtube.com/watch?v=vuGnzLxRvZM', 'vuGnzLxRvZM',
+     '등 상부·흉추 유연성 향상 스트레칭.', NOW(), NOW()),         -- :contentReference[oaicite:4]{index=4}
+    (3, 'Upper-Back Pain Relief Exercises',
+     'https://www.youtube.com/watch?v=wbF7obvVWaI', 'wbF7obvVWaI',
+     '책상족을 위한 빠른 등 통증 완화 루틴.', NOW(), NOW()),       -- :contentReference[oaicite:5]{index=5}
+
+/* ── ④ 무릎(4) ─────────────────────────────────────────────── */
+    (3, 'Stop Knee Pain – 5 Strength Moves',
+     'https://www.youtube.com/watch?v=ikt6NME0k9E', 'ikt6NME0k9E',
+     '무릎 주위 근육 강화로 통증 잡기.', NOW(), NOW()),          -- :contentReference[oaicite:6]{index=6}
+    (3, 'Daily Knee-Pain PT Routine',
+     'https://www.youtube.com/watch?v=8UcPSritoL0', '8UcPSritoL0',
+     '매일 따라 하는 물리치료사 무릎 루틴.', NOW(), NOW()),        -- :contentReference[oaicite:7]{index=7}
+
+/* ── ⑤ 발목(5) ─────────────────────────────────────────────── */
+    (3, 'BEST Sprained-Ankle Rehab Exercises',
+     'https://www.youtube.com/watch?v=ga_OAPf6IOI', 'ga_OAPf6IOI',
+     '염좌 초기부터 단계별 회복 프로그램.', NOW(), NOW()),         -- :contentReference[oaicite:8]{index=8}
+    (3, 'Early-Stage Ankle Exercises #Shorts',
+     'https://www.youtube.com/shorts/FXRUvRbxxB0', 'FXRUvRbxxB0',
+     '초기 붓기 빠지는 발목 운동 60초 버전.', NOW(), NOW()),      -- :contentReference[oaicite:9]{index=9}
+
+/* ── ⑥ 허리(6) ─────────────────────────────────────────────── */
+    (3, 'Home Exercises for Low-Back Pain',
+     'https://www.youtube.com/watch?v=5Wlhkuyakok', '5Wlhkuyakok',
+     'UCSD Pain Center 제공 허리 자가운동.', NOW(), NOW()), -- :contentReference[oaicite:10]{index=10}
+    (3, '20-Minute Lower-Back Rehab',
+     'https://www.youtube.com/watch?v=p6CMso14NWk', 'p6CMso14NWk',
+     '코어·둔근 강화로 허리 통증 예방.', NOW(), NOW()),          -- :contentReference[oaicite:11]{index=11}
+
+/* ── ⑦ 팔꿈치(7) ───────────────────────────────────────────── */
+    (3, '3 Home Exercises for Tennis Elbow',
+     'https://www.youtube.com/watch?v=8ZTXWe81k8E', '8ZTXWe81k8E',
+     '테니스엘보 완화 스트레칭 & 강화.', NOW(), NOW()),          -- :contentReference[oaicite:12]{index=12}
+    (3, 'Physio-Guided Tennis-Elbow Routine',
+     'https://www.youtube.com/watch?v=oDPNW8EnToQ', 'oDPNW8EnToQ',
+     '영국 BESS 물리치료사 공식 가이드.', NOW(), NOW()),        -- :contentReference[oaicite:13]{index=13}
+
+/* ── ⑧ 손목(8) ─────────────────────────────────────────────── */
+    (3, 'Follow-Along Wrist-Pain Fix',
+     'https://www.youtube.com/watch?v=bOXI-wxepmI', 'bOXI-wxepmI',
+     '실시간 스트레칭·강화 루틴으로 손목 통증 완화.', NOW(), NOW()),   -- :contentReference[oaicite:14]{index=14}
+    (3, '손목 골절 후 재활 운동 (0~6주)',
+     'https://www.youtube.com/watch?v=HoFFKY583S8', 'HoFFKY583S8',
+     '병원 재활치료실 제공 초기 회복 운동.', NOW(), NOW());
+-- 이미 DB에 없는 새 URL
+
+
+/* ───────────────────────────
+   2. video_targets 매핑
+   ───────────────────────────*/
+INSERT INTO video_targets (exercise_video_id, target_id)
+SELECT ev.exercise_video_id,
+       CASE ev.youtube_id
+           WHEN 'Q12nIfVCpdU' THEN 1
+           WHEN '2NOsE-VPpkE' THEN 1
+           WHEN 'x39ISQrcXuQ' THEN 2
+           WHEN '1Wy8jh4QQH8' THEN 2
+           WHEN 'vuGnzLxRvZM' THEN 3
+           WHEN 'wbF7obvVWaI' THEN 3
+           WHEN 'ikt6NME0k9E' THEN 4
+           WHEN '8UcPSritoL0' THEN 4
+           WHEN 'ga_OAPf6IOI' THEN 5
+           WHEN 'FXRUvRbxxB0' THEN 5
+           WHEN '5Wlhkuyakok' THEN 6
+           WHEN 'p6CMso14NWk' THEN 6
+           WHEN '8ZTXWe81k8E' THEN 7
+           WHEN 'oDPNW8EnToQ' THEN 7
+           WHEN 'bOXI-wxepmI' THEN 8
+           WHEN 'HoFFKY583S8' THEN 8
+           END AS target_id
+FROM exercise_videos ev
+WHERE ev.youtube_id IN ('Q12nIfVCpdU', '2NOsE-VPpkE',
+                        'x39ISQrcXuQ', '1Wy8jh4QQH8',
+                        'vuGnzLxRvZM', 'wbF7obvVWaI',
+                        'ikt6NME0k9E', '8UcPSritoL0',
+                        'ga_OAPf6IOI', 'FXRUvRbxxB0',
+                        '5Wlhkuyakok', 'p6CMso14NWk',
+                        '8ZTXWe81k8E', 'oDPNW8EnToQ',
+                        'bOXI-wxepmI', 'HoFFKY583S8');
+/* ──────────────────────────────
+   1. exercise_videos INSERT
+   ──────────────────────────────*/
+INSERT INTO exercise_videos
+(user_id, title, url, youtube_id, description, created_at, updated_at)
+VALUES
+/* ─ REHAB PROGRAM ─────────────────────────── */
+    (3, '30-Minute Full-Body Rehab Exercise Class',
+     'https://www.youtube.com/watch?v=dqIWBBtYMuo', 'dqIWBBtYMuo',
+     '전신 재활에 적합한 30분 루틴을 소개.', NOW(), NOW()),     -- target: 허리(6)
+
+    (3, 'Daily Rehab Workout 1 | Tim Keeley',
+     'https://www.youtube.com/watch?v=cLQcXGYKigg', 'cLQcXGYKigg',
+     '클리닉 물리치료사가 제안하는 데일리 재활 루틴.', NOW(), NOW()), -- target: 무릎(4)
+
+/* ─ REHAB SPORTS ────────────────────────── */
+    (3, 'Physical Therapy for Sports Injuries',
+     'https://www.youtube.com/watch?v=j6o9Oe9Uz8Y', 'j6o9Oe9Uz8Y',
+     '스포츠 손상 회복을 위한 물리치료 팁.', NOW(), NOW()),      -- target: 무릎(4)
+
+    (3, 'Recovering From Sports Injuries Like a Pro',
+     'https://www.youtube.com/watch?v=Q2plwlxNNBU', 'Q2plwlxNNBU',
+     '메이요 클리닉 정형외과 전문의의 재활 가이드.', NOW(), NOW()),  -- target: 등(3)
+
+/* ─ TAPING ───────────────────────────────── */
+    (3, 'KT Tape: Rotator Cuff Shoulder Taping',
+     'https://www.youtube.com/watch?v=Ywb2UXxpk-Y', 'Ywb2UXxpk-Y',
+     '회전근개 통증 완화용 키네시올로지 테이핑.', NOW(), NOW()),    -- target: 어깨(2)
+
+    (3, 'KT Tape – Full Shoulder Support',
+     'https://www.youtube.com/watch?v=NrqQD_TUyDU', 'NrqQD_TUyDU',
+     '어깨 전반 안정화를 위한 테이핑 방법.', NOW(), NOW()),      -- target: 어깨(2)
+
+/* ─ MASSAGE / FOAM ROLLER ────────────────── */
+    (3, 'Foam Roll Your Lower Back the RIGHT Way!',
+     'https://www.youtube.com/watch?v=Orfqe-CQIZo', 'Orfqe-CQIZo',
+     '폼롤러로 허리 근막을 효과적으로 이완.', NOW(), NOW()),      -- target: 허리(6)
+
+    (3, 'Release Your FULL Back With a Foam Roller',
+     'https://www.youtube.com/watch?v=x2YczbHH9JQ', 'x2YczbHH9JQ',
+     '등 전체를 시원하게 풀어주는 폼롤러 루틴.', NOW(), NOW());
+-- target: 등(3)
+
+
+/* ──────────────────────────────
+   2. video_targets 매핑
+   (youtube_id 기준으로 target_id 부여)
+   ──────────────────────────────*/
+/* REHAB PROGRAM → 허리(6) */
+INSERT INTO video_targets (exercise_video_id, target_id)
+SELECT ev.exercise_video_id, 6
+FROM exercise_videos ev
+WHERE ev.youtube_id IN ('dqIWBBtYMuo');
+
+/* REHAB PROGRAM → 무릎(4) */
+INSERT INTO video_targets (exercise_video_id, target_id)
+SELECT ev.exercise_video_id, 4
+FROM exercise_videos ev
+WHERE ev.youtube_id IN ('cLQcXGYKigg');
+
+/* REHAB SPORTS → 무릎(4) */
+INSERT INTO video_targets (exercise_video_id, target_id)
+SELECT ev.exercise_video_id, 4
+FROM exercise_videos ev
+WHERE ev.youtube_id IN ('j6o9Oe9Uz8Y');
+
+/* REHAB SPORTS → 등(3) */
+INSERT INTO video_targets (exercise_video_id, target_id)
+SELECT ev.exercise_video_id, 3
+FROM exercise_videos ev
+WHERE ev.youtube_id IN ('Q2plwlxNNBU');
+
+/* TAPING 2편 → 어깨(2) */
+INSERT INTO video_targets (exercise_video_id, target_id)
+SELECT ev.exercise_video_id, 2
+FROM exercise_videos ev
+WHERE ev.youtube_id IN ('Ywb2UXxpk-Y', 'NrqQD_TUyDU');
+
+/* MASSAGE Lower-Back → 허리(6) */
+INSERT INTO video_targets (exercise_video_id, target_id)
+SELECT ev.exercise_video_id, 6
+FROM exercise_videos ev
+WHERE ev.youtube_id = 'Orfqe-CQIZo';
+
+/* MASSAGE Full-Back → 등(3) */
+INSERT INTO video_targets (exercise_video_id, target_id)
+SELECT ev.exercise_video_id, 3
+FROM exercise_videos ev
+WHERE ev.youtube_id = 'x2YczbHH9JQ';
+
 
 -- 유저는 댓글도 달아둠.
 INSERT INTO comments (user_id, exercise_video_id, content)
@@ -333,5 +631,318 @@ VALUES (3, '거북목 환자분들 꼭 읽으세요.',
 INSERT INTO reviews (article_id, user_id, content, created_at, updated_at)
 VALUES (1, 2, '선생님...여기서 이러시면 안됩니다..', NOW(), NOW());
 
+/* === 1. 게시글 INSERT  (id 3~7) ================================ */
+INSERT INTO articles (article_id, user_id, title, content)
+VALUES (3, 2, '2주차 질문', 'AI 루틴 2주차에서 ‘‘목 신경 가동 스트레칭’’ 동작이 이해 안 됩니다. 팔 각도·호흡 템포를 알려주세요.'),
+       (4, 2, '폼롤러 강도?', '허리 폼롤러 마사지 시 통증이 있어요. 어느 정도 압력이 적당한가요?'),
+       (5, 3, '손목 재활 3단계', '손목 재활 프로토콜: ①가동성→②안정성→③근지구력. 단계별 핵심 포인트를 정리합니다.'),
+       (6, 3, '마사지볼 팁', '마사지볼로 팔꿈치 주변 근막을 풀 때 놓치기 쉬운 3가지 체크포인트를 공유합니다.'),
+       (7, 2, '테이핑 위치?', '손목 테이핑 시 끝부분이 자꾸 들뜹니다. 정확한 부착 위치와 팁이 궁금해요.');
 
+
+/* === 2. 댓글 INSERT  (created_at / updated_at = NOW()) ========= */
+
+/* 게시글 3 ─────────────────────────────────────────── */
+INSERT INTO reviews (article_id, user_id, content, created_at, updated_at)
+VALUES (3, 3, '팔 각도는 45°에서 시작해 내쉬며 70°까지 천천히 올리면 됩니다. 한 동작당 10초 유지하세요.', NOW(), NOW()),
+       (3, 2, '호흡은 내쉬는 동안만 움직이면 될까요?', NOW(), NOW()),
+       (3, 3, '맞습니다. 들숨엔 정지, 날숨에 부드럽게 늘려 주세요.', NOW(), NOW());
+
+/* 게시글 4 ─────────────────────────────────────────── */
+INSERT INTO reviews (article_id, user_id, content, created_at, updated_at)
+VALUES (4, 3, '통증 수치 5/10 이하가 적정 강도입니다. 멍이 들 정도는 과도해요.', NOW(), NOW()),
+       (4, 2, '세트당 시간은요?', NOW(), NOW()),
+       (4, 3, '30초 롤링 → 10초 휴식 × 3세트면 충분합니다.', NOW(), NOW());
+
+/* 게시글 5 ─────────────────────────────────────────── */
+INSERT INTO reviews (article_id, user_id, content, created_at, updated_at)
+VALUES (5, 2, '2단계 안정성 훈련에 추천 밴드 강도는?', NOW(), NOW()),
+       (5, 3, '“Light–Medium” 밴드로 15회 수행 시 2~3회 남는 느낌이면 적당합니다.', NOW(), NOW()),
+       (5, 2, '영상도 부탁드려요!', NOW(), NOW()),
+       (5, 3, '다음 주 튜토리얼 영상 업로드 예정입니다.', NOW(), NOW());
+
+/* 게시글 6 ─────────────────────────────────────────── */
+INSERT INTO reviews (article_id, user_id, content, created_at, updated_at)
+VALUES (6, 2, '마사지볼 지름은 얼마나 써야 하나요?', NOW(), NOW()),
+       (6, 3, '테니스공(약 6.7 cm)이 초보자에게 가장 무난합니다.', NOW(), NOW()),
+       (6, 2, '바로 사용해 볼게요. 감사합니다!', NOW(), NOW());
+
+/* 게시글 7 ─────────────────────────────────────────── */
+INSERT INTO reviews (article_id, user_id, content, created_at, updated_at)
+VALUES (7, 3, '부착 전 알코올 솜으로 피부 유분 제거 후 끝부분은 당기지 않고 붙이면 덜 들뜹니다.', NOW(), NOW()),
+       (7, 2, '알겠습니다. 실습해 볼게요!', NOW(), NOW()),
+       (7, 3, '들뜸이 계속되면 테이프를 5 cm 더 길게 잘라 여유 있게 마감해 보세요.', NOW(), NOW());
+
+
+INSERT INTO rehab_programs
+(user_id, part, question, prescription, isdone, created_at, refresh_at)
+VALUES  (1, 'SHOULDER',
+         '당신은 도수치료 전문 재활운동센터를 운영하는 운동처방사입니다.
+
+          현재 목표는 팔꿈치 통증의 감소 및 재활이며, 신체능력 향상은 목적이 아닙니다.
+          운동처방은 다음 조건을 따라야 합니다:
+          주 1회 방문 기준, 매주 프로그램을 조정할 수 있도록 구성하세요.
+          운동은 맨몸, 테라밴드, 마사지볼, 아령(1~3kg), 폼롤러 등의 소도구만 사용해야 합니다.
+          사용자는 집에 매트를 깔 수 있는 공간이 있으며, 수면 시간은 5시간으로 바뀌지 않습니다.
+          운동은 하루 15~20분 이내, 주 5일 기준으로 짜주세요.
+          난이도는 기초 맨몸운동보다 한 단계 높은 수준으로 구성해주세요. 단, 통증 유발 동작이나 고중량 웨이트는 금지입니다.
+
+          운동은 반드시 다음 범주로 나눠주세요:
+          준비 운동 / 근막이완
+          신경 활주 운동 (nerve gliding)
+          팔꿈치 및 손목 근육 강화
+          어깨 및 회전근 안정화
+          등척성 유지 운동
+          마무리 스트레칭
+
+          모든 응답의 형태는 반드시 JSON으로 반환하십시오 JSON 형식 이외의 형태는 허용하지 않습니다.
+
+          ※ 아래 예시는 JSON 포맷의 예시일 뿐이며, 특정 신체 부위에 고정된 루틴이 아닙니다. 실제 응답은 사용자 정보에 따라 다른 운동이 포함되어야 합니다.
+
+          질문 예시 :
+          사용자 정보
+          나이: 28세
+          키:180cm
+          몸무게: 100kg
+          성별: 남성
+          수면 시간: 하루 5시간 수면
+          생활 습관: 하루 12시간 이상 컴퓨터 앞에 앉아 있고,
+          운동 경험: 현재는 운동을 하지 않습니다.
+          특이사항 : 과거 오른쪽 무릎 슬개건 완전 파열로 인한 수술을 받았습니다. 그리고 통풍이 있습니다.
+          통증 부위 : 오른쪽 팔꿈치 통증을 호소하고 있습니다.
+          통증 발생 조건 : 장시간 컴퓨터 사용
+          통증 양상 : 시큰거리는 느낌이 팔꿈치부터 올라옵니다.
+          통증 시작 시기 : 이틀 전 부터 아팠습니다 흙
+          통증 강도(10점 만점) :  평소 5점, 심한 통증 7점
+
+
+          응답 예시 :
+          {
+            "userId": 1,
+            "startDate": "2025-05-26",
+            "weeklyRoutine": [
+              {
+                "day": "월요일",
+                "date": "2025-05-26",
+                "exercises": [
+                  {
+                    "category": "준비 운동 / 근막이완",
+                    "name": "폼롤러 상완 삼두 마사지",
+                    "duration": "2분",
+                    "equipment": "폼롤러",
+                    "note": "팔꿈치 위 삼두근을 집중적으로 부드럽게 굴려주세요."
+                  },
+                  {
+                    "category": "신경 활주 운동",
+                    "name": "정중신경 활주",
+                    "duration": "3분",
+                    "equipment": "없음",
+                    "note": "팔을 옆으로 뻗고 손바닥을 하늘로 향하게 한 채 손목을 위아래로 움직입니다."
+                  },
+                  {
+                    "category": "팔꿈치 및 손목 근육 강화",
+                    "name": "손가락 저항 운동",
+                    "duration": "3분",
+                    "equipment": "고무 밴드",
+                    "note": "손가락을 벌리고 모으는 동작을 반복합니다."
+                  },
+                  {
+                    "category": "어깨 및 회전근 안정화",
+                    "name": "밴드 외회전 운동",
+                    "duration": "4분",
+                    "equipment": "테라밴드",
+                    "note": "팔꿈치를 90도 굽히고 몸통 옆에 붙인 채, 밴드를 바깥쪽으로 당깁니다."
+                  },
+                  {
+                    "category": "등척성 유지 운동",
+                    "name": "팔꿈치 굴곡 등척성 유지",
+                    "duration": "3분",
+                    "equipment": "없음",
+                    "note": "90도 굽힌 팔을 반대 손으로 저항하면서 10초간 힘을 유지하고 반복합니다."
+                  },
+                  {
+                    "category": "마무리 스트레칭",
+                    "name": "손목 신전근 스트레칭",
+                    "duration": "3분",
+                    "equipment": "없음",
+                    "note": "손바닥을 아래로 향한 채 손등을 눌러 스트레칭합니다."
+                  }
+                ]
+              },
+              {
+                "day": "화요일",
+                "date": "2025-05-27",
+                "exercises": [
+                  {
+                    "category": "준비 운동 / 근막이완",
+                    "name": "마사지볼 손바닥/팔꿈치 근막 이완",
+                    "duration": "2분",
+                    "equipment": "마사지볼",
+                    "note": "탁자 위에서 팔을 마사지볼로 천천히 굴립니다."
+                  },
+                  {
+                    "category": "신경 활주 운동",
+                    "name": "척골신경 활주",
+                    "duration": "3분",
+                    "equipment": "없음",
+                    "note": "팔을 앞으로 뻗고 손목을 바깥쪽으로 틀며 신경을 부드럽게 늘립니다."
+                  },
+                  {
+                    "category": "팔꿈치 및 손목 근육 강화",
+                    "name": "손목 회전 저항 운동",
+                    "duration": "3분",
+                    "equipment": "테라밴드",
+                    "note": "밴드를 이용해 손목을 시계방향, 반시계 방향으로 저항을 줍니다."
+                  },
+                  {
+                    "category": "어깨 및 회전근 안정화",
+                    "name": "Y-T-W 밴드운동",
+                    "duration": "4분",
+                    "equipment": "테라밴드",
+                    "note": "가슴을 편 상태에서 Y, T, W자 모양으로 팔을 벌리며 어깨 후면 자극."
+                  },
+                  {
+                    "category": "등척성 유지 운동",
+                    "name": "손목 굴곡 등척성 유지",
+                    "duration": "2분",
+                    "equipment": "없음",
+                    "note": "손바닥을 위로 한 상태로 저항을 주며 유지."
+                  },
+                  {
+                    "category": "마무리 스트레칭",
+                    "name": "손목 회전 스트레칭",
+                    "duration": "3분",
+                    "equipment": "없음",
+                    "note": "손목을 천천히 좌우로 돌리며 이완."
+                  }
+                ]
+              },
+              {
+                "day": "수요일",
+                "date": "2025-05-28",
+                "exercises": [],
+                "note": "휴식 또는 가벼운 스트레칭만 진행"
+              },
+              {
+                "day": "목요일",
+                "date": "2025-05-29",
+                "exercises": [
+                  {
+                    "category": "준비 운동 / 근막이완",
+                    "name": "폼롤러 상완 삼두 마사지",
+                    "duration": "2분",
+                    "equipment": "폼롤러",
+                    "note": "팔꿈치 위 삼두근을 집중적으로 부드럽게 굴려주세요."
+                  },
+                  {
+                    "category": "신경 활주 운동",
+                    "name": "정중신경 활주",
+                    "duration": "3분",
+                    "equipment": "없음",
+                    "note": "팔을 옆으로 뻗고 손바닥을 하늘로 향하게 한 채 손목을 위아래로 움직입니다."
+                  },
+                  {
+                    "category": "팔꿈치 및 손목 근육 강화",
+                    "name": "손가락 저항 운동",
+                    "duration": "3분",
+                    "equipment": "고무 밴드",
+                    "note": "손가락을 벌리고 모으는 동작을 반복합니다."
+                  },
+                  {
+                    "category": "어깨 및 회전근 안정화",
+                    "name": "밴드 외회전 운동",
+                    "duration": "4분",
+                    "equipment": "테라밴드",
+                    "note": "팔꿈치를 90도 굽히고 몸통 옆에 붙인 채, 밴드를 바깥쪽으로 당깁니다."
+                  },
+                  {
+                    "category": "등척성 유지 운동",
+                    "name": "팔꿈치 굴곡 등척성 유지",
+                    "duration": "3분",
+                    "equipment": "없음",
+                    "note": "90도 굽힌 팔을 반대 손으로 저항하면서 10초간 힘을 유지하고 반복합니다."
+                  },
+                  {
+                    "category": "마무리 스트레칭",
+                    "name": "손목 신전근 스트레칭",
+                    "duration": "3분",
+                    "equipment": "없음",
+                    "note": "손바닥을 아래로 향한 채 손등을 눌러 스트레칭합니다."
+                  }
+                ]
+              },
+              {
+                "day": "금요일",
+                "date": "2025-05-30",
+                "exercises": [
+                  {
+                    "category": "준비 운동 / 근막이완",
+                    "name": "마사지볼 손바닥/팔꿈치 근막 이완",
+                    "duration": "2분",
+                    "equipment": "마사지볼",
+                    "note": "탁자 위에서 팔을 마사지볼로 천천히 굴립니다."
+                  },
+                  {
+                    "category": "신경 활주 운동",
+                    "name": "척골신경 활주",
+                    "duration": "3분",
+                    "equipment": "없음",
+                    "note": "팔을 앞으로 뻗고 손목을 바깥쪽으로 틀며 신경을 부드럽게 늘립니다."
+                  },
+                  {
+                    "category": "팔꿈치 및 손목 근육 강화",
+                    "name": "손목 회전 저항 운동",
+                    "duration": "3분",
+                    "equipment": "테라밴드",
+                    "note": "밴드를 이용해 손목을 시계방향, 반시계 방향으로 저항을 줍니다."
+                  },
+                  {
+                    "category": "어깨 및 회전근 안정화",
+                    "name": "Y-T-W 밴드운동",
+                    "duration": "4분",
+                    "equipment": "테라밴드",
+                    "note": "가슴을 편 상태에서 Y, T, W자 모양으로 팔을 벌리며 어깨 후면 자극."
+                  },
+                  {
+                    "category": "등척성 유지 운동",
+                    "name": "손목 굴곡 등척성 유지",
+                    "duration": "2분",
+                    "equipment": "없음",
+                    "note": "손바닥을 위로 한 상태로 저항을 주며 유지."
+                  },
+                  {
+                    "category": "마무리 스트레칭",
+                    "name": "손목 회전 스트레칭",
+                    "duration": "3분",
+                    "equipment": "없음",
+                    "note": "손목을 천천히 좌우로 돌리며 이완."
+                  }
+                ]
+              }
+            ]
+          }
+
+          질문 :
+
+
+          사용자 정보
+          나이: 28
+          키: 180
+          몸무게: 100
+          성별: 남성
+          수면 시간: 4
+          운동 경험: 웨이트 주 2회
+          특이사항: 없습니다.
+          통증 부위: ELBOW
+          통증 발생 조건: 무거운걸 들때, 오랜시간 컴퓨터 작업
+          통증 양상: 시큰거림
+          통증 시작 시기: 3개월 전
+          통증 강도: 7
+
+          응답:
+          ',
+         '{"startDate":"2025-05-26","weeklyRoutine":[{"day":"월요일","date":"2025-05-26","exercises":[{"category":"준비 운동 / 근막이완","name":"상완근 폼롤러 이완","duration":"2분","equipment":"폼롤러","note":"팔꿈치 위쪽 팔을 폼롤러로 천천히 압박하며 롤링."},{"category":"신경 활주 운동","name":"정중신경 신전 활주","duration":"2분","equipment":"없음","note":"팔을 옆으로 뻗고 손바닥을 천장, 손끝을 귀 쪽으로 움직이며 신경 주행 감각에 집중."},{"category":"팔꿈치 및 손목 근육 강화","name":"테라밴드 리버스 컬","duration":"3분","equipment":"테라밴드","note":"팔꿈치를 고정하고 밴드를 양손에 쥔 채 손등이 위로 향하도록 컬."},{"category":"어깨 및 회전근 안정화","name":"밴드 어깨 외회전","duration":"3분","equipment":"테라밴드","note":"팔꿈치 90도 고정, 측면에서 밴드를 잡고 바깥쪽으로 회전."},{"category":"등척성 유지 운동","name":"팔꿈치 폄 등척성 유지","duration":"2분","equipment":"없음","note":"팔꿈치를 20도 펴고 반대손으로 가볍게 밀며 10초씩 유지."},{"category":"마무리 스트레칭","name":"삼두근 스트레칭","duration":"2분","equipment":"없음","note":"한쪽 손으로 반대쪽 팔꿈치를 잡고 머리 뒤로 넘겨 부드럽게 스트레칭."}]},{"day":"화요일","date":"2025-05-27","exercises":[{"category":"준비 운동 / 근막이완","name":"마사지볼 전완 근막이완","duration":"2분","equipment":"마사지볼","note":"탁자 위에 손바닥을 두고 볼로 팔꿈치~손목까지 지그시 굴린다."},{"category":"신경 활주 운동","name":"요골신경 활주","duration":"2분","equipment":"없음","note":"팔을 앞으로 뻗은 뒤 엄지손가락을 아래로 돌리며 손목 굴곡·신전을 반복."},{"category":"팔꿈치 및 손목 근육 강화","name":"손목 신전 저항","duration":"2분","equipment":"1~2kg 아령","note":"손바닥을 아래로 한 채 손목을 들어올리며 전완 신전근 단련."},{"category":"어깨 및 회전근 안정화","name":"밴드 T 레이즈","duration":"3분","equipment":"테라밴드","note":"양팔을 T자로 벌리며 밴드에 저항을 준다."},{"category":"등척성 유지 운동","name":"손목 회전 등척성","duration":"2분","equipment":"없음","note":"팔을 고정하고 손바닥 잡아 손목을 시계, 반시계로 10초간 저항 유지 반복."},{"category":"마무리 스트레칭","name":"전완굴근 스트레칭","duration":"2분","equipment":"없음","note":"한팔을 앞쪽으로 뻗고 반대손으로 손바닥을 몸쪽으로 부드럽게 당긴다."}]},{"day":"수요일","date":"2025-05-28","exercises":[{"category":"준비 운동 / 근막이완","name":"전완 폼롤러 이완","duration":"2분","equipment":"폼롤러","note":"전완을 폼롤러로 천천히 롤링하여 근막 이완."},{"category":"신경 활주 운동","name":"척골신경 활주","duration":"2분","equipment":"없음","note":"팔꿈치를 살짝 굽히고 손목을 바깥쪽·안쪽으로 교차하며 신경을 자극."},{"category":"팔꿈치 및 손목 근육 강화","name":"테라밴드 프론트 컬","duration":"3분","equipment":"테라밴드","note":"손바닥이 위를 향하도록 밴드를 이용해 컬 동작 수행."},{"category":"어깨 및 회전근 안정화","name":"밴드 내회전운동","duration":"3분","equipment":"테라밴드","note":"팔꿈치를 몸통에 붙인 채 밴드를 몸쪽으로 감듯이 잡아당긴다."},{"category":"등척성 유지 운동","name":"손가락 등척성","duration":"2분","equipment":"고무 밴드","note":"손가락에 밴드를 걸고 벌리는 힘을 10초씩 유지, 반복."},{"category":"마무리 스트레칭","name":"손목 신전 스트레칭","duration":"2분","equipment":"없음","note":"손바닥을 아래로 한 상태에서 반대손으로 손등을 몸쪽으로 누르며 이완."}]},{"day":"목요일","date":"2025-05-29","exercises":[{"category":"준비 운동 / 근막이완","name":"마사지볼 손목/팔꿈치 근막이완","duration":"2분","equipment":"마사지볼","note":"손목~팔꿈치를 마사지볼로 천천히 문지른다."},{"category":"신경 활주 운동","name":"정중신경 굴곡 활주","duration":"2분","equipment":"없음","note":"팔꿈치를 펴고 손바닥을 아래, 손끝은 바깥쪽으로 가며 손목을 천천히 굴곡과 신전 반복."},{"category":"팔꿈치 및 손목 근육 강화","name":"테라밴드 프론테이션 저항","duration":"3분","equipment":"테라밴드","note":"팔꿈치 90도에서 손목을 안쪽·바깥쪽(회내·회외) 돌리며 저항."},{"category":"어깨 및 회전근 안정화","name":"Y 밴드레이즈","duration":"3분","equipment":"테라밴드","note":"팔을 귀 옆까지 올려 Y자 만드는 동안 밴드를 늘려 어깨 뒷면 자극."},{"category":"등척성 유지 운동","name":"팔꿈치 굴곡 등척성 유지","duration":"2분","equipment":"없음","note":"팔을 90도 굽혀 반대 손으로 가볍게 저항, 10초씩 반복."},{"category":"마무리 스트레칭","name":"이두근/전완 신장 스트레칭","duration":"2분","equipment":"없음","note":"팔을 완전히 뻗고 손바닥을 바깥쪽으로 돌려 이두-전완 전체 이완."}]},{"day":"금요일","date":"2025-05-30","exercises":[{"category":"준비 운동 / 근막이완","name":"상완/전완 폼롤러 이완","duration":"2분","equipment":"폼롤러","note":"상완, 전완 모두 폼롤러로 마사지하며 전체 팔에 혈류 촉진."},{"category":"신경 활주 운동","name":"정중신경, 척골신경 번갈아 활주","duration":"2분","equipment":"없음","note":"정중, 척골신경 활주 동작 각 1분씩 교차 시행."},{"category":"팔꿈치 및 손목 근육 강화","name":"손목 플렉션/익스텐션 번갈이 운동","duration":"3분","equipment":"1~2kg 아령","note":"아령을 쥐고 손목 굴곡, 신전을 천천히 반복(양손 교대)."},{"category":"어깨 및 회전근 안정화","name":"W 밴드외회전","duration":"3분","equipment":"테라밴드","note":"팔꿈치 붙여 W 모양, 밴드를 밖으로 벌리며 어깨 회전근 자극."},{"category":"등척성 유지 운동","name":"손목 신전 등척성 유지","duration":"2분","equipment":"없음","note":"손바닥을 바닥으로 두고 반대손 저항을 줘 들려진 자세로 10초씩 유지."},{"category":"마무리 스트레칭","name":"팔 전체 가벼운 흔들기","duration":"2분","equipment":"없음","note":"팔꿈치~손목 편안히 흔들어 이완, 마지막 호흡 조절."}]}]}',
+         1,
+         '2025-05-14 08:00:00',   -- created_at (2주 전 수요일)
+         '2025-05-21 08:00:00');
 
