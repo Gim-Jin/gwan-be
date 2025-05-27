@@ -15,4 +15,5 @@ public interface ArticleRepository {
   public List<SummaryArticleDto> searchByTitle(String Title);
   public List<SummaryArticleDto> selectArticlesByUserId(Long userId);
   public List<SummaryArticleDto> selectArticles();
+  public List<SummaryArticleDto> selectRecommendArticleByUserId(Long userId);
 }
