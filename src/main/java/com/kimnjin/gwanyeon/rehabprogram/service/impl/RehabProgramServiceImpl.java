@@ -1,7 +1,10 @@
 package com.kimnjin.gwanyeon.rehabprogram.service.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kimnjin.gwanyeon.commons.exception.BadRequestException;
 import com.kimnjin.gwanyeon.commons.exception.ResourceNotFoundException;
+import com.kimnjin.gwanyeon.rehabprogram.dto.GptExerciseRoutineRequestDto;
 import com.kimnjin.gwanyeon.rehabprogram.dto.PrescriptionResponseDto;
 import com.kimnjin.gwanyeon.rehabprogram.dto.RehabProgramResponseDto;
 import com.kimnjin.gwanyeon.rehabprogram.dto.UserSurveyRequestDto;
@@ -15,7 +18,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
-import org.springframework.ai.openai.OpenAiChatModel;
+import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,9 +27,12 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class RehabProgramServiceImpl implements RehabProgramService {
 
-  private final OpenAiChatModel openAiChatModel;
+
+  private final ChatClient chatClient;
 
   private final RehabProgramRepository rehabProgramRepository;
+
+  private final ObjectMapper objectMapper;
 
   private final String NOT_FOUND = "프로그램을 찾을 수 없습니다.";
 
@@ -37,7 +44,19 @@ public class RehabProgramServiceImpl implements RehabProgramService {
   public RehabProgramResponseDto saveRehabProgram(UserSurveyRequestDto userSurveyRequestDto,
       Long userId) {
     String question = PromptFormatter.formatPrompt(userSurveyRequestDto);
-    String result = openAiChatModel.call(question);
+
+    GptExerciseRoutineRequestDto resultObj = chatClient.prompt(question).call().entity(
+        new ParameterizedTypeReference<GptExerciseRoutineRequestDto>() {
+        });
+
+    String result;
+    
+    try {
+      result = objectMapper.writeValueAsString(resultObj);
+    } catch (JsonProcessingException e) {
+      throw new BadRequestException(BAD_REQUEST);
+    }
+
     RehabProgram newRehabProgram = RehabProgram.builder()
         .part(Part.valueOf(userSurveyRequestDto.getPainArea()))
         .userId(userId)

@@ -10,17 +10,20 @@ DROP TABLE IF EXISTS `comments`;
 DROP TABLE IF EXISTS `exercise_targets`;
 DROP TABLE IF EXISTS `video_targets`;
 DROP TABLE IF EXISTS `refresh_token`;
+drop table if exists `articles`;
+drop table if exists `recommands`;
+drop table if exists `reviews`;
 
 CREATE TABLE `users`
 (
-    `user_id`    BIGINT      NOT NULL AUTO_INCREMENT,
-    `login_id`   VARCHAR(10) NOT NULL,
-    `password`   TEXT        NOT NULL COMMENT 'Bcrypt 해시 처리',
-    `nickname`   VARCHAR(10) NOT NULL,
-    `email`      VARCHAR(30) NOT NULL,
-    `role`       ENUM('GENERAL', 'ADMIN','PRESCRIBER') NOT NULL DEFAULT 'GENERAL' COMMENT 'GENERAL, ADMIN, PRESCRIBER',
-    `created_at` TIMESTAMP   NOT NULL DEFAULT NOW(),
-    `name`       VARCHAR(20) NOT NULL,
+    `user_id`    BIGINT                                 NOT NULL AUTO_INCREMENT,
+    `login_id`   VARCHAR(10)                            NOT NULL,
+    `password`   TEXT                                   NOT NULL COMMENT 'Bcrypt 해시 처리',
+    `nickname`   VARCHAR(10)                            NOT NULL,
+    `email`      VARCHAR(30)                            NOT NULL,
+    `role`       ENUM ('GENERAL', 'ADMIN','PRESCRIBER') NOT NULL DEFAULT 'GENERAL' COMMENT 'GENERAL, ADMIN, PRESCRIBER',
+    `created_at` TIMESTAMP                              NOT NULL DEFAULT NOW(),
+    `name`       VARCHAR(20)                            NOT NULL,
     PRIMARY KEY (`user_id`)
 );
 
@@ -46,7 +49,7 @@ CREATE TABLE `exercise_videos`
     `title`             VARCHAR(50)  NOT NULL,
     `url`               VARCHAR(255) NOT NULL COMMENT 'URL파싱처리',
     `youtube_id`        TEXT         NOT NULL,
-    `description`       TEXT NULL COMMENT '영상에 대한 간단한 설명',
+    `description`       TEXT         NULL COMMENT '영상에 대한 간단한 설명',
     `created_at`        TIMESTAMP    NOT NULL DEFAULT NOW(),
     `updated_at`        TIMESTAMP    NOT NULL DEFAULT NOW(),
     PRIMARY KEY (`exercise_video_id`),
@@ -97,14 +100,14 @@ CREATE TABLE `gen_ai_repsponses`
 
 CREATE TABLE `rehab_programs`
 (
-    `rehab_program_id`   BIGINT    NOT NULL AUTO_INCREMENT,
-    `user_id`      BIGINT    NOT NULL,
-    `part`         ENUM('NECK', 'SHOULDER', 'BACK', 'KNEE', 'ANKLE', 'WRIST', 'ELBO') NOT NULL DEFAULT 'NECK',
-    `question`     TEXT      NOT NULL,
-    `prescription` TEXT      NOT NULL,
-    `isdone`       BOOLEAN   NOT NULL DEFAULT false,
-    `created_at`   TIMESTAMP NOT NULL DEFAULT NOW(),
-    `refresh_at`   TIMESTAMP NOT NULL DEFAULT NOW(),
+    `rehab_program_id` BIGINT                                                              NOT NULL AUTO_INCREMENT,
+    `user_id`          BIGINT                                                              NOT NULL,
+    `part`             ENUM ('NECK', 'SHOULDER', 'BACK', 'KNEE', 'ANKLE', 'WRIST', 'ELBOW') NOT NULL DEFAULT 'NECK',
+    `question`         TEXT                                                                NOT NULL,
+    `prescription`     TEXT                                                                NOT NULL,
+    `isdone`           BOOLEAN                                                             NOT NULL DEFAULT false,
+    `created_at`       TIMESTAMP                                                           NOT NULL DEFAULT NOW(),
+    `refresh_at`       TIMESTAMP                                                           NOT NULL DEFAULT NOW(),
     PRIMARY KEY (`rehab_program_id`),
     FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -113,11 +116,11 @@ CREATE TABLE `rehab_program_excercises`
 (
     `rehab_program_exercise_id` BIGINT NOT NULL AUTO_INCREMENT,
     `rehab_program_id`          BIGINT NOT NULL,
-    `exercise_id`         BIGINT NOT NULL,
-    `sets`                INT    NOT NULL,
-    `reps`                INT    NOT NULL,
-    `rest_period`         INT    NOT NULL,
-    `order`               INT    NOT NULL COMMENT '운동 수행 순서',
+    `exercise_id`               BIGINT NOT NULL,
+    `sets`                      INT    NOT NULL,
+    `reps`                      INT    NOT NULL,
+    `rest_period`               INT    NOT NULL,
+    `order`                     INT    NOT NULL COMMENT '운동 수행 순서',
     PRIMARY KEY (`rehab_program_exercise_id`),
     FOREIGN KEY (`rehab_program_id`) REFERENCES `rehab_programs` (`rehab_program_id`) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (`exercise_id`) REFERENCES `exercises` (`exercise_id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -142,7 +145,41 @@ CREATE TABLE `refresh_tokens`
     FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+CREATE TABLE `articles`
+(
+    `article_id` BIGINT      NOT NULL auto_increment,
+    `user_id`    BIGINT      NOT NULL,
+    `title`      VARCHAR(20) NOT NULL,
+    `content`    TEXT        NULL,
+    `created_at` TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    primary key (`article_id`),
+    foreign key (`user_id`) references `users` (`user_id`) on delete cascade on update cascade
+);
 
+CREATE TABLE `recommands`
+(
+    `recommand_id` BIGINT NOT NULL AUTO_INCREMENT,
+    `article_id`   BIGINT NOT NULL,
+    `user_id`      BIGINT NOT NULL,
+    PRIMARY KEY (`recommand_id`),
+    UNIQUE KEY `uk_article_user` (`article_id`, `user_id`),
+    FOREIGN KEY (`article_id`) REFERENCES `articles` (`article_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE `reviews`
+(
+    `review_id`  BIGINT    NOT NULL auto_increment,
+    `article_id` BIGINT    NOT NULL,
+    `user_id`    BIGINT    NOT NULL,
+    `content`    TEXT      NULL,
+    `created_at` TIMESTAMP NOT NULL,
+    `updated_at` TIMESTAMP NOT NULL,
+    primary key (`review_id`),
+    foreign key (`article_id`) references `articles` (`article_id`) on delete cascade on update cascade,
+    foreign key (`user_id`) references `users` (`user_id`) on delete cascade on update cascade
+);
 
 
 

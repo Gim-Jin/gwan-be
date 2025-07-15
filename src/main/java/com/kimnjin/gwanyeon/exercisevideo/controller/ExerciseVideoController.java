@@ -2,6 +2,7 @@ package com.kimnjin.gwanyeon.exercisevideo.controller;
 
 
 import com.kimnjin.gwanyeon.commons.dto.ApiResult;
+import com.kimnjin.gwanyeon.commons.security.UserPrincipal;
 import com.kimnjin.gwanyeon.exercisevideo.dto.CreateExerciseVideoRequestDto;
 import com.kimnjin.gwanyeon.exercisevideo.dto.ExerciseVideoResponseDto;
 import com.kimnjin.gwanyeon.exercisevideo.dto.ExerciseVideoWithTargetResponseDto;
@@ -10,6 +11,8 @@ import com.kimnjin.gwanyeon.exercisevideo.service.ExerciseVideoService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -52,15 +55,19 @@ public class ExerciseVideoController {
   }
 
   @PostMapping
+  @PreAuthorize("hasRole('PRESCRIBER')")
   public ResponseEntity<ApiResult<ExerciseVideoResponseDto>> createExerciseVideoWithTarget(
-      @RequestBody CreateExerciseVideoRequestDto requestDto) {
+      @RequestBody CreateExerciseVideoRequestDto requestDto,
+      @AuthenticationPrincipal UserPrincipal userPrincipal) {
 
+    requestDto.setUserId(userPrincipal.getUserId());
     ExerciseVideoResponseDto result = exerciseVideoService.createExerciseVideo(requestDto);
 
     return ResponseEntity.ok(ApiResult.success(result, 201, CREATED));
   }
 
   @PutMapping("/{id}")
+  @PreAuthorize("hasRole('PRESCRIBER')")
   public ResponseEntity<ApiResult<ExerciseVideoResponseDto>> modifyExerciseVideo(
       @PathVariable Long id, @RequestBody ModifyExerciseVideoRequestDto requestDto) {
 
@@ -70,6 +77,7 @@ public class ExerciseVideoController {
   }
 
   @DeleteMapping("/{id}")
+  @PreAuthorize("hasRole('PRESCRIBER')")
   public ResponseEntity<ApiResult<String>> deleteExerciseVideo(
       @PathVariable Long id) {
 
