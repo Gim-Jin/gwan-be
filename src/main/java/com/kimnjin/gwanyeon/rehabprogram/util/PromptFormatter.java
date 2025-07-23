@@ -3,6 +3,8 @@ package com.kimnjin.gwanyeon.rehabprogram.util;
 import com.kimnjin.gwanyeon.rehabprogram.dto.UserSurveyRequestDto;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+
 @Component
 public class PromptFormatter {
 
@@ -17,7 +19,7 @@ public class PromptFormatter {
         운동처방은 다음 조건을 따라야 합니다:
         주 1회 방문 기준, 매주 프로그램을 조정할 수 있도록 구성하세요.
         운동은 맨몸, 테라밴드, 마사지볼, 아령(1~3kg), 폼롤러 등의 소도구만 사용해야 합니다.
-        사용자는 집에 매트를 깔 수 있는 공간이 있으며, 수면 시간은 5시간으로 바뀌지 않습니다.
+        사용자는 집에 매트를 깔 수 있는 공간이 있습니다.
         운동은 하루 15~20분 이내, 주 5일 기준으로 짜주세요.
         난이도는 기초 맨몸운동보다 한 단계 높은 수준으로 구성해주세요. 단, 통증 유발 동작이나 고중량 웨이트는 금지입니다.
         
@@ -29,7 +31,7 @@ public class PromptFormatter {
         등척성 유지 운동
         마무리 스트레칭
         
-        모든 응답의 형태는 반드시 JSON으로 반환하십시오 JSON 형식 이외의 형태는 허용하지 않습니다. 
+        모든 응답의 형태는 반드시 JSON으로 반환하십시오 JSON 형식 이외의 형태는 허용하지 않습니다.
         
         ※ 아래 예시는 JSON 포맷의 예시일 뿐이며, 특정 신체 부위에 고정된 루틴이 아닙니다. 실제 응답은 사용자 정보에 따라 다른 운동이 포함되어야 합니다.
         
@@ -272,6 +274,7 @@ public class PromptFormatter {
         .append("통증 양상: ").append(userSurveyRequestDto.getPainPattern()).append("\n")
         .append("통증 시작 시기: ").append(userSurveyRequestDto.getPainStartTime()).append("\n")
         .append("통증 강도: ").append(userSurveyRequestDto.getPainLevel()).append("\n")
+            .append("운동 시작 일: ").append(LocalDate.now()).append("\n")
         .append("\n응답: ")
         .append("\n");
 
