@@ -43,7 +43,7 @@ public class AdminUserController {
   @PutMapping("/users/{userId}")
   public ResponseEntity<ApiResult<UserResponseDto>> editing(@PathVariable Long userId,
       @RequestBody UpdateUserRequestDto updateUserRequestDto) {
-    UserResponseDto userResponseDto = userService.updateUser(userId, updateUserRequestDto);
+    UserResponseDto userResponseDto = userService.updateUserByAdmin(userId, updateUserRequestDto);
     return ResponseEntity.status(HttpStatus.OK)
         .body(ApiResult.success(userResponseDto));
   }

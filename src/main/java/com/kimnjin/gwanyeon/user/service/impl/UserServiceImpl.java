@@ -62,6 +62,34 @@ public class UserServiceImpl implements UserService {
 
   @Transactional
   @Override
+  public UserResponseDto updateUserByAdmin(Long userId, UpdateUserRequestDto updateUserRequestDto) {
+
+    User existingUser = userRepository.findById(userId);
+
+    if (existingUser == null) {
+      throw new IllegalArgumentException("대상없음");
+    }
+    if (!existingUser.getLoginId().equals(updateUserRequestDto.getLoginId())) {
+      throw new IllegalArgumentException("잘못된 접근");
+    }
+
+    String role = updateUserRequestDto.getRole();
+    UserRole userRole = UserRole.valueOf(role);
+
+    existingUser.setNickname(updateUserRequestDto.getNickname());
+    existingUser.setRole(userRole);
+
+    int result = userRepository.update(existingUser);
+    if (result == 0) {
+      throw new IllegalArgumentException("수정 실패");
+    }
+    return UserResponseDto.from(existingUser);
+  }
+
+
+
+  @Transactional
+  @Override
   public void deleteUser(Long userId) {
     int result = userRepository.delete(userId);
     if (result == 0) {
@@ -117,6 +145,8 @@ public class UserServiceImpl implements UserService {
       throw new IllegalStateException("삭제에 실패했습니다.");
     }
   }
+
+
 
 
 }

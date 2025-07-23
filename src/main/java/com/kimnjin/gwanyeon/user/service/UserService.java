@@ -22,4 +22,6 @@ public interface UserService {
   public MypageResponseDto getMypage(Long userId);
 
   public void deleteUserForced(Long userId);
+
+  public UserResponseDto updateUserByAdmin(Long userId, UpdateUserRequestDto updateUserRequestDto);
 }
